@@ -2,7 +2,7 @@ wheel
 wget
 pip
 ez_setup
-future
+future==0.18.2
 gtts
 lxml
 emoji
