@@ -37,11 +37,13 @@
        },
        "OWNER_ID": {
          "description": "Your user ID as an integer",
-         "required": true
+         "required": true,
+         "value": ""
        },
        "OWNER_USERNAME": {
          "description": "Your Username without the @",
-         "value": "xelyourslurred"
+         "required": true,
+         "value": ""
        },
        "LOGS": {
          "description": "Fill ur Channel ID in here",
@@ -61,10 +63,36 @@
        "BOT_TOKEN": {
          "description": "Go to Telegram and Take the token at @BotFather",
          "required": false
+         "value": ""
        },
        "BOT_USERNAME": {
          "description": "Fill ur Bot Username which from @BotFather",
          "required": true
+       },
+       "DEV_ID": {
+         "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Masha support then keep the current ID's here at they are and add yours",
+         "required": false,
+         "value": ""
+       },
+       "SD_ID": {
+         "description": "A space separated list of user IDs who you want to assign as SUDO Users",
+         "required": false,
+         "value": ""
+       },
+       "SUPPORT_ID": {
+         "description": "A space separated list of user IDs who you wanna assign as SUPPORT Users(GBAN Perms Only)",
+         "required": false,
+         "value": ""
+       },
+       "TIGERS_ID": {
+         "description": "A space separated list of user IDs who you wanna assign as TIGER Users",
+         "required": false,
+         "value": ""
+       },
+       "WHITELIST_ID": {
+         "description": "A space separated list of user IDs who you want to assign as WHITELISTED - can't be banned with your bot",
+         "required": false,
+         "value": ""
        },
        "HEROKU_APP_NAME": {
          "description": "Name Of App Heroku.",
@@ -90,7 +118,8 @@
        },
        "SPAMWATCH_API": {
          "description": "Go to Telegram and Get one from @SpamWatchBot",
-         "required": false
+         "required": false,
+         "value": ""
        },
        "URL": {
          "description": "The Heroku App URL -->  https://<appname>.herokuapp.com/",
