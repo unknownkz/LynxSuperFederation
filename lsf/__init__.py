@@ -34,8 +34,8 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-logging.getLogger("asyncio")setlevel(logging.ERROR)
-logging.getLogger("Telethon")setlevel(logging.ERROR)
+logging.getLogger("asyncio").setlevel(logging.ERROR)
+logging.getLogger("Telethon").setlevel(logging.ERROR)
 logging.getLogger("telethon.network.mtprotosender")setlevel(logging.ERROR)
 LOGGER = logging.getLogger("LFS")
 
