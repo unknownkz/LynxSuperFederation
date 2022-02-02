@@ -25,11 +25,11 @@ class Config(object):
     SPAMWATCH_SUPPORT_CHAT = "@SpamWatchSupport"
 
     # OPTIONAL ID
-    SD_ID = get_user_list("elevated_users.json", "sudos")
-    DEV_ID = get_user_list("elevated_users.json", "devs")
-    SUPPORT_ID = get_user_list("elevated_users.json", "supports")
-    TIGERS_ID = get_user_list("elevated_users.json", "tigers")
-    WHITELIST_ID = get_user_list("elevated_users.json", "whitelists")
+    SD_ID = get_user_list("user_creation_list.json", "sudos")
+    DEV_ID = get_user_list("user_creation_list.json", "devs")
+    SUPPORT_ID = get_user_list("user_creation_list.json", "supports")
+    TIGERS_ID = get_user_list("user_creation_list.json", "tigers")
+    WHITELIST_ID = get_user_list("user_creation_list.json", "whitelists")
 
     DONATION_LINK = None
     CERT_PATH = None
