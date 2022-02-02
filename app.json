@@ -1,0 +1,47 @@
+{
+      "name": "LynxSuperFederation",
+      "description": "A robot that manages a group that puts the federation first.",
+      "keywords": [
+         "telegram",
+         "group",
+         "manager",
+         "logs",
+      ],
+   "repository": "https://github.com/unknownkz/LynxSuperFederation"
+   "telegram": "https://t.me/",
+    "env": {
+    "API_ID": {
+      "description": "Get API_ID from my.telegram.org.",
+      "required": true  
+    },
+      "API_HASH": {
+         "description": "Get API_HASH from my.telegram.org,",
+         "required": true,
+      },    
+    "LOGS": {
+      "description": "fill your channel id here",
+      "value": "-100"
+      "required": true
+    },
+      "EVENT_LOGS": {
+         "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-100'",
+         "required": true,
+         "value": "-100"
+      },
+      "ERROR_LOGS": {
+         "description": "error logs channel to note down important bot errors events, make this public/private. ex: '-100'",
+         "required": true,
+         "value": "-100"
+      },
+      "BOT_TOKEN": {
+         "description": "Untuk menampilkam mode tombol .helpme, Ambil token di @BotFather",
+         "required": false
+      },
+      "BOT_USERNAME": {
+         "description": "isi username bot mu yang dari @BotFather",
+         "required": true
+      }
+
+
+   ]
+]
