@@ -1,19 +1,28 @@
-# pull official base image
-FROM python:3.8.0-alpine
+FROM python:3.9-alpine AS python-build
 
-# set work directory
-WORKDIR /usr/src/lsf
+RUN apk add --no-cache \
+        g++ \
+        gcc \
+        libxml2 \
+        libxslt-dev
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN mkdir -p /opt/venv
+WORKDIR /opt/venv
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-RUN apk update && apk add g++ gcc libxml2 libxslt-dev
-RUN python -m pip install --upgrade pip
-# install dependencies
+RUN mkdir -p /src
+WORKDIR /src
 
-CMD ["python3"]
+# Install bot package and dependencies
+COPY . .
+RUN pip install --upgrade pip
+RUN pip install wheel
+RUN pip install aiohttp[speedups]
+RUN pip install uvloop
+RUN pip install .
 
+# Build Programs
 FROM debian:bookworm-slim
 FROM python:3.10.2-slim-buster
 
@@ -33,7 +42,6 @@ COPY requirements.txt .
 WORKDIR /usr/src/lsf
 
 RUN pip3 install --no-cache-dir -U -r requirements.txt
-RUN apt-get -qq update -y && apt-get -qq upgrade -y
 
 COPY . .
 
