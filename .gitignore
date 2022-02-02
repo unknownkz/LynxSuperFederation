@@ -1,0 +1,141 @@
+# Distribution (Packages)
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# LOGS and Stuff
+lsf/config.py
+lsf/config.ini
+lsf/modules/helper_funcs/temp.txt
+lsf/elevated_users.json
+log.text
+updates.txt
+
+# Pip Logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Session Files
+*.session
+lsf/*.session
+lsf/*.session-journal
+
+# Byte Compile / Optimized
+*$py.class
+*.py[cod]
+__pycache__/
+
+# C-Extensions
+*.so
+
+# Coverage / Cache / Reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django Stuff / Django Database
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask / Cache
+.webassets-cache
+instance/
+
+# Scrapy
+.scrapy
+
+# Sphinx Docs
+docs/_build/
+
+# Pyre Checker
+.pyre
+
+# VSCODE / PyDev
+*.pyc
+.idea/
+.project
+.pydevproject
+.directory
+.vscode
+
+# Mypy Stuff
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# mkdocs
+/site
+
+# ENV
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# PyENV
+.python-version
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Celery Schedule
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Jupyter
+.ipynb_checkpoints
+
+# PyBuilder
+target/
