@@ -3,10 +3,16 @@ FROM python:3.10.2-slim-buster
 
 RUN apt-get -qq update -y && apt-get -qq upgrade -y
 
+RUN set -eux; \
+	\
+	savedAptMark="$(apt-mark showmanual)"; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+                libxml2 \
+                libxslt
+
 RUN apt-get -qq install -y \
     git \
-    libxml2 \
-    libxslt \
     python3-pip \
     curl \
     bash \
