@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Credits @unknownkz
+# Copyright © 2022 Unknown
+# All Rights Reserved
+
+echo " Starting LSF... "
+python3 -m lsf
