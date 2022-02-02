@@ -37,7 +37,11 @@
        },
        "OWNER_ID": {
          "description": "Your user ID as an integer",
-         "required": true,
+         "required": true
+       },
+       "OWNER_USERNAME": {
+         "description": "Your Username without the @",
+         "value": "xelyourslurred"
        },
        "LOGS": {
          "description": "Fill ur Channel ID in here",
