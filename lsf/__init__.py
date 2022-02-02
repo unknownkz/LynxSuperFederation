@@ -119,3 +119,37 @@ if ENV:
         BLACKLIST_CHAT = set(int(x) for x in os.environ.get("BLACKLIST_CHAT", "").split())
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does'nt contain valid integers.")
+
+else:
+    from lsf.config import Development as Unknown
+
+    BOT_TOKEN = Unknown.BOT_TOKEN
+
+    try:
+        OWNER_ID = int(Unknown.OWNER_ID)
+    except ValueError:
+        raise Exception("Your OWNER_ID variable is not a valid integer")
+
+    JOIN_LOGGER = Unknown.JOIN_LOGGER
+    OWNER_USERNAME = Unknown.OWNER_USERNAME
+    ALLOW_CHATS = Unknown.ALLOW_CHATS
+    try:
+        SD_ID = {int(x) for x in Unknown.SD_ID or []}
+        DEV_ID = {int(x) for x in Unknown.DEV_ID or []}
+    except ValueError:
+        raise Exception("Your SUDO or DEV Users list does not contain valid integers")
+
+    try:
+        SUPPORT_ID = {int(x) for x in Unknown.SUPPORT_ID or []}
+    except ValueError:
+        raise Exception("Your SUPPORT Users list does not contain valid integers")
+
+    try:
+        WHITELIST_ID = {int(x) for x in Unknown.WHITELIST_ID or []}
+    except ValueError:
+        raise Exception("Your WHITELISTED Users list does not contain valid integers")
+
+    try:
+        TIGERS_ID = {int(x) for x in Unknown.TIGERS_ID or []}
+    except ValueError:
+        raise Exception("Your TIGER Users list does not contain valid integers")
