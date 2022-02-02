@@ -1,10 +1,21 @@
+# pull official base image
+FROM python:3.8.0-alpine
+
+# set work directory
+WORKDIR /usr/src/lsf
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apk update && apk add g++ gcc libxml2 libxslt-dev
+RUN python -m pip install --upgrade pip
+# install dependencies
+
+CMD [python3]
+
 FROM debian:bookworm-slim
 FROM python:3.10.2-slim-buster
-
-# install dependencies
-FROM ubuntu:16.04
-RUN apt-get update -y
-RUN apt-get -qq install g++ gcc libxml2 libxslt-dev -y
 
 RUN apt-get -qq install -y \
     git \
