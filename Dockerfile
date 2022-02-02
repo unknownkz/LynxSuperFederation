@@ -5,6 +5,8 @@ RUN apt-get -qq update -y && apt-get -qq upgrade -y
 
 RUN apt-get -qq install -y \
     git \
+    libxml2 \
+    libxslt \
     python3-pip \
     curl \
     bash \
