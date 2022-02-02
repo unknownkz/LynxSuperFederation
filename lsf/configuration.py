@@ -1,4 +1,5 @@
 # Copyleft © 2022 Unknown
+# All Rights Reserved
 
 from envparse import env
 from lsf import LOGGER as LOG_LSF
