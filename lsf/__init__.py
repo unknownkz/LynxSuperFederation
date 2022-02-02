@@ -1,3 +1,9 @@
+# Copyleft © 2022 Unknown
+# Don't Delete this if u kang.
+"""
+Credit: @Unknownkz | @notudope | @AnimeKaizoku
+"""
+
 import os
 import sys
 import json
