@@ -12,7 +12,7 @@ RUN apk update && apk add g++ gcc libxml2 libxslt-dev
 RUN python -m pip install --upgrade pip
 # install dependencies
 
-CMD [python3]
+CMD ["python3"]
 
 FROM debian:bookworm-slim
 FROM python:3.10.2-slim-buster
