@@ -39,7 +39,7 @@ class Config(object):
     BAN_STICKER = None
     ALLOW_EXCL = True
     AI_API_KEY = None
-    BL_CHATS = []
+    BLACKLIST_CHAT = []
     SPAMMERS = None
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
