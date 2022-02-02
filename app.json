@@ -17,7 +17,7 @@
       "API_HASH": {
          "description": "Get API_HASH from my.telegram.org,",
          "required": true,
-      },    
+    },    
     "LOGS": {
       "description": "fill your channel id here",
       "value": "-100"
@@ -34,14 +34,42 @@
          "value": "-100"
       },
       "BOT_TOKEN": {
-         "description": "Untuk menampilkam mode tombol .helpme, Ambil token di @BotFather",
+         "description": "Take the token at @BotFather",
          "required": false
       },
       "BOT_USERNAME": {
-         "description": "isi username bot mu yang dari @BotFather",
+         "description": "fill your bot username which from @BotFather",
          "required": true
       }
-
-
-   ]
-]
+      "HEROKU_APP_NAME": {
+         "description": "Name Of App heroku.",
+         "required": true
+      },
+      "HEROKU_API_KEY": {
+         "description": "Your HEROKU Api Key, get from 'https://dashboard.heroku.com/account'",
+         "value": "Check On Your Heroku Dashboard",
+         "required": true
+     },
+      "MONGO_DB_URI": {
+         "description": "Required for database connections",
+         "required": true,
+         "value": ""
+      },
+      "SQLALCHEMY_DATABASE_URI": {
+         "description": "Your postgres sql db, empty this field if you dont have one",
+         "required": false,
+         "value": "sqldbtype://username:pw@hostname:port/db_name"
+      },      
+      "ARQ_API": {
+         "description": "Get this from @ARQRobot",
+         "required": true
+      },
+      "SPAMWATCH_API": {
+         "description": "Spamwatch API Token, Get one from @SpamWatchBot",
+         "required": false,
+         "value": ""
+      }, 
+      "URL": {
+         "description": "The Heroku App URL -->  https://<appname>.herokuapp.com/",
+         "required": false,
+      },
