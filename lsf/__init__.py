@@ -36,7 +36,7 @@ logging.basicConfig(
 )
 logging.getLogger("asyncio").setlevel(logging.ERROR)
 logging.getLogger("Telethon").setlevel(logging.ERROR)
-logging.getLogger("telethon.network.mtprotosender")setlevel(logging.ERROR)
+logging.getLogger("telethon.network.mtprotosender").setlevel(logging.ERROR)
 LOGGER = logging.getLogger("LFS")
 
 if sys.version_info[0] < 3 or sys.version_info[1] < 10:
