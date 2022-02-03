@@ -5,7 +5,7 @@ from envparse import env
 from lsf import LOGGER as LOG_LSF
 
 MYPLUGIN = {
-    "LOAD_MODULES": True,
+    "LOAD_PLUGINS": True,
 }
 
 
