@@ -14,11 +14,6 @@ from search_engine_parser import GoogleSearch
 from lsf import BOT_ID, OWNER_ID, ARQ_API_URL, ARQ_API_KEY
 from lsf import pbot
 
-ARQ_API = "PUGYKA-MIJXNO-LKSLJZ-EYBYEZ-ARQ"
-ARQ_API_KEY = "PUGYKA-MIJXNO-LKSLJZ-EYBYEZ-ARQ"
-SUDOERS = OWNER_ID
-ARQ_API_URL = "https://thearq.tech"
-
 # Aiohttp Client
 print("[INFO]: INITIALZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
