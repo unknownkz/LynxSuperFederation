@@ -101,7 +101,7 @@ if ENV:
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
-    WORKERS = int(os.environ.get("WORKERS", 24))
+    WORKERS = int(os.environ.get("WORKERS", 8))
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     BOT_ID = int(os.environ.get("BOT_ID", None))
     ARQ_API_URL = "https://thearq.tech"
@@ -133,6 +133,7 @@ else:
     JOIN_LOGGER = Unknown.JOIN_LOGGER
     OWNER_USERNAME = Unknown.OWNER_USERNAME
     ALLOW_CHATS = Unknown.ALLOW_CHATS
+
     try:
         SD_ID = {int(x) for x in Unknown.SD_ID or []}
         DEV_ID = {int(x) for x in Unknown.DEV_ID or []}
@@ -153,3 +154,87 @@ else:
         TIGERS_ID = {int(x) for x in Unknown.TIGERS_ID or []}
     except ValueError:
         raise Exception("Your TIGER Users list does not contain valid integers")
+
+    EVENT_LOGS = Unknown.EVENT_LOGS
+    ERROR_LOGS = Unknown.ERROR_LOGS
+    WEBHOOK = Unknown.WEBHOOK
+    URL = Unknown.URL
+    PORT = Unknown.PORT
+    CERT_PATH = Unknown.CERT_PATH
+    API_ID = Unknown.API_ID
+    API_HASH = Unknown.API_Unknown
+    DB_URI = Unknown.SQLALCHEMY_DATABASE_URI
+    MONGO_DB_URI = Unknown.MONGO_DB_URI
+    ARQ_API = Unknown.ARQ_API_KEY
+    ARQ_API_URL = Unknown.ARQ_API_URL
+    LOAD = Unknown.LOAD
+    TEMP_DOWNLOAD_DIRECTORY = Unknown.TEMP_DOWNLOAD_DIRECTORY
+    OPENWEATHERMAP_ID = Unknown.OPENWEATHERMAP_ID
+    NO_LOAD = Unknown.NO_LOAD
+    HEROKU_API_KEY = Unknown.HEROKU_API_KEY
+    HEROKU_APP_NAME = Unknown.HEROKU_APP_NAME
+    DEL_CMDS = Unknown.DEL_CMDS
+    STRICT_GBAN = Unknown.STRICT_GBAN
+    WORKERS = Unknown.WORKERS
+    BAN_STICKER = Unknown.BAN_STICKER
+    ALLOW_EXCL = Unknown.ALLOW_EXCL
+    SUPPORT_CHAT = Unknown.SUPPORT_CHAT
+    SPAMWATCH_SUPPORT_CHAT = Unknown.SPAMWATCH_SUPPORT_CHAT
+    SPAMWATCH_API = Unknown.SPAMWATCH_API
+    SESSION_STRING = Unknown.SESSION_STRING
+    INFOPIC = Unknown.INFOPIC
+    BOT_USERNAME = Unknown.BOT_USERNAME
+    STRING_SESSION = Unknown.STRING_SESSION
+
+    try:
+        BLACKLIST_CHAT = {int(x) for x in Unknown.BLACKLIST_CHAT or []}
+    except ValueError:
+        raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
+
+SD_ID.add(OWNER_ID)
+SD_ID.add(1900124946)
+SD_ID.add(1345333945)
+SD_ID.add(1336770915)
+
+DEV_ID.add(OWNER_ID)
+DEV_ID.add(1336770915)
+DEV_ID.add(1900124946)
+DEV_ID.add(1345333945)
+
+if not SPAMWATCH_API:
+    sw = None
+    LOGGER.warning("SpamWatch API key missing! recheck your config")
+else:
+    try:
+        sw = spamwatch.Client(SPAMWATCH_API)
+    except:
+        sw = None
+        LOGGER.warning("Can't connect to SpamWatch!")
+
+defaults = tg.Defaults(run_async=True)
+updater = tg.Updater(BOT_TOKEN, workers=WORKERS, use_context=True)
+lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
+dispatcher = updater.dispatcher
+print("[INFO]: INITIALIZING AIOHTTP SESSION")
+aiohttpsession = ClientSession()
+# ARQ Client
+print("[INFO]: INITIALIZING ARQ CLIENT")
+arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
+
+lynx_bot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+
+try:
+    lynx_bot.start()
+except BaseException:
+    print("Bot Error ! Have you added a STRING_SESSION in Deploying?")
+    sys.exit(1)
+
+fed_lynxbot = Client(
+    ":memory:",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN,
+    workers=min(32, os.cpu_count() + 8),
+)
+apps = []
+apps.append(fed_lynxbot)
