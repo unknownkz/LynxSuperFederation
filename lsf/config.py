@@ -10,7 +10,7 @@ class Config(object):
     LOGGER = True
     API_ID = int(os.environ.get("API_ID"))
     API_HASH = os.environ.get("API_HASH")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN")
+    TGB_TOKEN = os.environ.get("TGB_TOKEN")
     OWNER_ID = os.environ.get("OWNER_ID")
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME")
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
