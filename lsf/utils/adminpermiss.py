@@ -1,7 +1,7 @@
 import asyncio
 from pyrogram import filters
 from pyrogram.types import ChatPermissions, Message
-from lsf import fed_lynxbot as next
+from lsf import fed_lynx as next
 
 
 async def member_permissions(chat_id: int, user_id: int):
