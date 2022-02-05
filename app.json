@@ -55,26 +55,30 @@
          "required": true
        },
        "EVENT_LOGS": {
-         "description": "Event Logs Channel to note down important bot level events, recommend to make this Public. ex: '-100'",
+         "description": "Event Logs Channel to note down important bt level events, recommend to make this Public. ex: '-100'",
          "value": "-100",
          "required": true
        },
        "ERROR_LOGS": {
-         "description": "Error Logs Channel to note down important Bot errors events, make this Public/Private. ex: '-100'",
+         "description": "Error Logs Channel to note down important Bt errors events, make this Public/Private. ex: '-100'",
          "value": "-100"
          "required": true
        },
-       "TG_TOKEN": {
-         "description": "Go to Telegram and Take the token at @BotFather",
+       "TGB_ID": {
+         "description": "to get ur bt_id.",
+         "value": ""
+       },
+       "TGB_TOKEN": {
+         "description": "Go to Telegram and Take bt token at @BotFather",
          "required": false
          "value": ""
        },
-       "TG_USERNAME": {
-         "description": "Fill ur Bot Username which from @BotFather",
+       "TGB_USERNAME": {
+         "description": "Fill ur Bt Username which from @BotFather",
          "required": true
        },
        "DEV_ID": {
-         "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Masha support then keep the current ID's here at they are and add yours",
+         "description": "ID of users who are Devs of your bt (can use /py etc.). If you are a noob and would come and bother Masha support then keep the current ID's here at they are and add yours",
          "required": false,
          "value": ""
        },
@@ -94,7 +98,7 @@
          "value": ""
        },
        "WHITELIST_ID": {
-         "description": "A space separated list of user IDs who you want to assign as WHITELISTED - can't be banned with your bot",
+         "description": "A space separated list of user IDs who you want to assign as WHITELISTED - can't be banned with ur bt",
          "required": false,
          "value": ""
        },
