@@ -61,7 +61,7 @@ for dir in dirs:
 ENV = bool(os.environ.get("ENV", False))
 
 if ENV:
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", None)
+    TGB_TOKEN = os.environ.get("TGB_TOKEN", None)
 
     try:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
@@ -92,7 +92,7 @@ if ENV:
     except ValueError:
         raise Exception("Your TIGER Users list does not contain valid integers")
 
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
+    TGB_USERNAME = os.environ.get("TGB_USERNAME", None)
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
     ERROR_LOGS = os.environ.get("ERROR_LOGS", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
@@ -103,7 +103,7 @@ if ENV:
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     WORKERS = int(os.environ.get("WORKERS", 8))
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
-    BOT_ID = int(os.environ.get("BOT_ID", None))
+    TGB_ID = int(os.environ.get("TGB_ID", None))
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
     URL = os.environ.get("URL", "")  # Does not contain token
@@ -123,7 +123,7 @@ if ENV:
 else:
     from lsf.config import Development as Unknown
 
-    BOT_TOKEN = Unknown.BOT_TOKEN
+    TGB_TOKEN = Unknown.TGB_TOKEN
 
     try:
         OWNER_ID = int(Unknown.OWNER_ID)
@@ -183,7 +183,7 @@ else:
     SPAMWATCH_API = Unknown.SPAMWATCH_API
     SESSION_STRING = Unknown.SESSION_STRING
     INFOPIC = Unknown.INFOPIC
-    BOT_USERNAME = Unknown.BOT_USERNAME
+    TGB_USERNAME = Unknown.TGB_USERNAME
     STRING_SESSION = Unknown.STRING_SESSION
 
     try:
@@ -212,7 +212,7 @@ else:
         LOGGER.warning("Can't connect to SpamWatch!")
 
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(BOT_TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(TGB_TOKEN, workers=WORKERS, use_context=True)
 lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 print("[INFO]: INITIALIZING AIOHTTP SESSION")
@@ -221,20 +221,20 @@ aiohttpsession = ClientSession()
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
-lynx_bot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
 try:
-    lynx_bot.start()
+    lynx_tgbstart()
 except BaseException:
-    print("Bot Error ! Have you added a STRING_SESSION in Deploying?")
+    print("Lynx Error ! Have you added a STRING_SESSION in Deploying?")
     sys.exit(1)
 
-fed_lynxbot = Client(
+fed_lynx = Client(
     ":memory:",
     api_id=API_ID,
     api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
+    bot_token=TGB_TOKEN,
     workers=min(32, os.cpu_count() + 8),
 )
 apps = []
-apps.append(fed_lynxbot)
+apps.append(fed_lynx)
