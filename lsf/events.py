@@ -78,7 +78,7 @@ def callbackquery(**args):
     return decorator
 
 
-def BotCommand(**args):
+def BtCommand(**args):
     pattern = args.get("pattern")
     r_pattern = r"^[/]"
 
