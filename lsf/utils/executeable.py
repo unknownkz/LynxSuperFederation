@@ -49,7 +49,7 @@ def generate_captcha():
     width = 80 * 4
     height = 100
     correct_answer = ""
-    font = ImageFont.truetype("srcs/default.ttf", 55)
+    font = ImageFont.truetype("srcs/fairy.ttf", 55)
     file = f"srcs/{randint(1000, 9999)}.jpg"
     image = Image.new("RGB", (width, height), (255, 255, 255))
     draw = ImageDraw.Draw(image)
