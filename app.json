@@ -9,7 +9,7 @@
       ],
 
    "repository": "https://github.com/unknownkz/LynxSuperFederation"
-   "telegram": "https://t.me/xelyourslurred",
+   "telegram": "https://t.me/lsf_supportgroup",
    "addons": [
           {
          "options": {
@@ -132,7 +132,7 @@
        "URL": {
          "description": "The Heroku App URL -->  https://<appname>.herokuapp.com/",
          "required": true,
-         "value": "https://"
+         "value": "https://delete.herokuapp.com/"
        }
     }
 }
