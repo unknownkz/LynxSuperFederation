@@ -78,14 +78,17 @@ def rm_from_blacklist(chat_id, trigger):
         SESSION.close()
         return False
 
+
 def get_chat_blacklist(chat_id):
     return CHAT_BLACKLISTS.get(str(chat_id), set())
+
 
 def num_blacklist_filters():
     try:
         return SESSION.query(BlackListFilters).count()
     finally:
         SESSION.close()
+
 
 def num_blacklist_chat_filters(chat_id):
     try:
@@ -96,6 +99,7 @@ def num_blacklist_chat_filters(chat_id):
         )
     finally:
         SESSION.close()
+
 
 def num_blacklist_filter_chats():
     try:
@@ -131,6 +135,7 @@ def set_blacklist_strength(chat_id, blacklist_type, value):
 
         SESSION.add(curr_setting)
         SESSION.commit()
+
 
 def get_blacklist_setting(chat_id):
     try:
@@ -185,6 +190,7 @@ def migrate_chat(old_chat_id, new_chat_id):
         for filt in chat_filters:
             filt.chat_id = str(new_chat_id)
         SESSION.commit()
+
 
 __load_chat_blacklists()
 __load_chat_settings_blacklists()
