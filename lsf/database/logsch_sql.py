@@ -71,8 +71,6 @@ def migrate_chat(old_chat_id, new_chat_id):
 
 
 def __load_log_channels():
-    import glob
-    global CHANNELS
     try:
         all_chats = SESSION.query(GroupLogs).all()
         CHANNELS = {chat.chat_id: chat.log_channel for chat in all_chats}
