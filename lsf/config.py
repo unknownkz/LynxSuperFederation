@@ -1,12 +1,15 @@
 import json
 import os
 
+
 def get_user_list(config, key):
     with open("{}/lsf/{}".format(os.getcwd(), config), "r") as json_file:
         return json.load(json_file)[key]
 
+
 class Config(object):
     """Configs to setup LSF"""
+
     LOGGER = True
     API_ID = int(os.environ.get("API_ID"))
     API_HASH = os.environ.get("API_HASH")
@@ -46,6 +49,7 @@ class Config(object):
     WEBHOOK = False
     INFOPIC = True
     URL = None
+
 
 class Production(Config):
     LOGGER = True

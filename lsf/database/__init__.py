@@ -8,6 +8,7 @@ from lsf import DATABASE_URL, LOGGER as LSF_LOGS
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+
 def start() -> scoped_session:
     engine = create_engine(DATABASE_URL, echo=True)
     LSF_LOGS.info("[PostgreSQL] Connecting to database...")
@@ -16,10 +17,11 @@ def start() -> scoped_session:
     BASE.metadata.create_all(engine, checkfirst=True)
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
+
 try:
     SESSION = start()
 except Exception as e:
-    LSF_LOGS.exception(f'[PostgreSQL] Failed to connect due to {e}')
+    LSF_LOGS.exception(f"[PostgreSQL] Failed to connect due to {e}")
     exit()
-   
+
 LSF_LOGS.info("[PostgreSQL] Connection successful, session started.")
