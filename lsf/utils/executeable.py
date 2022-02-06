@@ -13,7 +13,7 @@ import speedtest
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from pyrogram.types import Message
 
-from lsf import aiohttpsession as aiosession
+from .. import lynx_client, aiohttpsession as aiosession
 from lsf.ex_plugins.dbfunctions import start_restart_stage
 from .https import get, post
 
@@ -168,7 +168,7 @@ async def extract_userid(message, text: str):
         return int(text)
 
     entities = message.entities
-    app = message._client
+    app = message.lynx_client
     if len(entities) < 2:
         return (await app.get_users(text)).id
     entity = entities[1]
