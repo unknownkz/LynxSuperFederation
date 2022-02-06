@@ -13,10 +13,12 @@ class BlacklistUsers(BASE):
         self.user_id = user_id
         self.reason = reason
 
+
 BlacklistUsers.__table__.create(checkfirst=True)
 
 BLACKLIST_LOCK = threading.RLock()
 BLACKLIST_USERS = set()
+
 
 def blacklist_user(user_id, reason=None):
     with BLACKLIST_LOCK:
@@ -61,5 +63,6 @@ def __load_blacklist_userid_list():
         BLACKLIST_USERS = {int(x.user_id) for x in SESSION.query(BlacklistUsers).all()}
     finally:
         SESSION.close()
+
 
 __load_blacklist_userid_list()
