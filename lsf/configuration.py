@@ -3,7 +3,7 @@
 
 import sys
 from envparse import env
-from lsf import LOGGER as LOG_LSF
+from . import LOGGER as LOG_LSF
 
 MYPLUGIN = {
     "LOAD_PLUGINS": True,
