@@ -61,17 +61,17 @@ for dir in dirs:
 ENV = bool(os.environ.get("ENV", False))
 
 if ENV:
-    TGB_TOKEN = os.environ.get("TGB_TOKEN", None)
+    TGB_TOKEN = os.environ.get("TGB_TOKEN")
 
     try:
-        OWNER_ID = int(os.environ.get("OWNER_ID", None))
+        OWNER_ID = int(os.environ.get("OWNER_ID"))
     except ValueError:
         raise Exception(
             "Your OWNER_ID env variable is not a valid integer, please check again."
         )
 
-    JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
-    OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
+    JOIN_LOGGER = os.environ.get("JOIN_LOGGER")
+    OWNER_USERNAME = os.environ.get("OWNER_USERNAME")
 
     try:
         SD_ID = {int(x) for x in os.environ.get("SD", "").split()}
@@ -94,25 +94,25 @@ if ENV:
     except ValueError:
         raise Exception("Your TIGER Users list does not contain valid integers")
 
-    TGB_USERNAME = os.environ.get("TGB_USERNAME", None)
-    EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
-    ERROR_LOGS = os.environ.get("ERROR_LOGS", None)
-    STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    ARQ_API = os.environ.get("ARQ_API", None)
-    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+    TGB_USERNAME = os.environ.get("TGB_USERNAME")
+    EVENT_LOGS = os.environ.get("EVENT_LOGS")
+    ERROR_LOGS = os.environ.get("ERROR_LOGS")
+    STRING_SESSION = os.environ.get("STRING_SESSION")
+    MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
+    ARQ_API = os.environ.get("ARQ_API")
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     WORKERS = int(os.environ.get("WORKERS", 8))
-    SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
-    TGB_ID = int(os.environ.get("TGB_ID", None))
+    SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
+    TGB_ID = int(os.environ.get("TGB_ID"))
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
-    DATABASE_URL = os.environ.get("DATABASE_URL", None)
+    DATABASE_URL = os.environ.get("DATABASE_URL")
     DATABASE_URL = DATABASE_URL.replace("postgres", "postgresql")
 
     try:
