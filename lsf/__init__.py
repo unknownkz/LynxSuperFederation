@@ -36,10 +36,9 @@ logging.basicConfig(
     format="%(asctime)s || [%(levelname)s] - ℅(name)s - %(message)s",
     level=logging.INFO,
     handlers=[
-        RotatingFileHandler(
-             "logs/lsf.log", maxBytes=20480, backupCount=10),
-        logging.StreamHandler()
-    ]
+        RotatingFileHandler("logs/lsf.log", maxBytes=20480, backupCount=10),
+        logging.StreamHandler(),
+    ],
 )
 logging.getLogger("asyncio").setlevel(logging.ERROR)
 logging.getLogger("Telethon").setlevel(logging.ERROR)
@@ -47,7 +46,9 @@ logging.getLogger("telethon.network.mtprotosender").setlevel(logging.ERROR)
 LOGGER = logging.getLogger("LFS")
 
 if sys.version_info[0] < 3 or sys.version_info[1] < 10:
-    LOGGER.error("You MUST have a python version of at least 3.10! Multiple features depend on this Bot quitting")
+    LOGGER.error(
+        "You MUST have a python version of at least 3.10! Multiple features depend on this Bot quitting"
+    )
     sys.exit(1)
 
 dirs = ["logs", "bin"]
@@ -67,7 +68,9 @@ if ENV:
     try:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
     except ValueError:
-        raise Exception("Your OWNER_ID env variable is not a valid integer, please check again.")
+        raise Exception(
+            "Your OWNER_ID env variable is not a valid integer, please check again."
+        )
 
     JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
@@ -112,12 +115,12 @@ if ENV:
     CERT_PATH = os.environ.get("CERT_PATH")
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
     DATABASE_URL = os.environ.get("DATABASE_URL", None)
-    DATABASE_URL = DATABASE_URL.replace(
-        "postgres", "postgresql"
-    )
+    DATABASE_URL = DATABASE_URL.replace("postgres", "postgresql")
 
     try:
-        BLACKLIST_CHAT = set(int(x) for x in os.environ.get("BLACKLIST_CHAT", "").split())
+        BLACKLIST_CHAT = set(
+            int(x) for x in os.environ.get("BLACKLIST_CHAT", "").split()
+        )
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does'nt contain valid integers.")
 
@@ -269,10 +272,12 @@ async def get_entity(client, entity):
                 entity_client = kp
     return entity, entity_client
 
+
 async def eor(msg: Message, **kwargs):
     func = msg.edit_text if msg.from_user.is_self else msg.reply
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
+
 
 SD_ID = list(SD_ID) + list(DEV_ID)
 DEV_ID = list(DEV_ID)

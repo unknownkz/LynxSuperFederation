@@ -6,23 +6,30 @@ from telegram.ext import MessageFilter
 class CustomFilters(object):
     pass
 
+
 class _Supporters(MessageFilter):
     def filter(self, message: Message):
         return bool(message.from_user and message.from_user.id in SUPPORT_ID)
 
+
 support_filter = _Supporters()
+
 
 class _Sudoers(MessageFilter):
     def filter(self, message: Message):
         return bool(message.from_user and message.from_user.id in SD_ID)
 
+
 sudo_filter = _Sudoers()
+
 
 class _Developers(MessageFilter):
     def filter(self, message: Message):
         return bool(message.from_user and message.from_user.id in DEV_ID)
 
+
 dev_filter = _Developers()
+
 
 class _MimeType(MessageFilter):
     def __init__(self, mimetype):
@@ -34,7 +41,9 @@ class _MimeType(MessageFilter):
             message.document and message.document.mime_type == self.mime_type,
         )
 
+
 mime_type = _MimeType
+
 
 class _HasText(MessageFilter):
     def filter(self, message: Message):
@@ -45,5 +54,6 @@ class _HasText(MessageFilter):
             or message.document
             or message.video,
         )
+
 
 has_text = _HasText()
