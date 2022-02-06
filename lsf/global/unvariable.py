@@ -7,9 +7,14 @@ import threading
 CHANNELS = {}
 
 # Chats
-CHAT_BLACKLISTS = {}
+INSERTION_FLOOD_LOCK = threading.RLock()
+INSERTION_FLOOD_SETTINGS_LOCK = threading.RLock()
 CHAT_FLOOD = {}
+
+# Chat Filters
 CHAT_FILTERS = {}
+
+# Disable
 DISABLED = {}
 
 # Global Banned
@@ -21,6 +26,8 @@ GBANSTAT_LIST = set()
 # Blcklisted
 BLACKLIST_LOCK = threading.RLock()
 BLACKLIST_USERS = set()
+
+CHAT_BLACKLISTS = {}
 
 # AFK
 AFK_USERS = {}
