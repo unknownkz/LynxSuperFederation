@@ -101,9 +101,9 @@ def BtCommand(**args):
                 pass
 
             try:
-                FUN_LIST[file_test].append(cmd)
+                MYPLUGIN[file_test].append(cmd)
             except BaseException:
-                FUN_LIST.update({file_test: [cmd]})
+                MYPLUGIN.update({file_test: [cmd]})
         except BaseException:
             pass
 
