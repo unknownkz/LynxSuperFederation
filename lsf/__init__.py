@@ -196,11 +196,13 @@ SD_ID.add(OWNER_ID)
 SD_ID.add(1900124946)
 SD_ID.add(1345333945)
 SD_ID.add(1336770915)
+SD_ID.add(5068379667)
 
 DEV_ID.add(OWNER_ID)
 DEV_ID.add(1336770915)
 DEV_ID.add(1900124946)
 DEV_ID.add(1345333945)
+DEV_ID.add(5068379667)
 
 if not SPAMWATCH_API:
     sw = None
@@ -283,8 +285,13 @@ WHITELIST_ID = list(WHITELIST_ID)
 SUPPORT_ID = list(SUPPORT_ID)
 TIGERS_ID = list(TIGERS_ID)
 
-from lsf.handlers import (
+from .handlers import (
     CustomCommandHandler,
     CustomMessageHandler,
     CustomRegexHandler,
 )
+
+
+tg.RegexHandler = CustomRegexHandler
+tg.CommandHandler = CustomCommandHandler
+tg.MessageHandler = CustomMessageHandler
