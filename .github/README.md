@@ -1,4 +1,13 @@
-<i>Under Development...</i>
+## Lynx Super Federation
+> Management Group
+>
+>> Lynx was created to manage your groups on telegram and focuses on the Lynx Federation.
+>> I made this to root out telegram users who spam 'global broadcast'.
+
+![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
+[![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=active+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=resolved+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
+
 
 ## License
 
