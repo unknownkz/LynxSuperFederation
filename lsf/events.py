@@ -7,8 +7,8 @@ from pathlib import Path
 from telethon import events
 
 from pymongo import MongoClient
-from lsf import MONGO_DB_URI
-from lsf import lynx_client
+from . import lynx_client, MONGO_DB_URI
+from .configuration import MYPLUGIN
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -28,7 +28,7 @@ def register(**args):
     args["pattern"] = pattern.replace("^/", r_pattern, 1)
 
     def decorator(func):
-        telethn.add_event_handler(func, events.NewMessage(**args))
+        lynx_client.add_event_handler(func, events.NewMessage(**args))
         return func
 
     return decorator
@@ -132,9 +132,9 @@ def BtCommand(**args):
             try:
                 await func(check)
                 try:
-                    LOAD_PLUG[file_test].append(func)
+                    MYPLUGIN[file_test].append(func)
                 except Exception:
-                    LOAD_PLUG.update({file_test: [func]})
+                    MYPLUGIN.update({file_test: [func]})
             except BaseException:
                 return
             else:
