@@ -215,7 +215,7 @@ async def extract_user(message):
 def get_file_id_from_message(
     message,
     max_file_size=3145728,
-    mime_types=["image/png", "image/jpeg"],
+    mime_types=[".png", ".jpeg"],
 ):
     file_id = None
     if message.document:
