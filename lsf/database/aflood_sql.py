@@ -2,8 +2,11 @@ import threading
 
 from sqlalchemy import String, Column, Integer, UnicodeText
 from . import SESSION, BASE
-from lsf.global.unvariable import INSERTION_FLOOD_LOCK, INSERTION_FLOOD_SETTINGS_LOCK, CHAT_FLOOD
-
+from lsf.global.unvariable import (
+    INSERTION_FLOOD_LOCK,
+    INSERTION_FLOOD_SETTINGS_LOCK,
+    CHAT_FLOOD
+)
 
 DEF_COUNT = 1
 DEF_LIMIT = 0
