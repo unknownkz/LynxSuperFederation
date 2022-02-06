@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from lsf import DATABASE_URL, LOGGER as LSF_LOGS
+import sys
 
 
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
@@ -21,6 +22,6 @@ try:
     SESSION = start()
 except Exception as e:
     LSF_LOGS.exception(f"[PostgreSQL] Failed to connect due to {e}")
-    exit()
+    sys.exit()
 
 LSF_LOGS.info("[PostgreSQL] Connection successful, session started.")
