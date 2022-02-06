@@ -1,5 +1,5 @@
 from asyncio import gather
-from lsf import aiohttpsession as session
+from .. import aiohttpsession as session
 
 
 async def get(url: str, *args, **kwargs):
