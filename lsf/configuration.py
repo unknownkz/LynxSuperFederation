@@ -11,10 +11,7 @@ MYPLUGIN = {
 
 
 def get_str_key(plugin_name, required=False):
-    if plugin_name in MYPLUGIN:
-        default = MYPLUGIN[plugin_name]
-    else:
-        default = None
+    default = MYPLUGIN.get(plugin_name, None)
 
     if not (data_plugin := env.str(plugin_name, default=default)) and not required:
         LOG_LSF.warning("No str key: " + plugin_name)
@@ -27,10 +24,7 @@ def get_str_key(plugin_name, required=False):
 
 
 def get_int_key(plugin_name, required=False):
-    if plugin_name in MYPLUGIN:
-        default = MYPLUGIN[plugin_name]
-    else:
-        default = None
+    default = MYPLUGIN.get(plugin_name, None)
 
     if not (data_plugin := env.int(plugin_name, default=default)) and not required:
         LOG_LSF.warning("No int key: " + plugin_name)
