@@ -210,7 +210,7 @@ if not SPAMWATCH_API:
 else:
     try:
         sw = spamwatch.Client(SPAMWATCH_API)
-    except:
+    except Exception:
         sw = None
         LOGGER.warning("Can't connect to SpamWatch!")
 
