@@ -28,11 +28,13 @@ class ReportingChatSettings(BASE):
     def __repr__(self):
         return "<Chat report settings ({})>".format(self.chat_id)
 
+
 ReportingUserSettings.__table__.create(checkfirst=True)
 ReportingChatSettings.__table__.create(checkfirst=True)
 
 CHAT_LOCK = threading.RLock()
 USER_LOCK = threading.RLock()
+
 
 def chat_should_report(chat_id: Union[str, int]) -> bool:
     try:
