@@ -1,4 +1,4 @@
-from lsf import fed_lynx as next
+from .. import fed_lynx as next
 
 
 async def member_permissions(chat_id: int, user_id: int):
