@@ -17,7 +17,7 @@ def get_str_key(plugin_name, required=False):
         default = None
 
     if not (data_plugin := env.str(plugin_name, default=default)) and not required:
-        LOG_LSF.warn("No str key: " + plugin_name)
+        LOG_LSF.warning("No str key: " + plugin_name)
         return None
     elif not data_plugin:
         LOG_LSF.critical("No str key: " + plugin_name)
@@ -33,7 +33,7 @@ def get_int_key(plugin_name, required=False):
         default = None
 
     if not (data_plugin := env.int(plugin_name, default=default)) and not required:
-        LOG_LSF.warn("No int key: " + plugin_name)
+        LOG_LSF.warning("No int key: " + plugin_name)
         return None
     elif not data_plugin:
         LOG_LSF.critical("No int key: " + plugin_name)
