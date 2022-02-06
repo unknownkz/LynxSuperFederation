@@ -22,6 +22,7 @@ DISABLE_INSERTION_LOCK = threading.RLock()
 
 DISABLED = {}
 
+
 def disable_command(chat_id, disable):
     with DISABLE_INSERTION_LOCK:
         disabled = SESSION.query(Disable).get((str(chat_id), disable))
@@ -53,17 +54,21 @@ def enable_command(chat_id, enable):
         SESSION.close()
         return False
 
+
 def is_command_disabled(chat_id, cmd):
     return str(cmd).lower() in DISABLED.get(str(chat_id), set())
 
+
 def get_all_disabled(chat_id):
     return DISABLED.get(str(chat_id), set())
+
 
 def num_chats():
     try:
         return SESSION.query(func.count(distinct(Disable.chat_id))).scalar()
     finally:
         SESSION.close()
+
 
 def num_disabled():
     try:
