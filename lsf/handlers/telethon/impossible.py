@@ -35,7 +35,7 @@ async def user_is_admin(user_id: int, message):
 
 async def is_user_admin(user_id: int, chat_id):
     status = False
-    async for user in telethn.iter_participants(
+    async for user in lynx_client.iter_participants(
         chat_id,
         filter=ChannelParticipantsAdmins,
     ):
