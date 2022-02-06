@@ -1,5 +1,5 @@
 from . import U_ABSURD
-from ... import SD_ID, lynx_client
+from .. import SD_ID, lynx_client
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
