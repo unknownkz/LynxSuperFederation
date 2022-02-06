@@ -17,9 +17,11 @@ class Approvals(BASE):
     def __repr__(self):
         return "<Approve %s>" % self.user_id
 
+
 Approvals.__table__.create(checkfirst=True)
 
 APPROVE_INSERTION_LOCK = threading.RLock()
+
 
 def approve(chat_id, user_id):
     with APPROVE_INSERTION_LOCK:
