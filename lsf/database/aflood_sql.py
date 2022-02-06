@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import String, Column, Integer, UnicodeText
 from . import SESSION, BASE
-from ..global.unvariable import (
+from lsf.global.unvariable import (
      INSERTION_FLOOD_LOCK,
      INSERTION_FLOOD_SETTINGS_LOCK,
      CHAT_FLOOD
