@@ -1,5 +1,6 @@
 # Copyleft © 2022 Unknown
 from lsf import LOAD, NO_LOAD, LOGGER
+import sys
 
 
 def __list_all_plugins():
@@ -21,7 +22,7 @@ def __list_all_plugins():
                 for mod in to_load
             ):
                 LOGGER.error("[Alert] Invalid loadorder names. Quitting.")
-                quit(1)
+                sys.exit(1)
 
             all_plugins = sorted(set(all_plugins) - set(to_load))
             to_load = list(all_plugins) + to_load
