@@ -6,9 +6,7 @@ Credit: @Unknownkz | @notudope | @AnimeKaizoku
 
 import os
 import sys
-import json
 import time
-import asyncio
 import logging
 import spamwatch
 import telegram.ext as tg
@@ -22,9 +20,9 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.sessions import MemorySession
 from pyrogram.types import Message
-from pyrogram import Client, errors
+from pyrogram import Client
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
-from pyrogram.types import Chat, User
+from pyrogram.types import Chat
 from logging.handlers import RotatingFileHandler
 
 StartTime = time.time()
