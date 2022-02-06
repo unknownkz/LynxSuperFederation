@@ -1,6 +1,4 @@
 import inspect
-import logging
-import sys
 import re
 
 from pathlib import Path
