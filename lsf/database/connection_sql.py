@@ -5,6 +5,7 @@ from typing import Union
 from sqlalchemy import Column, String, Boolean, UnicodeText, BigInteger
 from . import SESSION, BASE
 
+
 class ChatAccessConnectionSettings(BASE):
     __tablename__ = "access_connection"
     chat_id = Column(String(14), primary_key=True)
@@ -19,6 +20,7 @@ class ChatAccessConnectionSettings(BASE):
             self.chat_id, self.allow_connect_to_chat
         )
 
+
 class Connection(BASE):
     __tablename__ = "connection"
     user_id = Column(BigInteger, primary_key=True)
@@ -27,6 +29,7 @@ class Connection(BASE):
     def __init__(self, user_id, chat_id):
         self.user_id = user_id
         self.chat_id = str(chat_id)  # Ensure String
+
 
 class ConnectionHistory(BASE):
     __tablename__ = "connection_history"
