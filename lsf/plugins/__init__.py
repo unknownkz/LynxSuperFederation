@@ -6,13 +6,12 @@ def __list_all_plugins():
     import glob
     import os
 
-    path =r'./lsf/plugins/'
+    path = r"./lsf/plugins/"
     list_of_files = []
 
     for root, dirs, files in os.walk(path):
         for file in files:
-            list_of_files.append(os.path.join(root,file))
-
+            list_of_files.append(os.path.join(root, file))
 
     if LOAD or NO_LOAD:
         to_load = LOAD
