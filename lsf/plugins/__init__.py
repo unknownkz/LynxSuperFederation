@@ -1,17 +1,18 @@
-import sys
+# Copyleft © 2022 Unknown
 from lsf import LOAD, NO_LOAD, LOGGER
 
 
 def __list_all_plugins():
-    from os.path import dirname, basename, isfile
     import glob
+    import os
 
-    mod_paths = glob.glob(dirname(__file__) + "/*.py")
-    all_plugins = [
-        basename(f)[:-3]
-        for f in mod_paths
-        if isfile(f) and f.endswith(".py") and not f.endswith("__init__.py")
-    ]
+    path =r'./lsf/plugins/'
+    list_of_files = []
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            list_of_files.append(os.path.join(root,file))
+
 
     if LOAD or NO_LOAD:
         to_load = LOAD
@@ -21,7 +22,7 @@ def __list_all_plugins():
                 for mod in to_load
             ):
                 LOGGER.error("[Alert] Invalid loadorder names. Quitting.")
-                sys.exit(1)
+                quit(1)
 
             all_plugins = sorted(set(all_plugins) - set(to_load))
             to_load = list(all_plugins) + to_load
@@ -40,4 +41,4 @@ def __list_all_plugins():
 
 ALL_PLUGINS = __list_all_plugins()
 LOGGER.info("[Alert] Plugins to load: %s", str(ALL_PLUGINS))
-__all__ = ALL_PLUGINS + ["ALL_PLUGIN"]
+__all__ = ALL_PLUGINS + ["ALL_PLUGINS"]
