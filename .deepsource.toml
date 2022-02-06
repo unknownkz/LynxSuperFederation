@@ -15,6 +15,6 @@ enabled = true
 name = "docker"
 enabled = true
 
-[[analyzers]]
-name = "shell"
+[[transformers]]
+name = "black"
 enabled = true
