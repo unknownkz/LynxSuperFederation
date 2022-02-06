@@ -60,6 +60,7 @@ def set_flood(chat_id, amount):
         SESSION.add(flood)
         SESSION.commit()
 
+
 def update_flood(chat_id: str, user_id) -> bool:
     if str(chat_id) in CHAT_FLOOD:
         curr_user_id, count, limit = CHAT_FLOOD.get(str(chat_id), DEF_OBJ)
@@ -80,8 +81,10 @@ def update_flood(chat_id: str, user_id) -> bool:
         CHAT_FLOOD[str(chat_id)] = (user_id, count, limit)
         return False
 
+
 def get_flood_limit(chat_id):
     return CHAT_FLOOD.get(str(chat_id), DEF_OBJ)[2]
+
 
 def set_flood_strength(chat_id, flood_type, value):
     # for flood_type
@@ -94,7 +97,9 @@ def set_flood_strength(chat_id, flood_type, value):
         curr_setting = SESSION.query(FloodSettings).get(str(chat_id))
         if not curr_setting:
             curr_setting = FloodSettings(
-                chat_id, flood_type=int(flood_type), value=value,
+                chat_id,
+                flood_type=int(flood_type),
+                value=value,
             )
 
         curr_setting.flood_type = int(flood_type)
@@ -102,6 +107,7 @@ def set_flood_strength(chat_id, flood_type, value):
 
         SESSION.add(curr_setting)
         SESSION.commit()
+
 
 def get_flood_setting(chat_id):
     try:
@@ -124,6 +130,7 @@ def migrate_chat(old_chat_id, new_chat_id):
             SESSION.commit()
 
         SESSION.close()
+
 
 def __load_flood_settings():
     global CHAT_FLOOD
