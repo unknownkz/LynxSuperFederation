@@ -13,6 +13,7 @@ import logging
 import spamwatch
 import telegram.ext as tg
 
+from os import path, remove
 from pathlib import Path
 from inspect import getfullargspec
 from aiohttp import ClientSession
@@ -181,7 +182,6 @@ else:
     SUPPORT_CHAT = Unknown.SUPPORT_CHAT
     SPAMWATCH_SUPPORT_CHAT = Unknown.SPAMWATCH_SUPPORT_CHAT
     SPAMWATCH_API = Unknown.SPAMWATCH_API
-    SESSION_STRING = Unknown.SESSION_STRING
     INFOPIC = Unknown.INFOPIC
     TGB_USERNAME = Unknown.TGB_USERNAME
     STRING_SESSION = Unknown.STRING_SESSION
@@ -217,14 +217,14 @@ lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 print("[INFO]: INITIALIZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
-# ARQ Client
+
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
 try:
-    lynx_tgbstart()
+    lynx_tgb.start()
 except BaseException:
     print("Lynx Error ! Have you added a STRING_SESSION in Deploying?")
     sys.exit(1)
@@ -238,3 +238,50 @@ fed_lynx = Client(
 )
 apps = []
 apps.append(fed_lynx)
+
+
+async def get_entity(client, entity):
+    entity_client = client
+    if not isinstance(entity, Chat):
+
+        try:
+            entity = int(entity)
+        except ValueError:
+            pass
+        except TypeError:
+            entity = entity.id
+
+        try:
+            entity = await client.get_chat(entity)
+        except (PeerIdInvalid, ChannelInvalid):
+            for kp in apps:
+                if kp != client:
+
+                    try:
+                        entity = await kp.get_chat(entity)
+                    except (PeerIdInvalid, ChannelInvalid):
+                        pass
+                    else:
+                        entity_client = kp
+                        break
+            else:
+                entity = await kp.get_chat(entity)
+                entity_client = kp
+    return entity, entity_client
+
+async def eor(msg: Message, **kwargs):
+    func = msg.edit_text if msg.from_user.is_self else msg.reply
+    spec = getfullargspec(func.__wrapped__).args
+    return await func(**{k: v for k, v in kwargs.items() if k in spec})
+
+SD_ID = list(SD_ID) + list(DEV_ID)
+DEV_ID = list(DEV_ID)
+WHITELIST_ID = list(WHITELIST_ID)
+SUPPORT_ID = list(SUPPORT_ID)
+TIGERS_ID = list(TIGERS_ID)
+
+from lsf.handlers import (
+    CustomCommandHandler,
+    CustomMessageHandler,
+    CustomRegexHandler,
+)
