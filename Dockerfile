@@ -1,7 +1,6 @@
 # Copyright © 2022 Unknown
 # All Rights Reserved
 FROM unknownxx/lsf:botmanage
-RUN apt-get update -y
 RUN git clone https://github.com/unknownkz/LynxSuperFederation /usr/src/lsf
 COPY requirements.txt .
 WORKDIR /usr/src/lsf
