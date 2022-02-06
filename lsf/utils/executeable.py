@@ -15,7 +15,7 @@ from pyrogram.types import Message
 
 from lsf import aiohttpsession as aiosession
 from lsf.ex_plugins.dbfunctions import start_restart_stage
-from lsf.utils.http import get, post
+from .https import get, post
 
 
 async def restart(m: Message):
@@ -215,8 +215,10 @@ async def extract_user(message):
 def get_file_id_from_message(
     message,
     max_file_size=3145728,
-    mime_types=[".png", ".jpeg"],
+    mime_types=None,
 ):
+    if mime_types is None:
+        mime_types = [".png", ".jpeg"]
     file_id = None
     if message.document:
         if int(message.document.file_size) > max_file_size:
