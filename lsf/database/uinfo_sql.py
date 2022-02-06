@@ -1,6 +1,6 @@
 import threading
 
-from  . import BASE, SESSION
+from . import BASE, SESSION
 from sqlalchemy import Column, BigInteger, UnicodeText
 
 
