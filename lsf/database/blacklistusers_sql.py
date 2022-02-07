@@ -2,7 +2,7 @@ import threading
 
 from . import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText
-
+from lsf.global.unvariable BLACKLIST_LOCK, BLACKLIST_USERS
 
 class BlacklistUsers(BASE):
     __tablename__ = "blacklistusers"
@@ -16,8 +16,8 @@ class BlacklistUsers(BASE):
 
 BlacklistUsers.__table__.create(checkfirst=True)
 
-BLACKLIST_LOCK = threading.RLock()
-BLACKLIST_USERS = set()
+
+
 
 
 def blacklist_user(user_id, reason=None):
