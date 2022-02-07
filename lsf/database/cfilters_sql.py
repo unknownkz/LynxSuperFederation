@@ -1,9 +1,9 @@
 import threading
 
-from sqlalchemy import Column, String, UnicodeText, Boolean, distinct, func
+from handlers.msg_types import Types
+from sqlalchemy import Boolean, Column, String, UnicodeText, distinct, func
 from sqlalchemy.sql.sqltypes import BigInteger
 
-from handlers.msg_types import Types
 from . import BASE, SESSION
 
 
@@ -392,7 +392,8 @@ def migrate_chat(old_chat_id, new_chat_id):
 
         with BUTTON_LOCK:
             chat_buttons = (
-                SESSION.query(Buttons).filter(Buttons.chat_id == str(old_chat_id)).all()
+                SESSION.query(Buttons).filter(
+                    Buttons.chat_id == str(old_chat_id)).all()
             )
             for btn in chat_buttons:
                 btn.chat_id = str(new_chat_id)

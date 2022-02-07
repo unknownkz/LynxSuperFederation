@@ -1,6 +1,7 @@
-from . import U_ABSURD
-from .. import SD_ID, lynx_client
 from telethon.tl.types import ChannelParticipantsAdmins
+
+from .. import SD_ID, lynx_client
+from . import U_ABSURD
 
 
 async def user_is_ban_protected(user_id: int, message):

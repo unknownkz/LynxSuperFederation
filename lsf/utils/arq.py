@@ -1,6 +1,7 @@
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
-from .. import ARQ_API_URL, ARQ_API_KEY, aiohttpsession
+
+from .. import ARQ_API_KEY, ARQ_API_URL, aiohttpsession
 
 # Aiohttp Client
 print("[INFO]: INITIALZING AIOHTTP SESSION")

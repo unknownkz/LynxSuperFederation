@@ -1,7 +1,8 @@
 import threading
 
+from sqlalchemy import BigInteger, Column, String
+
 from . import BASE, SESSION
-from sqlalchemy import Column, BigInteger, String
 
 
 class Purges(BASE):

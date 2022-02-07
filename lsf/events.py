@@ -1,11 +1,11 @@
 import inspect
 import re
-
 from pathlib import Path
-from telethon import events
 
 from pymongo import MongoClient
-from . import lynx_client, MONGO_DB_URI
+from telethon import events
+
+from . import MONGO_DB_URI, lynx_client
 from .configuration import MYPLUGIN
 
 client = MongoClient()
@@ -94,7 +94,8 @@ def BtCommand(**args):
         try:
             cmd = re.search(reg, pattern)
             try:
-                cmd = cmd.group(1).replace("$", "").replace("\\", "").replace("^", "")
+                cmd = cmd.group(1).replace("$", "").replace(
+                    "\\", "").replace("^", "")
             except BaseException:
                 pass
 

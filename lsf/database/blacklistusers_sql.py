@@ -1,8 +1,11 @@
 import threading
 
-from . import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText
+
 from lsf.global.unvariable import BLACKLIST_LOCK, BLACKLIST_USERS
+
+from . import BASE, SESSION
+
 
 class BlacklistUsers(BASE):
     __tablename__ = "blacklistusers"
@@ -57,7 +60,8 @@ def is_user_blacklisted(user_id):
 def __load_blacklist_userid_list():
     global BLACKLIST_USERS
     try:
-        BLACKLIST_USERS = {int(x.user_id) for x in SESSION.query(BlacklistUsers).all()}
+        BLACKLIST_USERS = {int(x.user_id)
+                           for x in SESSION.query(BlacklistUsers).all()}
     finally:
         SESSION.close()
 

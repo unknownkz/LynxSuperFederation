@@ -1,9 +1,10 @@
 from typing import List, Optional
 
-from .. import LOGGER as LOGS_LSF
-from .plugins.users import get_user_id
 from telegram import Message, MessageEntity
 from telegram.error import BadRequest
+
+from .. import LOGGER as LOGS_LSF
+from .plugins.users import get_user_id
 
 
 def id_from_reply(message):
@@ -41,7 +42,7 @@ def extract_user_and_text(
     if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
         ent = entities[0]
         user_id = ent.user.id
-        text = message.text[ent.offset + ent.length :]
+        text = message.text[ent.offset + ent.length:]
 
     elif len(args) >= 1 and args[0][0] == "@":
         user = args[0]
@@ -78,7 +79,8 @@ def extract_user_and_text(
                 "to execute certain commands...)",
             )
         else:
-            LOGS_LSF.exception("Exception %s on user %s", excp.message, user_id)
+            LOGS_LSF.exception("Exception %s on user %s",
+                               excp.message, user_id)
 
         return None, None
 
@@ -113,7 +115,7 @@ def extract_unt_fedban(
     if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
         ent = entities[0]
         user_id = ent.user.id
-        text = message.text[ent.offset + ent.length :]
+        text = message.text[ent.offset + ent.length:]
 
     elif len(args) >= 1 and args[0][0] == "@":
         user = args[0]

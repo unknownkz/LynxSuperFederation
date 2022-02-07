@@ -1,6 +1,7 @@
 # Copyleft © 2022 Unknown
-from lsf import LOAD, NO_LOAD, LOGGER
 import sys
+
+from lsf import LOAD, LOGGER, NO_LOAD
 
 
 def __list_all_plugins():
