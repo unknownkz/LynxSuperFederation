@@ -10,6 +10,7 @@ def regex_searcher(regex_string, string):
         return False
     return search
 
+
 def infinite_loop_check(regex_string):
     loop_matches = [
         r"\((.{1,}[\+\*]){1,}\)[\+\*].",
