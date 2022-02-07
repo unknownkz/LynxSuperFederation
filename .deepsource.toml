@@ -8,13 +8,21 @@ enabled = true
   runtime_version = "3.x.x"
 
 [[analyzers]]
-name = "test-coverage"
+name = "shell"
 enabled = true
 
 [[analyzers]]
-name = "docker"
+name = "secrets"
 enabled = true
 
 [[transformers]]
 name = "black"
+enabled = true
+
+[[transformers]]
+name = "autopep8"
+enabled = true
+
+[[transformers]]
+name = "isort"
 enabled = true
