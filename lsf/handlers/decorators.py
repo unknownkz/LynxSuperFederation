@@ -88,7 +88,6 @@ class LynxHandler:
 
         return _command
 
-
     def message(
         self,
         pattern: Optional[str] = None,
@@ -177,4 +176,3 @@ Lynxcmd = LynxHandler(d).command
 Lynxmsg = LynxHandler(d).message
 Lynxcallback = LynxHandler(d).callbackquery
 Lynxinline = LynxHandler(d).inlinequery
-
