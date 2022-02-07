@@ -77,27 +77,22 @@ if ENV:
         SD_ID = {int(x) for x in os.environ.get("SD", "").split()}
         DEV_ID = {int(x) for x in os.environ.get("DEV", "").split()}
     except ValueError:
-        raise Exception(
-            "Your SUDO or DEV Users list does not contain valid integers")
+        raise Exception("Your SUDO or DEV Users list does not contain valid integers")
 
     try:
         SUPPORT_ID = {int(x) for x in os.environ.get("SUPPORT_ID", "").split()}
     except ValueError:
-        raise Exception(
-            "Your SUPPORT Users list does not contain valid integers")
+        raise Exception("Your SUPPORT Users list does not contain valid integers")
 
     try:
-        WHITELIST_ID = {int(x)
-                        for x in os.environ.get("WHITELIST_ID", "").split()}
+        WHITELIST_ID = {int(x) for x in os.environ.get("WHITELIST_ID", "").split()}
     except ValueError:
-        raise Exception(
-            "Your WHITELISTED Users list does not contain valid integers")
+        raise Exception("Your WHITELISTED Users list does not contain valid integers")
 
     try:
         TIGERS_ID = {int(x) for x in os.environ.get("TIGERS_ID", "").split()}
     except ValueError:
-        raise Exception(
-            "Your TIGER Users list does not contain valid integers")
+        raise Exception("Your TIGER Users list does not contain valid integers")
 
     TGB_USERNAME = os.environ.get("TGB_USERNAME")
     EVENT_LOGS = os.environ.get("EVENT_LOGS")
@@ -132,8 +127,7 @@ if ENV:
             int(x) for x in os.environ.get("BLACKLIST_CHAT", "").split()
         )
     except ValueError:
-        raise Exception(
-            "Your BLACKLISTED Chats list does'nt contain valid integers.")
+        raise Exception("Your BLACKLISTED Chats list does'nt contain valid integers.")
 
 else:
     from lsf.config import Development as Unknown
@@ -153,26 +147,22 @@ else:
         SD_ID = {int(x) for x in Unknown.SD_ID or []}
         DEV_ID = {int(x) for x in Unknown.DEV_ID or []}
     except ValueError:
-        raise Exception(
-            "Your SUDO or DEV Users list does not contain valid integers")
+        raise Exception("Your SUDO or DEV Users list does not contain valid integers")
 
     try:
         SUPPORT_ID = {int(x) for x in Unknown.SUPPORT_ID or []}
     except ValueError:
-        raise Exception(
-            "Your SUPPORT Users list does not contain valid integers")
+        raise Exception("Your SUPPORT Users list does not contain valid integers")
 
     try:
         WHITELIST_ID = {int(x) for x in Unknown.WHITELIST_ID or []}
     except ValueError:
-        raise Exception(
-            "Your WHITELISTED Users list does not contain valid integers")
+        raise Exception("Your WHITELISTED Users list does not contain valid integers")
 
     try:
         TIGERS_ID = {int(x) for x in Unknown.TIGERS_ID or []}
     except ValueError:
-        raise Exception(
-            "Your TIGER Users list does not contain valid integers")
+        raise Exception("Your TIGER Users list does not contain valid integers")
 
     EVENT_LOGS = Unknown.EVENT_LOGS
     ERROR_LOGS = Unknown.ERROR_LOGS
@@ -207,8 +197,7 @@ else:
     try:
         BLACKLIST_CHAT = {int(x) for x in Unknown.BLACKLIST_CHAT or []}
     except ValueError:
-        raise Exception(
-            "Your BLACKLISTED Chats list does not contain valid integers")
+        raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
 
 SD_ID.add(OWNER_ID)
 SD_ID.add(1900124946)
