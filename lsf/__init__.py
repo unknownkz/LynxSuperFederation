@@ -94,33 +94,48 @@ if ENV:
     except ValueError:
         raise Exception("Your TIGER Users list does not contain valid integers")
 
+    INFOPIC = bool(os.environ.get("INFOPIC"))
     TGB_USERNAME = os.environ.get("TGB_USERNAME")
     EVENT_LOGS = os.environ.get("EVENT_LOGS")
     ERROR_LOGS = os.environ.get("ERROR_LOGS")
-    STRING_SESSION = os.environ.get("STRING_SESSION")
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
-    ARQ_API = os.environ.get("ARQ_API")
-    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
-    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
-    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
-
-    WORKERS = int(os.environ.get("WORKERS", 8))
-    SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
-    SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "lsf_supportgroup")
-    TGB_ID = int(os.environ.get("TGB_ID"))
-    ARQ_API_URL = "https://thearq.tech"
-    ARQ_API_KEY = ARQ_API
+    WEBHOOK = bool(os.environ.get("WEBHOOK"))
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
+    API_ID = os.environ.get("API_ID")
+    API_HASH = os.environ.get("API_HASH")
+    SESSION_STRING = os.environ.get("SESSION_STRING")
+    STRING_SESSION = os.environ.get("STRING_SESSION")
+    DATABASE_URL = os.environ.get("DATABASE_URL)
 
-    JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
-    DEL_CMDS = bool(os.environ.get("DEL_CMDS", True))
-    WEBHOOK = bool(os.environ.get("WEBHOOK", False))
+    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY")
+    MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
+    ARQ_API = os.environ.get("ARQ_API")
+    DONATION_LINK = os.environ.get("DONATION_LINK")
+    LOAD = os.environ.get("LOAD", "").split()
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
+    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
+    OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID")
+    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY")
+    NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
+    DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
+    STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
+    WORKERS = int(os.environ.get("WORKERS", 8))
+    BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
-    ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
-    DATABASE_URL = os.environ.get("DATABASE_URL")
-    DATABASE_URL = DATABASE_URL.replace("postgres", "postgresql")
+    CASH_API_KEY = os.environ.get("CASH_API_KEY")
+    TIME_API_KEY = os.environ.get("TIME_API_KEY")
+    WALL_API = os.environ.get("WALL_API")
+    SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
+    SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT")
+    SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
+    LASTFM_API_KEY = os.environ.get("LASTFM_API_KEY")
+    CF_API_KEY = os.environ.get("CF_API_KEY")
+    WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC")
+    TGB_ID = int(os.environ.get("TGB_ID"))
+    ARQ_API_URL = "https://thearq.tech"
+    ARQ_API_KEY = ARQ_API
 
     try:
         BLACKLIST_CHAT = set(
@@ -171,11 +186,13 @@ else:
     PORT = Unknown.PORT
     CERT_PATH = Unknown.CERT_PATH
     API_ID = Unknown.API_ID
-    API_HASH = Unknown.API_Unknown
+    API_HASH = Unknown.API_HASH
+
     DB_URI = Unknown.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Unknown.MONGO_DB_URI
     ARQ_API = Unknown.ARQ_API_KEY
     ARQ_API_URL = Unknown.ARQ_API_URL
+    DONATION_LINK = Unknown.DONATION_LINK
     LOAD = Unknown.LOAD
     TEMP_DOWNLOAD_DIRECTORY = Unknown.TEMP_DOWNLOAD_DIRECTORY
     OPENWEATHERMAP_ID = Unknown.OPENWEATHERMAP_ID
@@ -185,15 +202,21 @@ else:
     DEL_CMDS = Unknown.DEL_CMDS
     STRICT_GBAN = Unknown.STRICT_GBAN
     WORKERS = Unknown.WORKERS
+    REM_BG_API_KEY = Unknown.REM_BG_API_KEY
     BAN_STICKER = Unknown.BAN_STICKER
     ALLOW_EXCL = Unknown.ALLOW_EXCL
+    CASH_API_KEY = Unknown.CASH_API_KEY
+    TIME_API_KEY = Unknown.TIME_API_KEY
+    WALL_API = Unknown.WALL_API
     SUPPORT_CHAT = Unknown.SUPPORT_CHAT
     SPAMWATCH_SUPPORT_CHAT = Unknown.SPAMWATCH_SUPPORT_CHAT
     SPAMWATCH_API = Unknown.SPAMWATCH_API
+    SESSION_STRING = Unknown.SESSION_STRING
     INFOPIC = Unknown.INFOPIC
     TGB_USERNAME = Unknown.TGB_USERNAME
     STRING_SESSION = Unknown.STRING_SESSION
-
+    LASTFM_API_KEY = Unknown.LASTFM_API_KEY
+    CF_API_KEY = Unknown.CF_API_KEY
     try:
         BLACKLIST_CHAT = {int(x) for x in Unknown.BLACKLIST_CHAT or []}
     except ValueError:
