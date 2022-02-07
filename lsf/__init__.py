@@ -108,14 +108,21 @@ if ENV:
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
+
     WORKERS = int(os.environ.get("WORKERS", 8))
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
+    SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "lsf_supportgroup")
     TGB_ID = int(os.environ.get("TGB_ID"))
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
+
+    JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
+    DEL_CMDS = bool(os.environ.get("DEL_CMDS", True))
+    WEBHOOK = bool(os.environ.get("WEBHOOK", False))
+    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
     DATABASE_URL = os.environ.get("DATABASE_URL")
     DATABASE_URL = DATABASE_URL.replace("postgres", "postgresql")
