@@ -1,4 +1,5 @@
 import threading
+
 from sqlalchemy import func, distinct, Column, String, UnicodeText, BigInteger
 from . import SESSION, BASE
 from lsf.global.unvariable BLACKLIST_FILTER_INSERTION_LOCK, BLACKLIST_SETTINGS_INSERTION_LOCK, CHAT_BLACKLISTS, CHAT_SETTINGS_BLACKLISTS
