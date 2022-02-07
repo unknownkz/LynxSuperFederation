@@ -1,9 +1,10 @@
 from math import ceil
 from typing import Dict, List
-from telegram import InlineKeyboardButton, MAX_MESSAGE_LENGTH, ParseMode, Bot
-from lsf import NO_LOAD
+
+from telegram import MAX_MESSAGE_LENGTH, Bot, InlineKeyboardButton, ParseMode
 from telegram.error import TelegramError
 
+from lsf import NO_LOAD
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
@@ -20,35 +21,55 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
 def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     if not chat:
         modules = sorted(
-            [EqInlineKeyboardButton(x.__mod_name__,
-                                    callback_data="{}_module({})".format(prefix, x.__mod_name__.lower())) for x
-             in module_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    x.__mod_name__,
+                    callback_data="{}_module({})".format(
+                        prefix, x.__mod_name__.lower()
+                    ),
+                )
+                for x in module_dict.values()
+            ]
+        )
     else:
         modules = sorted(
-            [EqInlineKeyboardButton(x.__mod_name__,
-                                    callback_data="{}_module({},{})".format(prefix, chat, x.__mod_name__.lower())) for x
-             in module_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    x.__mod_name__,
+                    callback_data="{}_module({},{})".format(
+                        prefix, chat, x.__mod_name__.lower()
+                    ),
+                )
+                for x in module_dict.values()
+            ]
+        )
 
-    pairs = [
-    modules[i * 3:(i + 1) * 3] for i in range((len(modules) + 3 - 1) // 3)
-    ]
+    pairs = [modules[i * 3: (i + 1) * 3]
+             for i in range((len(modules) + 3 - 1) // 3)]
 
     round_num = len(modules) / 3
     calc = len(modules) - round(round_num)
     if calc == 1:
-        pairs.append((modules[-1], ))
+        pairs.append((modules[-1],))
     elif calc == 2:
-        pairs.append((modules[-1], ))
+        pairs.append((modules[-1],))
 
     max_num_pages = ceil(len(pairs) / 10)
     modulo_page = page_n % max_num_pages
 
     # can only have a certain amount of buttons side by side
     if len(pairs) > 10:
-        pairs = pairs[modulo_page * 10:10 * (modulo_page + 1)] + [
-            (EqInlineKeyboardButton("⮜", callback_data="{}_prev({})".format(prefix, modulo_page)),
+        pairs = pairs[modulo_page * 10: 10 * (modulo_page + 1)] + [
+            (
+                EqInlineKeyboardButton(
+                    "⮜", callback_data="{}_prev({})".format(prefix, modulo_page)
+                ),
                 EqInlineKeyboardButton("Back", callback_data="yone_back"),
-             EqInlineKeyboardButton("⮞", callback_data="{}_next({})".format(prefix, modulo_page)))]
+                EqInlineKeyboardButton(
+                    "⮞", callback_data="{}_next({})".format(prefix, modulo_page)
+                ),
+            )
+        ]
 
     else:
         pairs += [[EqInlineKeyboardButton("Back", callback_data="yone_back")]]
@@ -66,6 +87,7 @@ def build_keyboard(buttons):
 
     return keyb
 
+
 def revert_buttons(buttons):
     res = ""
     for btn in buttons:
@@ -75,6 +97,7 @@ def revert_buttons(buttons):
             res += f"\n[{btn.name}](buttonurl://{btn.url})"
 
     return res
+
 
 def build_keyboard_parser(bot, chat_id, buttons):
     keyb = []
@@ -88,21 +111,28 @@ def build_keyboard_parser(bot, chat_id, buttons):
 
     return keyb
 
+
 def send_to_list(
-    bot: Bot, send_to: list, message: str, markdown=False, html=False,
+    bot: Bot,
+    send_to: list,
+    message: str,
+    markdown=False,
+    html=False,
 ) -> None:
     if html and markdown:
         raise Exception("Can only send with either markdown or HTML!")
     for user_id in set(send_to):
         try:
             if markdown:
-                bot.send_message(user_id, message, parse_mode=ParseMode.MARKDOWN)
+                bot.send_message(user_id, message,
+                                 parse_mode=ParseMode.MARKDOWN)
             elif html:
                 bot.send_message(user_id, message, parse_mode=ParseMode.HTML)
             else:
                 bot.send_message(user_id, message)
         except TelegramError:
             pass  # ignore users who fail
+
 
 def split_message(msg: str) -> List[str]:
     if len(msg) < MAX_MESSAGE_LENGTH:
@@ -121,6 +151,7 @@ def split_message(msg: str) -> List[str]:
     result.append(small_msg)
 
     return result
+
 
 def is_module_loaded(name):
     return name not in NO_LOAD
