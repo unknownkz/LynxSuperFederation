@@ -1,4 +1,4 @@
-import lsf.plugins.sql.blacklistusers_sql as sql
+import lsf.database.blacklistusers_sql as sql
 from lsf import ALLOW_EXCL
 from lsf import DEV_ID, SD_ID, SUPPORT_ID, TIGERS_ID, WHITELIST_ID
 
