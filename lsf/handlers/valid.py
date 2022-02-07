@@ -429,3 +429,8 @@ def connection_status(func):
             return func(update, context, *args, **kwargs)
 
     return connected_status
+
+
+from lsf.plugins.admins import connection
+
+connected = connection.connected
