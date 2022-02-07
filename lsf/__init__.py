@@ -122,7 +122,7 @@ if ENV:
     JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", True))
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
-    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
+    ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
     DATABASE_URL = os.environ.get("DATABASE_URL")
     DATABASE_URL = DATABASE_URL.replace("postgres", "postgresql")
