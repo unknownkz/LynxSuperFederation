@@ -1,18 +1,30 @@
-from telegram import Chat, ChatMember, Update, ParseMode
-from .. import SUPPORT_ID, WHITELIST_ID, DEV_ID, SD_ID, TIGERS_ID, DEL_CMDS, SUPPORT_CHAT, dispatcher
-from threading import RLock
-from cachetools import TTLCache
-from time import perf_counter
 from functools import wraps
+from threading import RLock
+from time import perf_counter
+
+from cachetools import TTLCache
+from telegram import Chat, ChatMember, ParseMode, Update
 from telegram.ext import CallbackContext
 
+from .. import (
+    DEL_CMDS,
+    DEV_ID,
+    SD_ID,
+    SUPPORT_CHAT,
+    SUPPORT_ID,
+    TIGERS_ID,
+    WHITELIST_ID,
+    dispatcher,
+)
 
 ADMIN_CACHE = TTLCache(maxsize=512, ttl=60 * 10, timer=perf_counter)
 THREAD_LOCK = RLock()
 
 
 def is_whitelist_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    return any(user_id in user for user in [SUPPORT_ID, SD_ID, WHITELIST_ID, TIGERS_ID, DEV_ID])
+    return any(
+        user_id in user for user in [SUPPORT_ID, SD_ID, WHITELIST_ID, TIGERS_ID, DEV_ID]
+    )
 
 
 def is_support_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
@@ -23,12 +35,11 @@ def is_sudo_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
     return user_id in SD_ID or user_id in DEV_ID
 
 
-def fuck_channel(update:Update, user_id: int, member: ChatMember = None) -> bool:
+def fuck_channel(update: Update, user_id: int, member: ChatMember = None) -> bool:
     message = update.effective_message
-    if (
-        message.sender_chat is not None and message.sender_chat.type != "channel"
-    ):
+    if message.sender_chat is not None and message.sender_chat.type != "channel":
         return True
+
 
 def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
     if (
@@ -55,6 +66,7 @@ def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
                 return user_id in admin_list
     else:
         return member.status in ("administrator", "creator")
+
 
 def is_bot_admin(chat: Chat, bot_id: int, bot_member: ChatMember = None) -> bool:
     if chat.type == "private" or chat.all_members_are_administrators:
@@ -113,6 +125,7 @@ def dev_plus(func):
             )
 
     return is_dev_plus_func
+
 
 def sudo_plus(func):
     @wraps(func)
@@ -252,7 +265,8 @@ def bot_admin(func):
         if is_bot_admin(chat, bot.id):
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(not_admin, parse_mode=ParseMode.HTML)
+            update.effective_message.reply_text(
+                not_admin, parse_mode=ParseMode.HTML)
 
     return is_admin
 
@@ -273,13 +287,13 @@ def bot_can_delete(func):
         if can_delete(chat, bot.id):
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(cant_delete, parse_mode=ParseMode.HTML)
+            update.effective_message.reply_text(
+                cant_delete, parse_mode=ParseMode.HTML)
 
     return delete_rights
 
 
 def can_pin(func):
-
     @wraps(func)
     def pin_rights(update: Update, context: CallbackContext, *args, **kwargs):
         bot = context.bot
@@ -288,7 +302,9 @@ def can_pin(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_pin = "I can't pin messages here!\nMake sure I'm admin and can pin messages."
+            cant_pin = (
+                "I can't pin messages here!\nMake sure I'm admin and can pin messages."
+            )
         else:
             cant_pin = f"I can't pin messages in <b>{update_chat_title}</b>!\nMake sure I'm admin and can pin messages there."
 
@@ -320,9 +336,11 @@ def can_promote(func):
         if chat.get_member(bot.id).can_promote_members:
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(cant_promote, parse_mode=ParseMode.HTML)
+            update.effective_message.reply_text(
+                cant_promote, parse_mode=ParseMode.HTML)
 
     return promote_rights
+
 
 def user_can_changeinfo(func):
     @wraps(func)
@@ -342,7 +360,9 @@ def user_can_changeinfo(func):
         if chat.get_member(bot.id).can_change_info:
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(cant_changeInfo, parse_mode=ParseMode.HTML)
+            update.effective_message.reply_text(
+                cant_changeInfo, parse_mode=ParseMode.HTML
+            )
 
     return changeinfo_rights
 
@@ -381,9 +401,7 @@ def user_can_ban(func):
             and user not in SD_ID
             and user not in [777000, 1448477501]
         ):
-            update.effective_message.reply_text(
-            "Sorry, He's Developer."
-            )
+            update.effective_message.reply_text("Sorry, He's Developer.")
             return ""
         return func(update, context, *args, **kwargs)
 
