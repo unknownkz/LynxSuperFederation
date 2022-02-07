@@ -172,16 +172,14 @@ def num_chats():
 def migrate_chat(old_chat_id, new_chat_id):
     with NOTES_INSERTION_LOCK:
         chat_notes = (
-            SESSION.query(Notes).filter(
-                Notes.chat_id == str(old_chat_id)).all()
+            SESSION.query(Notes).filter(Notes.chat_id == str(old_chat_id)).all()
         )
         for note in chat_notes:
             note.chat_id = str(new_chat_id)
 
         with BUTTONS_INSERTION_LOCK:
             chat_buttons = (
-                SESSION.query(Buttons).filter(
-                    Buttons.chat_id == str(old_chat_id)).all()
+                SESSION.query(Buttons).filter(Buttons.chat_id == str(old_chat_id)).all()
             )
             for btn in chat_buttons:
                 btn.chat_id = str(new_chat_id)

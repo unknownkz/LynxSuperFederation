@@ -19,8 +19,7 @@ async def progress(current, total, event, start, type_of_ps):
             round(percentage, 2),
         )
         tmp = progress_str + "{0} of {1}\nETA: {2}".format(
-            humanbytes(current), humanbytes(
-                total), time_formatter(estimated_total_time)
+            humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
         )
         await event.edit("{}\n {}".format(type_of_ps, tmp))
 
@@ -28,8 +27,7 @@ async def progress(current, total, event, start, type_of_ps):
 def convert_from_bytes(size):
     power = 2 ** 10
     n = 0
-    units = {0: "", 1: "kilobytes", 2: "megabytes",
-             3: "gigabytes", 4: "terabytes"}
+    units = {0: "", 1: "kilobytes", 2: "megabytes", 3: "gigabytes", 4: "terabytes"}
     while size > power:
         size /= power
         n += 1
