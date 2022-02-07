@@ -18,6 +18,7 @@ def start() -> scoped_session:
     BASE.metadata.create_all(engine, checkfirst=True)
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
+
 BASE = declarative_base()
 try:
     SESSION = start()
