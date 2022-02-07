@@ -106,7 +106,6 @@ class CustomCommandHandler(CommandHandler):
                         return args, filter_result
                     return False
 
-
     def handle_update(self, update, dispatcher, check_result, context=None):
         if context:
             self.collect_additional_context(context, update, dispatcher, check_result)
@@ -135,7 +134,6 @@ class CustomMessageHandler(MessageHandler):
             self.filters &= ~(
                 Filters.update.edited_message | Filters.update.edited_channel_post
             )
-
 
         def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
