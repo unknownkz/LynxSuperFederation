@@ -14,12 +14,11 @@ if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
 def start() -> scoped_session:
     engine = create_engine(DATABASE_URL, echo=True)
     LSF_LOGS.info("[PostgreSQL] Connecting to database...")
-    BASE = declarative_base()
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine, checkfirst=True)
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
-
+BASE = declarative_base()
 try:
     SESSION = start()
 except Exception as e:
