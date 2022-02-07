@@ -16,7 +16,6 @@ from pyrogram.types import Message
 from lsf.ex_plugins.dbfunctions import start_restart_stage
 
 from . import aiohttpsession as aiosession
-from . import lynx_client
 from .https import get, post
 
 
