@@ -7,7 +7,7 @@ def get_user_list(config, key):
         return json.load(json_file)[key]
 
 
-class Config(object):
+class Config:
     """Configs to setup LSF"""
 
     LOGGER = True
