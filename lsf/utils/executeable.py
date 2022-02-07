@@ -13,8 +13,10 @@ import speedtest
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from pyrogram.types import Message
 
-from . import lynx_client, aiohttpsession as aiosession
 from lsf.ex_plugins.dbfunctions import start_restart_stage
+
+from . import aiohttpsession as aiosession
+from . import lynx_client
 from .https import get, post
 
 

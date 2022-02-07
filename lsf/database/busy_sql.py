@@ -1,9 +1,9 @@
 import threading
-
 from datetime import datetime
 
+from sqlalchemy import Boolean, Column, DateTime, Integer, UnicodeText
+
 from . import BASE, SESSION
-from sqlalchemy import Boolean, Column, Integer, UnicodeText, DateTime
 
 
 class AFK(BASE):
@@ -29,8 +29,10 @@ INSERTION_LOCK = threading.RLock()
 
 AFK_USERS = {}
 
+
 def is_afk(user_id):
     return user_id in AFK_USERS
+
 
 def check_afk_status(user_id):
     try:
@@ -51,6 +53,7 @@ def set_afk(user_id, reason=""):
 
         SESSION.add(curr)
         SESSION.commit()
+
 
 def rm_afk(user_id):
     with INSERTION_LOCK:
@@ -85,7 +88,9 @@ def __load_afk_users():
     try:
         all_afk = SESSION.query(AFK).all()
         AFK_USERS = {
-            user.user_id: {"reason": user.reason, "time": user.time} for user in all_afk if user.is_afk
+            user.user_id: {"reason": user.reason, "time": user.time}
+            for user in all_afk
+            if user.is_afk
         }
     finally:
         SESSION.close()

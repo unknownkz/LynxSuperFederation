@@ -1,7 +1,8 @@
 import threading
 
+from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText
+
 from . import BASE, SESSION
-from sqlalchemy import Boolean, Column, BigInteger, String, UnicodeText
 
 
 class GloballyBannedUsers(BASE):
@@ -136,7 +137,8 @@ def num_gbanned_users():
 def __load_gbanned_userid_list():
     global GBANNED_LIST
     try:
-        GBANNED_LIST = {x.user_id for x in SESSION.query(GloballyBannedUsers).all()}
+        GBANNED_LIST = {x.user_id for x in SESSION.query(
+            GloballyBannedUsers).all()}
     finally:
         SESSION.close()
 

@@ -1,8 +1,9 @@
 import threading
 
-from . import BASE, SESSION
-from .. import CHANNELS
 from sqlalchemy import Column, String, distinct, func
+
+from .. import CHANNELS
+from . import BASE, SESSION
 
 
 class GroupLogs(BASE):

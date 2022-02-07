@@ -1,7 +1,8 @@
 import threading
 
-from sqlalchemy import Column, String, Boolean
-from . import SESSION, BASE
+from sqlalchemy import Boolean, Column, String
+
+from . import BASE, SESSION
 
 
 class Permissions(BASE):

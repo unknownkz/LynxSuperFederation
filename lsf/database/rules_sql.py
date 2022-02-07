@@ -1,7 +1,8 @@
 import threading
 
-from . import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText, distinct, func
+
+from . import BASE, SESSION
 
 
 class Rules(BASE):
