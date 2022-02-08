@@ -19,7 +19,7 @@ def __list_all_plugins():
         to_load = LOAD
         if to_load:
             if not all(
-                any(mod == plugin_name for plugin_name in all_plugins)
+                any(mod == plugins_name for plugins_name in all_plugins)
                 for mod in to_load
             ):
                 LOGGER.error("[Alert] Invalid loadorder names. Quitting.")
