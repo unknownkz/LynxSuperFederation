@@ -16,7 +16,7 @@ def github(update: Update, context: CallbackContext):
     args = message.text.split(" ", 1)
     
     if len(args) == 1:
-        message.reply_text('Provide me Username, Ex - /git Noob-Kittu')
+        message.reply_text('Provide me Username, Ex - /git unknownkz')
         return
     else:
         pass
