@@ -12,8 +12,9 @@ from os.path import isfile
 
 HELP_STRINGS = """Hey there! My name is *{}*.
 I'm a modular group management bot with a few fun extras! Have a look at the following for an idea of some of the things I can help you with. """.format(
-    dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
+    dispatcher.bot.first_name,
+    "" if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n",
+)
 
 IMPORTED = {}
 ADMIN_IMPORTED = {}
@@ -32,30 +33,31 @@ CHAT_SETTINGS = {}
 USER_SETTINGS = {}
 
 import os
-path =r'lsf/plugins/'
+
+path = r"lsf/plugins/"
 list_of_files = []
 for root, dirs, files in os.walk(path):
     for file in files:
-        list_of_files.append(os.path.join(root,file))
+        list_of_files.append(os.path.join(root, file))
 
 mod_name = [
-        name[:-3].replace("/", ".").replace("\\", ".")
-        for name in list_of_files
-        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
-    ]
+    name[:-3].replace("/", ".").replace("\\", ".")
+    for name in list_of_files
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+]
 
 
-path =r'lsf/plugins/admins/'
+path = r"lsf/plugins/admins/"
 admin_list_of_files = []
 for root, dirs, files in os.walk(path):
     for file in files:
-        admin_list_of_files.append(os.path.join(root,file))
+        admin_list_of_files.append(os.path.join(root, file))
 
 admin_mod_name = [
-        name[:-3].replace("/", ".").replace("\\", ".")
-        for name in admin_list_of_files
-        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
-    ]
+    name[:-3].replace("/", ".").replace("\\", ".")
+    for name in admin_list_of_files
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+]
 
 for plugins_names in admin_mod_name:
     admin_imported_plugins = importlib.import_plugins(plugins_names)
@@ -63,7 +65,9 @@ for plugins_names in admin_mod_name:
         admin_imported_plugins.__mod_name__ = admin_imported_plugins.__name__
 
     if admin_imported_plugins.__mod_name__.lower() not in ADMIN_IMPORTED:
-        ADMIN_IMPORTED[admin_imported_plugins.__mod_name__.lower()] = admin_imported_plugins
+        ADMIN_IMPORTED[
+            admin_imported_plugins.__mod_name__.lower()
+        ] = admin_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -71,17 +75,17 @@ for plugins_names in admin_mod_name:
         ADMIN[admin_imported_plugins.__mod_name__.lower()] = admin_imported_plugins
 
 
-path =r'lsf/plugins/user/'
+path = r"lsf/plugins/user/"
 user_list_of_files = []
 for root, dirs, files in os.walk(path):
     for file in files:
-        user_list_of_files.append(os.path.join(root,file))
+        user_list_of_files.append(os.path.join(root, file))
 
 user_mod_name = [
-        name[:-3].replace("/", ".").replace("\\", ".")
-        for name in user_list_of_files
-        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
-    ]
+    name[:-3].replace("/", ".").replace("\\", ".")
+    for name in user_list_of_files
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+]
 
 for u_plugins_names in user_mod_name:
     user_imported_plugins = importlib.import_plugins(u_plugins_names)
@@ -89,7 +93,9 @@ for u_plugins_names in user_mod_name:
         user_imported_plugins.__mod_name__ = user_imported_plugins.__name__
 
     if user_imported_plugins.__mod_name__.lower() not in USER_IMPORTED:
-        USER_IMPORTED[user_imported_plugins.__mod_name__.lower()] = user_imported_plugins
+        USER_IMPORTED[
+            user_imported_plugins.__mod_name__.lower()
+        ] = user_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -97,17 +103,17 @@ for u_plugins_names in user_mod_name:
         USER[user_imported_plugins.__mod_name__.lower()] = user_imported_plugins
 
 
-path =r'lsf/plugins/tools/'
+path = r"lsf/plugins/tools/"
 tools_list_of_files = []
 for root, dirs, files in os.walk(path):
     for file in files:
-        tools_list_of_files.append(os.path.join(root,file))
+        tools_list_of_files.append(os.path.join(root, file))
 
 tools_mod_name = [
-        name[:-3].replace("/", ".").replace("\\", ".")
-        for name in tools_list_of_files
-        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
-    ]
+    name[:-3].replace("/", ".").replace("\\", ".")
+    for name in tools_list_of_files
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+]
 
 for t_plugins_name in tools_mod_name:
     tools_imported_plugins = importlib.import_plugins(t_plugins_name)
@@ -115,7 +121,9 @@ for t_plugins_name in tools_mod_name:
         tools_imported_plugins.__mod_name__ = tools_imported_plugins.__name__
 
     if tools_imported_plugins.__mod_name__.lower() not in TOOLS_IMPORTED:
-        TOOLS_IMPORTED[tools_imported_plugins.__mod_name__.lower()] = tools_imported_plugins
+        TOOLS_IMPORTED[
+            tools_imported_plugins.__mod_name__.lower()
+        ] = tools_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -134,7 +142,6 @@ for plugins_name in mod_name:
 
     if hasattr(imported_plugins, "__help__") and imported_plugins.__help__:
         HELPABLE[imported_plugins.__mod_name__.lower()] = imported_plugins
-
 
     # Chats to migrate on chat_migrated events
     if hasattr(imported_plugins, "__migrate__"):
@@ -157,6 +164,7 @@ for plugins_name in mod_name:
 
     if hasattr(imported_plugins, "__user_settings__"):
         USER_SETTINGS[imported_plugins.__mod_name__.lower()] = imported_plugins
+
 
 def send_help(chat_id, text, keyboard=None):
     if not keyboard:
@@ -181,6 +189,7 @@ def send_admin_help(chat_id, text, keyboard=None):
         reply_markup=keyboard,
     )
 
+
 def send_user_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_plugins(0, USER, "user"))
@@ -191,6 +200,7 @@ def send_user_help(chat_id, text, keyboard=None):
         disable_web_page_preview=True,
         reply_markup=keyboard,
     )
+
 
 def send_tools_help(chat_id, text, keyboard=None):
     if not keyboard:
@@ -220,15 +230,12 @@ def admin_help_button(update, context):
                 )
                 + ADMIN[plugins].__help__
             )
-            query.message.edit_text( 
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [ 
-                      [InlineKeyboardButton(text="Back", callback_data="admin_back")]
-                        
-                    ]
+                    [[InlineKeyboardButton(text="Back", callback_data="admin_back")]]
                 ),
             )
 
@@ -256,9 +263,7 @@ def admin_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, ADMIN, "admin")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, ADMIN, "admin")),
             )
 
         # ensure no spinny white circle
@@ -285,15 +290,12 @@ def user_help_button(update, context):
                 )
                 + USER[plugins].__help__
             )
-            query.message.edit_text( 
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [ 
-                      [InlineKeyboardButton(text="Back", callback_data="user_back")]
-                        
-                    ]
+                    [[InlineKeyboardButton(text="Back", callback_data="user_back")]]
                 ),
             )
 
@@ -321,9 +323,7 @@ def user_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, USER, "user")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, USER, "user")),
             )
 
         # ensure no spinny white circle
@@ -350,15 +350,12 @@ def tools_help_button(update, context):
                 )
                 + TOOLS[plugins].__help__
             )
-            query.message.edit_text( 
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [ 
-                      [InlineKeyboardButton(text="Back", callback_data="tools_back")]
-                        
-                    ]
+                    [[InlineKeyboardButton(text="Back", callback_data="tools_back")]]
                 ),
             )
 
@@ -386,9 +383,7 @@ def tools_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, TOOLS, "tools")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, TOOLS, "tools")),
             )
 
         # ensure no spinny white circle
@@ -414,15 +409,12 @@ def help_button(update, context):
                 )
                 + HELPABLE[plugins].__help__
             )
-            query.message.edit_text( 
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [ 
-                      [InlineKeyboardButton(text="Back", callback_data="help_back")]
-                        
-                    ]
+                    [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
                 ),
             )
 
@@ -464,7 +456,7 @@ def help_button(update, context):
 
 
 def get_help(update: Update, context: CallbackContext):
-    chat = update.effective_chat  
+    chat = update.effective_chat
     args = update.effective_message.text.split(None, 1)
 
     # ONLY send help in PM
@@ -522,7 +514,7 @@ def get_help(update: Update, context: CallbackContext):
         send_help(chat.id, HELP_STRINGS)
 
 
-# CMD Function Starting From Here 
+# CMD Function Starting From Here
 def send_settings(chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
@@ -649,9 +641,9 @@ def settings_button(update: Update, context: CallbackContext):
 
 
 def get_settings(update: Update, context: CallbackContext):
-    chat = update.effective_chat 
-    user = update.effective_user 
-    msg = update.effective_message  
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
 
     # ONLY send settings in PM
     if chat.type != chat.PRIVATE:
@@ -680,7 +672,7 @@ def get_settings(update: Update, context: CallbackContext):
 
 
 def migrate_chats(update: Update, context: CallbackContext):
-    msg = update.effective_message  
+    msg = update.effective_message
     if msg.migrate_to_chat_id:
         old_chat = update.effective_chat.id
         new_chat = msg.migrate_to_chat_id
