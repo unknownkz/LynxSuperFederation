@@ -11,7 +11,7 @@ from lsf.__help__ import (
     MIGRATEABLE,
     STATS,
     USER_INFO,
-    USER_SETTINGS
+    USER_SETTINGS,
 )
 from lsf.handlers.valid import dev_plus, sudo_plus
 from telegram import ParseMode, Update
@@ -82,9 +82,9 @@ def load(update: Update, context: CallbackContext):
     if hasattr(imported_plugins, "__user_settings__"):
         USER_SETTINGS[imported_plugins.__mod_name__.lower()] = imported_plugins
 
-
     load_messasge.edit_text(
-        "Successfully loaded plugins : <b>{}</b>".format(text), parse_mode=ParseMode.HTML
+        "Successfully loaded plugins : <b>{}</b>".format(text),
+        parse_mode=ParseMode.HTML,
     )
 
 
