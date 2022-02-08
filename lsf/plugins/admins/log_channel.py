@@ -71,7 +71,6 @@ if is_plugins_loaded(FILENAME):
 
         return glog_action
 
-
     def send_log(
         context: CallbackContext, log_chat_id: str, orig_chat_id: str, result: str
     ):
@@ -100,7 +99,6 @@ if is_plugins_loaded(FILENAME):
                     + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
-
     @user_admin
     def logging(update: Update, context: CallbackContext):
         bot = context.bot
@@ -118,7 +116,6 @@ if is_plugins_loaded(FILENAME):
 
         else:
             message.reply_text("No log channel has been set for this group!")
-
 
     @user_admin
     def setlog(update: Update, context: CallbackContext):
@@ -148,7 +145,10 @@ if is_plugins_loaded(FILENAME):
                     f"This channel has been set as the log channel for {chat.title or chat.first_name}.",
                 )
             except Unauthorized as excp:
-                if excp.message == "Forbidden: Lynx is not a member of the channel chat":
+                if (
+                    excp.message
+                    == "Forbidden: Lynx is not a member of the channel chat"
+                ):
                     bot.send_message(chat.id, "Successfully set log channel!")
                 else:
                     LOGGER.exception("ERROR in setting the log channel.")
@@ -162,7 +162,6 @@ if is_plugins_loaded(FILENAME):
                 " - send /setlog to the channel\n"
                 " - forward the /setlog to the group\n"
             )
-
 
     @user_admin
     def unsetlog(update: Update, context: CallbackContext):
