@@ -113,7 +113,6 @@ if ENV:
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
 
-
     try:
         BLACKLIST_CHAT = set(
             int(x) for x in os.environ.get("BLACKLIST_CHAT", "").split()
