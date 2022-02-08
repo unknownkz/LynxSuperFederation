@@ -69,7 +69,6 @@ jikanpy
 tswift
 python-arq
 envparse
-#profanity (© Julia)
 better_profanity
 textblob 
 nudepy
