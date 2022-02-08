@@ -4,6 +4,9 @@ pip
 ez_setup
 future==0.18.2
 gtts
+gitpython
+python-barcode
+python-dotenv
 lxml
 emoji
 beautifulsoup4
