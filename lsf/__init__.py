@@ -24,7 +24,6 @@ from Python_ARQ import ARQ
 from telethon import TelegramClient
 from telethon.sessions import MemorySession, StringSession
 
-from .handlers import CustomCommandHandler, CustomMessageHandler, CustomRegexHandler
 
 StartTime = time.time()
 
@@ -308,15 +307,3 @@ DEV_ID = list(DEV_ID)
 WHITELIST_ID = list(WHITELIST_ID)
 SUPPORT_ID = list(SUPPORT_ID)
 TIGERS_ID = list(TIGERS_ID)
-
-
-from lsf.handlers.handlers import (
-    CustomCommandHandler,
-    CustomMessageHandler,
-    CustomRegexHandler,
-)
-
-
-tg.RegexHandler = CustomRegexHandler
-tg.CommandHandler = CustomCommandHandler
-tg.MessageHandler = CustomMessageHandler
