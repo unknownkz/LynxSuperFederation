@@ -15,6 +15,12 @@ def __list_all_plugins():
         for file in files:
             list_of_files.append(os.path.join(root, file))
 
+    all_plugins = [
+        basename(name)[:-3]
+        for name in list_of_files
+        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+    ]
+
     if LOAD or NO_LOAD:
         to_load = LOAD
         if to_load:
@@ -41,5 +47,5 @@ def __list_all_plugins():
 
 
 ALL_PLUGINS = __list_all_plugins()
-LOGGER.info("[Alert] Plugins to load: %s", str(ALL_PLUGINS))
+LOGGER.info("[Build App] Plugins to load: %s", str(ALL_PLUGINS))
 __all__ = ALL_PLUGINS + ["ALL_PLUGINS"]
