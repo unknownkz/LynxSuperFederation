@@ -2,37 +2,36 @@
 # All Rights Reserved
 
 import sys
-
 from envparse import env
-
 from . import LOGGER as LOG_LSF
+
 
 MYPLUGIN = {
     "LOAD_PLUGINS": True,
 }
 
 
-def get_str_key(plugin_name, required=False):
-    default = MYPLUGIN.get(plugin_name)
+def get_str_key(plugins_name, required=False):
+    default = MYPLUGIN.get(plugins_name)
 
-    if not (data_plugin := env.str(plugin_name, default=default)) and not required:
-        LOG_LSF.warning("No str key: " + plugin_name)
+    if not (data_plugins := env.str(plugins_name, default=default)) and not required:
+        LOG_LSF.warning("No str key: " + plugins_name)
         return None
-    elif not data_plugin:
-        LOG_LSF.critical("No str key: " + plugin_name)
+    elif not data_plugins:
+        LOG_LSF.critical("No str key: " + plugins_name)
         sys.exit(2)
     else:
-        return data_plugin
+        return data_plugins
 
 
-def get_int_key(plugin_name, required=False):
-    default = MYPLUGIN.get(plugin_name)
+def get_int_key(plugins_name, required=False):
+    default = MYPLUGIN.get(plugins_name)
 
-    if not (data_plugin := env.int(plugin_name, default=default)) and not required:
-        LOG_LSF.warning("No int key: " + plugin_name)
+    if not (data_plugins := env.int(plugins_name, default=default)) and not required:
+        LOG_LSF.warning("No int key: " + plugins_name)
         return None
-    elif not data_plugin:
-        LOG_LSF.critical("No int key: " + plugin_name)
+    elif not data_plugins:
+        LOG_LSF.critical("No int key: " + plugins_name)
         sys.exit(2)
     else:
-        return data_plugin
+        return data_plugins
