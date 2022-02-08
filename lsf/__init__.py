@@ -228,9 +228,6 @@ updater = tg.Updater(TGB_TOKEN, workers=WORKERS, use_context=True)
 lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 
-lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
-
-
 CHANNELS = {}
 SD_ID = list(SD_ID) + list(DEV_ID)
 DEV_ID = list(DEV_ID)
