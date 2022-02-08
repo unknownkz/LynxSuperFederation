@@ -7,7 +7,7 @@ def get_user_list(config, key):
         return json.load(json_file)[key]
 
 
-class Config:
+class Unknown:
     """Configs to setup LSF"""
 
     LOGGER = True
@@ -51,9 +51,9 @@ class Config:
     URL = None
 
 
-class Production(Config):
+class Production(Unknown):
     LOGGER = True
 
 
-class Development(Config):
+class Development(Unknown):
     LOGGER = True
