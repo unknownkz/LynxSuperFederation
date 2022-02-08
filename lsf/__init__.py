@@ -10,7 +10,6 @@ import os
 import sys
 import time
 from inspect import getfullargspec
-from logging.handlers import RotatingFileHandler
 from os import path, remove
 from pathlib import Path
 
@@ -30,7 +29,6 @@ StartTime = time.time()
 
 logging.basicConfig(
     format="%(asctime)s || [%(levelname)s] - ℅(name)s - %(message)s",
-    level=logging.INFO,
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
 )
