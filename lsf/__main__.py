@@ -24,7 +24,7 @@ from telegram.error import (
 from lsf import (
     OWNER_ID,
     OWNER_USERNAME,
-    dispatcher, 
+    dispatcher,
     StartTime,
     LOGGER,
     SUPPORT_CHAT,
@@ -35,17 +35,17 @@ from lsf import (
     TGB_TOKEN,
     INFOPIC,
     lynx_client,
-    updater
+    updater,
 )
 
 from lsf.plugins import ALL_PLUGINS
 from lsf.__help__ import (
-    get_help, 
-    help_button, 
-    get_settings, 
-    settings_button, 
-    migrate_chats, 
-    send_help, 
+    get_help,
+    help_button,
+    get_settings,
+    settings_button,
+    migrate_chats,
+    send_help,
     send_admin_help,
     send_user_help,
     user_help_button,
@@ -59,9 +59,8 @@ from lsf.__help__ import (
     HELPABLE,
     ADMIN,
     USER,
-    TOOLS
+    TOOLS,
 )
-
 
 
 def get_readable_time(seconds: int) -> str:
@@ -125,31 +124,54 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="⬅️ BACK", callback_data="help_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="⬅️ BACK", callback_data="help_back"
+                                )
+                            ]
+                        ]
                     ),
                 )
                 send_admin_help(
                     update.effective_chat.id,
                     ADMIN[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="⬅️ BACK", callback_data="admin_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="⬅️ BACK", callback_data="admin_back"
+                                )
+                            ]
+                        ]
                     ),
                 )
                 send_user_help(
                     update.effective_chat.id,
                     USER[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="⬅️ BACK", callback_data="user_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="⬅️ BACK", callback_data="user_back"
+                                )
+                            ]
+                        ]
                     ),
                 )
                 send_tools_help(
                     update.effective_chat.id,
                     USER[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="⬅️ BACK", callback_data="tools_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="⬅️ BACK", callback_data="tools_back"
+                                )
+                            ]
+                        ]
                     ),
                 )
-
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
@@ -166,57 +188,71 @@ def start(update: Update, context: CallbackContext):
         else:
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
-                        escape_markdown(first_name), escape_markdown(context.bot.first_name)),
-                reply_markup=InlineKeyboardMarkup([
-    [
-        InlineKeyboardButton(
-            text="➕️ Add me to your chat ➕️", url=f"https://t.me/{context.bot.username}?startgroup=true"),
-    ],
-    [
-        InlineKeyboardButton(text="Admin", callback_data="admin_back"),
-        InlineKeyboardButton(
-            text="Users", callback_data="user_back"
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Tools", callback_data="tools_back"),
-        InlineKeyboardButton(
-            text="Bot Info", callback_data="lynx_"
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Helps & Commands❔", callback_data="help_back"),
-    ],
-]),
+                    escape_markdown(first_name), escape_markdown(context.bot.first_name)
+                ),
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="➕️ Add me to your chat ➕️",
+                                url=f"https://t.me/{context.bot.username}?startgroup=true",
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                text="Admin", callback_data="admin_back"
+                            ),
+                            InlineKeyboardButton(
+                                text="Users", callback_data="user_back"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                text="Tools", callback_data="tools_back"
+                            ),
+                            InlineKeyboardButton(
+                                text="Bot Info", callback_data="lynx_"
+                            ),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                text="Helps & Commands❔", callback_data="help_back"
+                            ),
+                        ],
+                    ]
+                ),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
             )
     else:
-            text = (
-                f"Hello {mention_html(user.id, user.first_name)}, I'm {bot.first_name}\n\n"
-                f"┏━━━━━━━━━━━━━━━━━━━\n"
-                f"┣[• Owner : @{OWNER_USERNAME}  \n"
-                f"┣[• Uptime : {uptime} \n"
-                f"┣[• Core : {psutil.cpu_percent()}%\n"
-                f"┣[• Python   : Ver {python_version()} \n"
-                f"┗━━━━━━━━━━━━━━━━━━━")
+        text = (
+            f"Hello {mention_html(user.id, user.first_name)}, I'm {bot.first_name}\n\n"
+            f"┏━━━━━━━━━━━━━━━━━━━\n"
+            f"┣[• Owner : @{OWNER_USERNAME}  \n"
+            f"┣[• Uptime : {uptime} \n"
+            f"┣[• Core : {psutil.cpu_percent()}%\n"
+            f"┣[• Python   : Ver {python_version()} \n"
+            f"┗━━━━━━━━━━━━━━━━━━━"
+        )
 
-            keyboard = InlineKeyboardMarkup([
+        keyboard = InlineKeyboardMarkup(
+            [
                 [
                     InlineKeyboardButton(
-                        text="SUPPORT", 
-                        url=f"https://t.me/{SUPPORT_CHAT}"),
+                        text="SUPPORT", url=f"https://t.me/{SUPPORT_CHAT}"
+                    ),
                     InlineKeyboardButton(
-                        text="DEVLOPER", 
-                        url=f"https://t.me/{OWNER_USERNAME}")
+                        text="DEVLOPER", url=f"https://t.me/{OWNER_USERNAME}"
+                    ),
                 ],
-            ])
-            message.reply_photo(
-                        INFOPIC,
-                        caption=(text),
-                        reply_markup=keyboard,
-                        parse_mode=ParseMode.HTML,
-            )
+            ]
+        )
+        message.reply_photo(
+            INFOPIC,
+            caption=(text),
+            reply_markup=keyboard,
+            parse_mode=ParseMode.HTML,
+        )
 
 
 def lynx_about_callback(update: Update, context: CallbackContext):
@@ -233,50 +269,57 @@ def lynx_about_callback(update: Update, context: CallbackContext):
             \n ‣ I check Admins Permissions before perform any Command and more Stuffs.
             \n ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
             \n\n*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*""".format(
-                        escape_markdown(first_name), escape_markdown(context.bot.first_name)),
+                escape_markdown(first_name), escape_markdown(context.bot.first_name)
+            ),
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                   [
-                     InlineKeyboardButton(text="Support", url="t.me/LSF_SupportGroup"),
-                     InlineKeyboardButton(text="Federation", url="t.me/FederationSupportGroup"),
-                   ],
-                   [
-                    InlineKeyboardButton(text="Back", callback_data="yone_back")
-                   ]
+                    [
+                        InlineKeyboardButton(
+                            text="Support", url="t.me/LSF_SupportGroup"
+                        ),
+                        InlineKeyboardButton(
+                            text="Federation", url="t.me/FederationSupportGroup"
+                        ),
+                    ],
+                    [InlineKeyboardButton(text="Back", callback_data="yone_back")],
                 ]
             ),
         )
     elif query.data == "lynx_back":
         query.message.edit_text(
-                PM_START_TEXT.format(
-                        escape_markdown(first_name), escape_markdown(context.bot.first_name)),
-                reply_markup=InlineKeyboardMarkup([
-    [
-        InlineKeyboardButton(
-            text="➕️ Add me to your chat ➕️", url=f"https://t.me/{context.bot.username}?startgroup=true"),
-    ],
-    [
-        InlineKeyboardButton(text="Admin", callback_data="admin_back"),
-        InlineKeyboardButton(
-            text="Users", callback_data="user_back"
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Tools", callback_data="tools_back"),
-        InlineKeyboardButton(
-            text="Lynx Info", callback_data="lynx_"
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Helps & Commands❔", callback_data="help_back"),
-    ],
-    ]),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-                disable_web_page_preview=False,
-    )
+            PM_START_TEXT.format(
+                escape_markdown(first_name), escape_markdown(context.bot.first_name)
+            ),
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="➕️ Add me to your chat ➕️",
+                            url=f"https://t.me/{context.bot.username}?startgroup=true",
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(text="Admin", callback_data="admin_back"),
+                        InlineKeyboardButton(text="Users", callback_data="user_back"),
+                    ],
+                    [
+                        InlineKeyboardButton(text="Tools", callback_data="tools_back"),
+                        InlineKeyboardButton(text="Lynx Info", callback_data="lynx_"),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Helps & Commands❔", callback_data="help_back"
+                        ),
+                    ],
+                ]
+            ),
+            parse_mode=ParseMode.MARKDOWN,
+            timeout=60,
+            disable_web_page_preview=False,
+        )
+
 
 def main():
 
@@ -294,16 +337,30 @@ def main():
     start_handler = CommandHandler("start", start, pass_args=True, run_async=True)
 
     help_handler = CommandHandler("help", get_help, run_async=True)
-    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
-    admin_help_callback_handler = CallbackQueryHandler(admin_help_button, pattern=r"admin_.*", run_async=True)
-    user_help_callback_handler = CallbackQueryHandler(user_help_button, pattern=r"user_.*", run_async=True)
-    tools_help_callback_handler = CallbackQueryHandler(tools_help_button, pattern=r"tools_.*", run_async=True)
+    help_callback_handler = CallbackQueryHandler(
+        help_button, pattern=r"help_.*", run_async=True
+    )
+    admin_help_callback_handler = CallbackQueryHandler(
+        admin_help_button, pattern=r"admin_.*", run_async=True
+    )
+    user_help_callback_handler = CallbackQueryHandler(
+        user_help_button, pattern=r"user_.*", run_async=True
+    )
+    tools_help_callback_handler = CallbackQueryHandler(
+        tools_help_button, pattern=r"tools_.*", run_async=True
+    )
 
-    about_callback_handler = CallbackQueryHandler(yone_about_callback, pattern=r"lynx_", run_async=True)
+    about_callback_handler = CallbackQueryHandler(
+        yone_about_callback, pattern=r"lynx_", run_async=True
+    )
 
     settings_handler = CommandHandler("settings", get_settings, run_async=True)
-    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
-    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
+    settings_callback_handler = CallbackQueryHandler(
+        settings_button, pattern=r"stngs_", run_async=True
+    )
+    migrate_handler = MessageHandler(
+        Filters.status_update.migrate, migrate_chats, run_async=True
+    )
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
@@ -322,13 +379,20 @@ def main():
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TGB_TOKEN)
 
         if CERT_PATH:
-            updater.bot.set_webhook(url=URL + TGB_TOKEN, certificate=open(CERT_PATH, "rb"))
+            updater.bot.set_webhook(
+                url=URL + TGB_TOKEN, certificate=open(CERT_PATH, "rb")
+            )
         else:
             updater.bot.set_webhook(url=URL + TGB_TOKEN)
 
     else:
         LOGGER.info("Using long polling.")
-        updater.start_polling(allowed_updates=Update.ALL_TYPES, timeout=15, read_latency=4, drop_pending_updates=True)
+        updater.start_polling(
+            allowed_updates=Update.ALL_TYPES,
+            timeout=15,
+            read_latency=4,
+            drop_pending_updates=True,
+        )
 
     if len(argv) not in (1, 3, 4):
         lynx_client.disconnect()
@@ -336,7 +400,6 @@ def main():
         lynx_client.run_until_disconnected()
 
     updater.idle()
-
 
 
 if __name__ == "__main__":
