@@ -1,5 +1,5 @@
 ## Lynx Super Federation
->[![Deploy](https://telegra.ph/file/2ae6c0755ba31a5f9446e.jpg)]
+>[![Lynx](https://telegra.ph/file/2ae6c0755ba31a5f9446e.jpg)](https://t.me/LSF_SupportGroup)
 > Management Group
 >> Lynx was created to manage your groups on telegram and focuses on the Lynx Federation.
 >> I made this to root out telegram users who spam 'global broadcast'.
