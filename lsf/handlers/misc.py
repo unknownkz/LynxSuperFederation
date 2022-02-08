@@ -18,7 +18,7 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
         return self.text > other.text
 
 
-def paginate_modules(page_n: int, plugins_dict: Dict, prefix, chat=None) -> List:
+def paginate_plugins(page_n: int, plugins_dict: Dict, prefix, chat=None) -> List:
     if not chat:
         plugins = sorted(
             [
