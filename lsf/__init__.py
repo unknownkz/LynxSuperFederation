@@ -111,7 +111,7 @@ if ENV:
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
     ARQ_API = os.environ.get("ARQ_API")
-    DONATION_LINK = os.environ.get("DONATION_LINK")
+    DONATION_LINK = os.environ.get("DONATION_LINK", "https://patreon.com/iamkenzo")
     LOAD = os.environ.get("LOAD", "").split()
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
