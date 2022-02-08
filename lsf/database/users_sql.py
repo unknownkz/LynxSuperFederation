@@ -9,7 +9,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from Yone import dispatcher
+from .. import dispatcher
 
 from . import BASE, SESSION
 
