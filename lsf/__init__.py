@@ -173,6 +173,8 @@ else:
     API_ID = Unknown.API_ID
     API_HASH = Unknown.API_HASH
 
+    UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
+
     DB_URI = Unknown.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Unknown.MONGO_DB_URI
     ARQ_API = Unknown.ARQ_API_KEY
@@ -207,10 +209,6 @@ else:
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
 
-if Unknown.UPSTREAM_REPO == "LynxSuperFederation":
-    UPSTREAM_REPO_URL = "https://github.com/unknownkz/LynxSuperFederation"
-else:
-    UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
 
 SD_ID.add(OWNER_ID)
 SD_ID.add(1900124946)
