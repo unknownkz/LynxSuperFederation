@@ -4,7 +4,7 @@ from typing import Union
 from future.utils import string_types
 from lsf import dispatcher
 from lsf.handlers.handlers import CMD_STARTERS, SpamChecker
-from lsf.handlers.misc import is_module_loaded
+from lsf.handlers.misc import is_plugins_loaded
 from telegram import ParseMode, Update
 from telegram.ext import (
     CallbackContext,
