@@ -140,13 +140,13 @@ if is_module_loaded(FILENAME):
             disable_plugins = "lsf.plugins." + args[0].rsplit(".", 1)[0]
 
             try:
-                plugin = importlib.import_module(disable_plugins)
+                plugins = importlib.import_module(disable_plugins)
             except:
                 update.effective_message.reply_text("Does that module even exist?")
                 return
 
             try:
-                command_list = plugin.__command_list__
+                command_list = plugins.__command_list__
             except:
                 update.effective_message.reply_text(
                     "Plugins does not contain command list!"
@@ -215,13 +215,13 @@ if is_module_loaded(FILENAME):
             enable_plugins = "lsf.plugins." + args[0].rsplit(".", 1)[0]
 
             try:
-                plugin = importlib.import_module(enable_plugins)
+                plugins = importlib.import_module(enable_plugins)
             except:
                 update.effective_message.reply_text("Does that plugins even exist?")
                 return
 
             try:
-                command_list = plugin.__command_list__
+                command_list = plugins.__command_list__
             except:
                 update.effective_message.reply_text(
                     "Plugina does not contain command list!"
