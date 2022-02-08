@@ -256,19 +256,6 @@ arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
-try:
-    lynx_tgb.start()
-except BaseException:
-    print("Lynx Error ! Have you added a STRING_SESSION in Deploying?")
-    sys.exit(1)
-
-fed_lynx = Client(
-    ":memory:",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TGB_TOKEN,
-    workers=min(32, os.cpu_count() + 8),
-)
 apps = []
 apps.append(fed_lynx)
 
