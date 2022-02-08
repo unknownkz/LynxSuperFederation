@@ -106,7 +106,7 @@ if ENV:
     API_HASH = os.environ.get("API_HASH")
     SESSION_STRING = os.environ.get("SESSION_STRING")
     STRING_SESSION = os.environ.get("STRING_SESSION")
-    DATABASE_URL = os.environ.get("DATABASE_URL)
+    DATABASE_URL = os.environ.get("DATABASE_URL")
 
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
