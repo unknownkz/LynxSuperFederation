@@ -283,7 +283,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
                             text="Federation", url="t.me/FederationSupportGroup"
                         ),
                     ],
-                    [InlineKeyboardButton(text="Back", callback_data="yone_back")],
+                    [InlineKeyboardButton(text="Back", callback_data="lynx_back")],
                 ]
             ),
         )
@@ -351,7 +351,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        yone_about_callback, pattern=r"lynx_", run_async=True
+        lynx_about_callback, pattern=r"lynx_", run_async=True
     )
 
     settings_handler = CommandHandler("settings", get_settings, run_async=True)
