@@ -115,7 +115,7 @@ if ENV:
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT")
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
-    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL")
+    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO")
     CF_API_KEY = os.environ.get("CF_API_KEY")
     WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC")
     TGB_ID = int(os.environ.get("TGB_ID"))
