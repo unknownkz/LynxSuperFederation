@@ -15,13 +15,9 @@ from pathlib import Path
 
 import spamwatch
 import telegram.ext as tg
-from aiohttp import ClientSession
-from pyrogram import Client
-from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
-from pyrogram.types import Chat, Message
-from Python_ARQ import ARQ
+
 from telethon import TelegramClient
-from telethon.sessions import MemorySession, StringSession
+from telethon.sessions import MemorySession
 
 
 StartTime = time.time()
@@ -92,10 +88,8 @@ if ENV:
     SESSION_STRING = os.environ.get("SESSION_STRING")
     STRING_SESSION = os.environ.get("STRING_SESSION")
     DATABASE_URL = os.environ.get("DATABASE_URL")
-
-    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
-    ARQ_API = os.environ.get("ARQ_API")
+
     DONATION_LINK = os.environ.get("DONATION_LINK", "https://patreon.com/iamkenzo")
     LOAD = os.environ.get("LOAD", "").split()
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
@@ -108,21 +102,17 @@ if ENV:
     WORKERS = int(os.environ.get("WORKERS", 8))
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
-    CASH_API_KEY = os.environ.get("CASH_API_KEY")
-    TIME_API_KEY = os.environ.get("TIME_API_KEY")
-    WALL_API = os.environ.get("WALL_API")
+
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT")
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
     UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO")
-    CF_API_KEY = os.environ.get("CF_API_KEY")
+
     WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC")
     TGB_ID = int(os.environ.get("TGB_ID"))
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
 
-    ARQ_API_URL = "https://thearq.tech"
-    ARQ_API_KEY = ARQ_API
 
     try:
         BLACKLIST_CHAT = set(
@@ -179,8 +169,7 @@ else:
 
     DB_URI = Unknown.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Unknown.MONGO_DB_URI
-    ARQ_API = Unknown.ARQ_API_KEY
-    ARQ_API_URL = Unknown.ARQ_API_URL
+
     DONATION_LINK = Unknown.DONATION_LINK
     LOAD = Unknown.LOAD
     TEMP_DOWNLOAD_DIRECTORY = Unknown.TEMP_DOWNLOAD_DIRECTORY
@@ -238,11 +227,6 @@ defaults = tg.Defaults(run_async=True)
 updater = tg.Updater(TGB_TOKEN, workers=WORKERS, use_context=True)
 lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
-print("[INFO]: INITIALIZING AIOHTTP SESSION")
-aiohttpsession = ClientSession()
-
-print("[INFO]: INITIALIZING ARQ CLIENT")
-arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
