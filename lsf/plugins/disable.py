@@ -19,7 +19,7 @@ from telegram.utils.helpers import escape_markdown
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 
-if is_module_loaded(FILENAME):
+if is_plugins_loaded(FILENAME):
 
     from lsf.handlers.valid import (
         connection_status,
