@@ -297,11 +297,11 @@ if is_plugins_loaded(FILENAME):
 
     DISABLE_HANDLER = CommandHandler("disable", disable, run_async=True)
     DISABLE_MODULE_HANDLER = CommandHandler(
-        "disablemodule", disable_plugins, run_async=True
+        "disableplugins", disable_plugins, run_async=True
     )
     ENABLE_HANDLER = CommandHandler("enable", enable, run_async=True)
     ENABLE_MODULE_HANDLER = CommandHandler(
-        "enablemodule", enable_plugins, run_async=True
+        "enableplugins", enable_plugins, run_async=True
     )
     COMMANDS_HANDLER = CommandHandler(["cmds", "disabled"], commands, run_async=True)
     TOGGLE_HANDLER = CommandHandler("listcmds", list_cmds, run_async=True)
