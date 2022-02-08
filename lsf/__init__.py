@@ -4,6 +4,7 @@
 Credit: @Unknownkz | @notudope | @AnimeKaizoku
 """
 
+import heroku3
 import logging
 import os
 import sys
@@ -221,6 +222,11 @@ else:
         BLACKLIST_CHAT = {int(x) for x in Unknown.BLACKLIST_CHAT or []}
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
+
+if Unknown.UPSTREAM_REPO == "LynxSuperFederation":
+    UPSTREAM_REPO_URL = "https://github.com/unknownkz/LynxSuperFederation"
+else:
+    UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
 
 SD_ID.add(OWNER_ID)
 SD_ID.add(1900124946)
