@@ -102,7 +102,7 @@ if ENV:
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID")
-   
+
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
@@ -123,7 +123,6 @@ if ENV:
 
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
-
 
     try:
         BLACKLIST_CHAT = set(
