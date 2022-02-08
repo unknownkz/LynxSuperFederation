@@ -102,8 +102,7 @@ if ENV:
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID")
-    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY")
-    NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
+   
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
@@ -119,8 +118,12 @@ if ENV:
     CF_API_KEY = os.environ.get("CF_API_KEY")
     WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC")
     TGB_ID = int(os.environ.get("TGB_ID"))
+    LOAD = os.environ.get("LOAD", "").split()
+    NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
+
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
+
 
     try:
         BLACKLIST_CHAT = set(
