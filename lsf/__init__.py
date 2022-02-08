@@ -244,45 +244,6 @@ arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 lynx_tgb = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
-apps = []
-apps.append(fed_lynx)
-
-
-async def get_entity(client, entity):
-    entity_client = client
-    if not isinstance(entity, Chat):
-
-        try:
-            entity = int(entity)
-        except ValueError:
-            pass
-        except TypeError:
-            entity = entity.id
-
-        try:
-            entity = await client.get_chat(entity)
-        except (PeerIdInvalid, ChannelInvalid):
-            for kp in apps:
-                if kp != client:
-
-                    try:
-                        entity = await kp.get_chat(entity)
-                    except (PeerIdInvalid, ChannelInvalid):
-                        pass
-                    else:
-                        entity_client = kp
-                        break
-            else:
-                entity = await kp.get_chat(entity)
-                entity_client = kp
-    return entity, entity_client
-
-
-async def eor(msg: Message, **kwargs):
-    func = msg.edit_text if msg.from_user.is_self else msg.reply
-    spec = getfullargspec(func.__wrapped__).args
-    return await func(**{k: v for k, v in kwargs.items() if k in spec})
-
 
 CHANNELS = {}
 SD_ID = list(SD_ID) + list(DEV_ID)
