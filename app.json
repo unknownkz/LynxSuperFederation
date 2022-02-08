@@ -8,6 +8,7 @@
          "logs"
       ],
 
+   "logo": "https://telegra.ph/file/7effdc55f47f4d9a16173.jpg",
    "repository": "https://github.com/unknownkz/LynxSuperFederation"
    "telegram": "https://t.me/lsf_supportgroup",
    "addons": [
@@ -49,8 +50,8 @@
          "required": true,
          "value": ""
        },
-       "LOGS": {
-         "description": "Fill ur Channel ID in here",
+       "JOIN_LOGGER": {
+         "description": "A channel where bot will print who added it to what group, useful during debugging or spam handling.",
          "value": "-100",
          "required": true
        },
@@ -120,12 +121,50 @@
          "required": false,
          "value": "sqldbtype://username:pw@hostname:port/db_name"
        },
+       "STRING_SESSION": {
+         "description": "Fill with telethon string session.",
+         "required": true,
+         "value": ""
+       },
+       "SUPPORT_CHAT": {
+         "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to masha support than consider you made an enemy.",
+         "required": true,
+         "value": "lsf_supportgroup"
+       },
        "ARQ_API": {
          "description": "Go to Telegram and Get this from @ARQRobot",
          "required": true
        },
+       "ALLOW_EXCL": {
+         "description": "Set this to True if you want ! to be a command prefix along with /. Recommended is True",
+         "value": "True"
+       },
+       "NO_LOAD": {
+         "description": "Dont load these modules cause they shit, space separation",
+         "required": false,
+         "value": "rss"
+       },
+       "DEL_CMDS": {
+         "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
+         "value": "True"
+       },
+       "BLACKLIST_CHATS": {
+         "description": "List of chats you want blacklisted.",
+         "required": false,
+         "value": ""
+       },
        "SPAMWATCH_API": {
          "description": "Go to Telegram and Get one from @SpamWatchBot",
+         "required": false,
+         "value": ""
+       },
+       "WEBHOOK": {
+         "description": "Setting this to ANYTHING will enable webhooks. If you dont know how this works leave it as it is",
+         "required": false,
+         "value": ""
+       },
+       "PORT": {
+         "description": "Port to use for your webhooks. Better leave this as it is on heroku",
          "required": false,
          "value": ""
        },
