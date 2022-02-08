@@ -27,17 +27,14 @@ from telethon.sessions import MemorySession, StringSession
 
 StartTime = time.time()
 
-if path.exists("logs/lsf.log"):
-    remove("logs/lsf.log")
 
 logging.basicConfig(
     format="%(asctime)s || [%(levelname)s] - ℅(name)s - %(message)s",
     level=logging.INFO,
-    handlers=[
-        RotatingFileHandler("logs/lsf.log", maxBytes=20480, backupCount=10),
-        logging.StreamHandler(),
-    ],
+    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
+    level=logging.INFO,
 )
+
 logging.getLogger("asyncio").setlevel(logging.ERROR)
 logging.getLogger("Telethon").setlevel(logging.ERROR)
 logging.getLogger("telethon.network.mtprotosender").setlevel(logging.ERROR)
@@ -49,14 +46,6 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 10:
     )
     sys.exit(1)
 
-dirs = ["logs", "bin"]
-for dir in dirs:
-    if not path.exists(dir):
-        Path(dir).mkdir(parents=True, exist_ok=True)
-    else:
-        for file in Path(path.realpath(dir)).rglob("*.*"):
-            if path.isfile(file):
-                remove(file)
 
 ENV = bool(os.environ.get("ENV", False))
 
