@@ -89,14 +89,17 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
+
 A telegram group management bot. I'm here to help you to manage your groups.
 I have lots of handy features such as:
-‣ Warning system
-‣ Artificial intelligence
-‣ Flood control system
-‣ Note keeping system
-‣ Filters keeping system
-‣ Approvals and much more.
+
+‣ `Federation`
+‣ `Warning System`
+‣ `Artificial Intelligence`
+‣ `Flood Control System`
+‣ `Note Keeping System`
+‣ `Filters Keeping System`
+‣ `Approvals and Much More.`
 
 
 So what are you waiting for?
@@ -239,10 +242,10 @@ def start(update: Update, context: CallbackContext):
             [
                 [
                     InlineKeyboardButton(
-                        text="SUPPORT", url=f"https://t.me/{SUPPORT_CHAT}"
+                        text="Support", url=f"https://t.me/{SUPPORT_CHAT}"
                     ),
                     InlineKeyboardButton(
-                        text="DEVLOPER", url=f"https://t.me/{OWNER_USERNAME}"
+                        text="Developer", url=f"https://t.me/{OWNER_USERNAME}"
                     ),
                 ],
             ]
