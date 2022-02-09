@@ -47,7 +47,9 @@ def error_callback(update: Update, context: CallbackContext):
         stringio = io.StringIO()
         pretty_errors.output_stderr = stringio
         output = pretty_errors.excepthook(
-            type(context.error), context.error, context.error.__traceback__,
+            type(context.error),
+            context.error,
+            context.error.__traceback__,
         )
         pretty_errors.output_stderr = sys.stderr
         pretty_error = stringio.getvalue()
@@ -55,7 +57,9 @@ def error_callback(update: Update, context: CallbackContext):
     except:
         pretty_error = "Failed to create pretty error."
     tb_list = traceback.format_exception(
-        None, context.error, context.error.__traceback__,
+        None,
+        context.error,
+        context.error.__traceback__,
     )
     tb = "".join(tb_list)
     pretty_message = (
@@ -69,7 +73,9 @@ def error_callback(update: Update, context: CallbackContext):
         "Full Traceback: {}"
         "--------------------------------------"
     ).format(
-            pretty_error.replace(context.bot.token, "$TGB_TOKEN").replace(str(API_ID), "$API_ID").replace(API_HASH, "$API_HASH"), #.replace(SPAMWATCH_API, "$SPAMWATCH_API"),
+        pretty_error.replace(context.bot.token, "$TGB_TOKEN")
+        .replace(str(API_ID), "$API_ID")
+        .replace(API_HASH, "$API_HASH"),  # .replace(SPAMWATCH_API, "$SPAMWATCH_API"),
         update.effective_user.id,
         update.effective_chat.title if update.effective_chat else "",
         update.effective_chat.id if update.effective_chat else "",
@@ -80,8 +86,8 @@ def error_callback(update: Update, context: CallbackContext):
     data = str(pretty_message)
     uri = "https://spaceb.in/api/v1/documents"
     cont = {}
-    cont['content']=data
-    cont['Extension']='py'
+    cont["content"] = data
+    cont["Extension"] = "py"
     data = json.dumps(cont)
 
     headers = CaseInsensitiveDict()
@@ -91,24 +97,28 @@ def error_callback(update: Update, context: CallbackContext):
     result = resp.json()["payload"]
     key = result["id"]
     e = html.escape(f"{context.error}")
-    e = e.replace(context.bot.token, "$TGB_TOKEN").replace(str(API_ID), "$API_ID").replace(API_HASH, "$API_HASH") #.replace(SPAMWATCH_API, "$SPAMWATCH_API")
+    e = (
+        e.replace(context.bot.token, "$TGB_TOKEN")
+        .replace(str(API_ID), "$API_ID")
+        .replace(API_HASH, "$API_HASH")
+    )  # .replace(SPAMWATCH_API, "$SPAMWATCH_API")
     if not key:
         with open("error.txt", "w+") as f:
             f.write(pretty_message)
         context.bot.send_document(
             OWNER_ID,
-                open("error.txt", "rb"),
-                caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-                parse_mode="html",
+            open("error.txt", "rb"),
+            caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+            parse_mode="html",
         )
         return
     url = f"https://spaceb.in/{key}"
     context.bot.send_message(
         OWNER_ID,
-            text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("SpaceBin", url=url)]],
-            ),
+        text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("SpaceBin", url=url)]],
+        ),
         parse_mode="html",
     )
 
@@ -121,7 +131,7 @@ def list_errors(update: Update, context: CallbackContext):
     }
     msg = "<b>Errors List:</b>\n"
     for x, value in e.items():
-        msg += f'• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n'
+        msg += f"• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n"
     msg += f"{len(errors)} have occurred since startup."
     if len(msg) > 4096:
         with open("errors_msg.txt", "w+") as f:
