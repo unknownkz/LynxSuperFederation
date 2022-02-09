@@ -22,7 +22,6 @@ except:
     from yt_dlp import YoutubeDL
 
 
-
 def music(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
@@ -31,7 +30,7 @@ def music(update: Update, context: CallbackContext):
     args = message.text.split(" ", 1)
 
     if len(args) == 1:
-        message.reply_text('Provide Song Name also like `/song on my way`!')
+        message.reply_text("Provide Song Name also like `/song on my way`!")
         return
     else:
         pass
@@ -39,8 +38,8 @@ def music(update: Update, context: CallbackContext):
     urlissed = args[1]
 
     kenzo = bot.send_message(
-        chat.id, textwrap.dedent(
-            f"`Getting {urlissed} From Youtube Servers. Please Wait.`")
+        chat.id,
+        textwrap.dedent(f"`Getting {urlissed} From Youtube Servers. Please Wait.`"),
     )
 
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
@@ -94,7 +93,8 @@ def music(update: Update, context: CallbackContext):
         return
     c_time = time.time()
     capy = textwrap.dedent(
-        f"*Song Name :* `{thum}` \n*Requested For :* `{urlissed}` \n*Channel :* `{thums}` \n*Link :* `{mo}`")
+        f"*Song Name :* `{thum}` \n*Requested For :* `{urlissed}` \n*Channel :* `{thums}` \n*Link :* `{mo}`"
+    )
     file_stark = f"{ytdl_data['id']}.mp3"
     bot.send_audio(
         chat.id,
@@ -105,7 +105,6 @@ def music(update: Update, context: CallbackContext):
         thumb=sedlyf,
         caption=capy,
         parse_mode=ParseMode.MARKDOWN,
-
     )
     kenzo.delete()
     for files in (sedlyf, file_stark):
@@ -121,7 +120,7 @@ def video(update: Update, context: CallbackContext):
     args = message.text.split(" ", 1)
 
     if len(args) == 1:
-        message.reply_text('Provide video Name also like `/video on my way`!')
+        message.reply_text("Provide video Name also like `/video on my way`!")
         return
     else:
         pass
@@ -129,8 +128,8 @@ def video(update: Update, context: CallbackContext):
     urlissed = args[1]
 
     kenzo = bot.send_message(
-        message.chat.id, textwrap.dedent(
-            f"`Getting {urlissed} From Youtube Servers. Please Wait.`")
+        message.chat.id,
+        textwrap.dedent(f"`Getting {urlissed} From Youtube Servers. Please Wait.`"),
     )
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
@@ -177,7 +176,8 @@ def video(update: Update, context: CallbackContext):
     c_time = time.time()
     file_stark = f"{ytdl_data['id']}.mp4"
     capy = textwrap.dedent(
-        f"*Video Name ➠* `{thum}` \n*Requested For :* `{urlissed}` \n*Channel :* `{thums}` \n*Link :* `{mo}`")
+        f"*Video Name ➠* `{thum}` \n*Requested For :* `{urlissed}` \n*Channel :* `{thums}` \n*Link :* `{mo}`"
+    )
     bot.send_video(
         chat.id,
         video=open(file_stark, "rb"),
