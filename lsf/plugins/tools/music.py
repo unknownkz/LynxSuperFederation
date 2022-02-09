@@ -11,15 +11,9 @@ from lsf.plugins.disable import DisableAbleCommandHandler
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext, run_async
 
-try:
-    from youtubesearchpython import SearchVideos
-    from yt_dlp import YoutubeDL
+from youtubesearchpython import SearchVideos
+from yt_dlp import YoutubeDL
 
-except:
-    os.system("pip install pip install youtube-search-python")
-    os.system("pip install pip install yt_dlp")
-    from youtubesearchpython import SearchVideos
-    from yt_dlp import YoutubeDL
 
 
 def music(update: Update, context: CallbackContext):
