@@ -317,6 +317,17 @@ CONN_HELP = """
 
 def help_connect_chat(update, context):
 
+    args = context.args
+
+    if update.effective_message.chat.type != "private":
+        send_message(update.effective_message, "PM me with that command to get help.")
+        return
+    send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
+
+
+
+def connect_button(update, context):
+
     query = update.callback_query
     chat = update.effective_chat
     user = update.effective_user
