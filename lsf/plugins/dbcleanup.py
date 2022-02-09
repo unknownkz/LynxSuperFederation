@@ -90,7 +90,7 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
 def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
     safe = context.bot
-    
+
     get_a = msg.reply_text("Getting invalid chat count ...")
     invalid_chat_count = get_invalid_chats(update, context)
 
@@ -107,6 +107,7 @@ def dbcleanup(update: Update, context: CallbackContext):
         reply_markup=InlineKeyboardMarkup(buttons),
     )
     dispatcher.bot.delete_messages(chat_id, get_a)
+
 
 def callback_button(update: Update, context: CallbackContext):
     bot = context.bot
