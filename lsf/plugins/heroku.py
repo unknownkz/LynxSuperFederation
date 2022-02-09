@@ -80,7 +80,9 @@ async def variable(var):
                 return await s.edit(">`/set env <ENV> <VALUE>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await s.edit(f"`Environments` **{variable}**\n`Successfully changed to`  ->  **{value}**")
+            await s.edit(
+                f"`Environments` **{variable}**\n`Successfully changed to`  ->  **{value}**"
+            )
         else:
             await s.edit(
                 f"`Environments` **{variable}**\n`Successfully added to`  ->  **{value}**"
