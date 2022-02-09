@@ -90,10 +90,10 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
 def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
 
-    t = msg.reply_text("Getting invalid chat count ...")
+    msg.reply_text("Getting invalid chat count ...")
     invalid_chat_count = get_invalid_chats(update, context)
 
-    t += msg.reply_text("Getting invalid gbanned count ...")
+    msg.reply_text("Getting invalid gbanned count ...")
     invalid_gban_count = get_invalid_gban(update, context)
 
     reply = f"Total invalid chats - {invalid_chat_count}\n"
@@ -105,7 +105,7 @@ def dbcleanup(update: Update, context: CallbackContext):
         reply,
         reply_markup=InlineKeyboardMarkup(buttons),
     )
-    update.effective_message.delete_messages(t)
+
 
 def callback_button(update: Update, context: CallbackContext):
     bot = context.bot
