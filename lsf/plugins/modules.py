@@ -27,7 +27,7 @@ def load(update: Update, context: CallbackContext):
     )
 
     try:
-        imported_plugins = importlib.import_plugins("lsf.plugins." + text)
+        imported_plugins = importlib.import_module("lsf.plugins." + text)
     except:
         load_messasge.edit_text("Does that plugins even exist?")
         return
