@@ -102,6 +102,8 @@ if ENV:
     WORKERS = int(os.environ.get("WORKERS", 8))
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
+    ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
+
 
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT")
@@ -182,6 +184,7 @@ else:
     REM_BG_API_KEY = Unknown.REM_BG_API_KEY
     BAN_STICKER = Unknown.BAN_STICKER
     ALLOW_EXCL = Unknown.ALLOW_EXCL
+    ALLOW_CHATS = Unknown.ALLOW_CHATS
     CASH_API_KEY = Unknown.CASH_API_KEY
     TIME_API_KEY = Unknown.TIME_API_KEY
     WALL_API = Unknown.WALL_API
