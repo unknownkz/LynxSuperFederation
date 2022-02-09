@@ -104,7 +104,6 @@ if ENV:
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
-
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT")
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT")
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API")
