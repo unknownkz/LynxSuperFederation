@@ -8,7 +8,7 @@ from telegram.ext import CommandHandler, CallbackQueryHandler, run_async
 import lsf.database.connection_sql as sql
 from lsf import dispatcher, SD_ID, DEV_ID
 from lsf.handlers import valid
-from lsf.handlers.altraction import send_message, typing_action
+from lsf.handlers.altaraction import send_message, typing_action
 
 user_admin = valid.user_admin
 
