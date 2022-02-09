@@ -137,7 +137,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 
     if (
         not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in INSPECTOR
+        and user.id not in SD_ID
     ):
         message.reply_text("You don't have the necessary rights to do that!")
         return
@@ -630,7 +630,7 @@ def adminlist(update, context):
             if custom_title:
                 text += f"<code> ┗━ {html.escape(custom_title)}</code>\n"
 
-    text += "\n🔱 Admins:"
+    text += "\n👤 Admins:"
 
     custom_admin_list = {}
     normal_admin_list = []
