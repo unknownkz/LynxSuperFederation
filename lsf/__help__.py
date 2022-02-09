@@ -60,7 +60,7 @@ admin_mod_name = [
 ]
 
 for plugins_names in admin_mod_name:
-    admin_imported_plugins = importlib.import_plugins(plugins_names)
+    admin_imported_plugins = importlib.import_module(plugins_names)
     if not hasattr(admin_imported_plugins, "__mod_name__"):
         admin_imported_plugins.__mod_name__ = admin_imported_plugins.__name__
 
@@ -88,7 +88,7 @@ user_mod_name = [
 ]
 
 for u_plugins_names in user_mod_name:
-    user_imported_plugins = importlib.import_plugins(u_plugins_names)
+    user_imported_plugins = importlib.import_module(u_plugins_names)
     if not hasattr(user_imported_plugins, "__mod_name__"):
         user_imported_plugins.__mod_name__ = user_imported_plugins.__name__
 
@@ -116,7 +116,7 @@ tools_mod_name = [
 ]
 
 for t_plugins_name in tools_mod_name:
-    tools_imported_plugins = importlib.import_plugins(t_plugins_name)
+    tools_imported_plugins = importlib.import_module(t_plugins_name)
     if not hasattr(tools_imported_plugins, "__mod_name__"):
         tools_imported_plugins.__mod_name__ = tools_imported_plugins.__name__
 
@@ -131,7 +131,7 @@ for t_plugins_name in tools_mod_name:
         TOOLS[tools_imported_plugins.__mod_name__.lower()] = tools_imported_plugins
 
 for plugins_name in mod_name:
-    imported_plugins = importlib.import_plugins(plugins_name)
+    imported_plugins = importlib.import_module(plugins_name)
     if not hasattr(imported_plugins, "__mod_name__"):
         imported_plugins.__mod_name__ = imported_plugins.__name__
 
