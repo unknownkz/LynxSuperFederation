@@ -286,7 +286,7 @@ def user_help_button(update, context):
             plugins = mod_match.group(1)
             text = (
                 "Here is the help for the *{}* plugins:\n".format(
-                    USER[pugins].__mod_name__
+                    USER[plugins].__mod_name__
                 )
                 + USER[plugins].__help__
             )
