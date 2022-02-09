@@ -1,10 +1,7 @@
 import threading
 
 from sqlalchemy import BigInteger, Column, String, UnicodeText, distinct, func
-
 from . import BASE, SESSION
-
-from lsf.global.unvariable BLACKLIST_FILTER_INSERTION_LOCK, BLACKLIST_SETTINGS_INSERTION_LOCK, CHAT_BLACKLISTS, CHAT_SETTINGS_BLACKLISTS
 
 
 class BlackListFilters(BASE):
@@ -46,6 +43,12 @@ class BlacklistSettings(BASE):
 
 BlackListFilters.__table__.create(checkfirst=True)
 BlacklistSettings.__table__.create(checkfirst=True)
+
+BLACKLIST_FILTER_INSERTION_LOCK = threading.RLock()
+BLACKLIST_SETTINGS_INSERTION_LOCK = threading.RLock()
+
+CHAT_BLACKLISTS = {}
+CHAT_SETTINGS_BLACKLISTS = {}
 
 
 def add_to_blacklist(chat_id, trigger):
