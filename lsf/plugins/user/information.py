@@ -27,6 +27,7 @@ from lsf.database.users_sql import get_user_num_chats
 from lsf.handlers.valid import sudo_plus, user_admin, support_plus
 from lsf.handlers.extraction import extract_user
 
+
 def no_by_per(totalhp, percentage):
     """
     rtype: num of `percentage` from total
@@ -109,7 +110,6 @@ def make_bar(per):
     return "▪️" * done + "▫️" * (10 - done)
 
 
- 
 def get_id(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -160,62 +160,61 @@ def group_info(update: Update, context: CallbackContext):
     chat = update.effective_chat
 
     if args and len(args) >= 1:
+        try:
+            connect_chat = int(args[0])
+
+        except ValueError:
             try:
-                connect_chat = int(args[0])
+                connect_chat = str(args[0])
+                get_chat = context.bot.getChat(connect_chat)
+                connect_chat = get_chat.id
 
-            except ValueError:
-                try:
-                    connect_chat = str(args[0])
-                    get_chat = context.bot.getChat(connect_chat)
-                    connect_chat = get_chat.id
-
-                except BadRequest:
-                    bot.send_message(update.effective_message, "Invalid Chat ID!")
-                    return
             except BadRequest:
                 bot.send_message(update.effective_message, "Invalid Chat ID!")
                 return
-            entity = bot.get_chat(connect_chat)
-            totaladmin = bot.get_chat_administrators(entity.id)
-            msg = f"*Group info of* - `{entity.title}`\n" 
-            msg += f"\n*ID*: `{entity.id}`"
-            msg += f"\n*Title*: `{entity.title}`"
-            msg += f"\n*Description*: `{entity.description}`"
-            msg += f"\n*Supergroup*: `{entity.type}`"
-            msg += f"\n*Can Send*: `{entity.permissions.can_send_messages}`"
-            msg += f"\n*Bio*: `{entity.bio}`"
-            msg += f"\n*Slowmode*: `{entity.slow_mode_delay}`"
-            msg += f"\n*Location*: `{entity.location}`"
-            if entity.username:
-                msg += f"\n**Username*: @{entity.username}"
-            msg += "\n\n*Member Stats:*"
-            msg += f"\n`Admins:` `{len(totaladmin)}`"
-            if entity.invite_link:
-                msg += f"\n*Link*: {entity.invite_link}"
-            message.reply_text(msg, parse_mode=ParseMode.HTML)
+        except BadRequest:
+            bot.send_message(update.effective_message, "Invalid Chat ID!")
+            return
+        entity = bot.get_chat(connect_chat)
+        totaladmin = bot.get_chat_administrators(entity.id)
+        msg = f"*Group info of* - `{entity.title}`\n"
+        msg += f"\n*ID*: `{entity.id}`"
+        msg += f"\n*Title*: `{entity.title}`"
+        msg += f"\n*Description*: `{entity.description}`"
+        msg += f"\n*Supergroup*: `{entity.type}`"
+        msg += f"\n*Can Send*: `{entity.permissions.can_send_messages}`"
+        msg += f"\n*Bio*: `{entity.bio}`"
+        msg += f"\n*Slowmode*: `{entity.slow_mode_delay}`"
+        msg += f"\n*Location*: `{entity.location}`"
+        if entity.username:
+            msg += f"\n**Username*: @{entity.username}"
+        msg += "\n\n*Member Stats:*"
+        msg += f"\n`Admins:` `{len(totaladmin)}`"
+        if entity.invite_link:
+            msg += f"\n*Link*: {entity.invite_link}"
+        message.reply_text(msg, parse_mode=ParseMode.HTML)
 
     else:
-            entity = bot.get_chat(chat.id)
-            totaladmin = bot.get_chat_administrators(entity.id)
-            msg = f"**Group info of** - `{entity.title}`\n" 
-            msg += f"\n**ID**: `{entity.id}`"
-            msg += f"\n**Title**: `{entity.title}`"
-            msg += f"\n**Description**: `{entity.description}`"
-            msg += f"\n**Supergroup**: `{entity.type}`"
-            msg += f"\n**Can Send**: `{entity.permissions.can_send_messages}`"
-            msg += f"\n**Bio**: `{entity.bio}`"
-            msg += f"\n**Slowmode**: `{entity.slow_mode_delay}`"
-            msg += f"\n**Location**: `{entity.location}`"
-            if entity.username:
-                msg += f"\n**Username**: {entity.username}"
-            msg += "\n\n**Member Stats:**"
-            msg += f"\n`Admins:` `{len(totaladmin)}`"
-            if entity.invite_link:
-                msg += f"\n**Link**: {entity.invite_link}"
-            message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
+        entity = bot.get_chat(chat.id)
+        totaladmin = bot.get_chat_administrators(entity.id)
+        msg = f"**Group info of** - `{entity.title}`\n"
+        msg += f"\n**ID**: `{entity.id}`"
+        msg += f"\n**Title**: `{entity.title}`"
+        msg += f"\n**Description**: `{entity.description}`"
+        msg += f"\n**Supergroup**: `{entity.type}`"
+        msg += f"\n**Can Send**: `{entity.permissions.can_send_messages}`"
+        msg += f"\n**Bio**: `{entity.bio}`"
+        msg += f"\n**Slowmode**: `{entity.slow_mode_delay}`"
+        msg += f"\n**Location**: `{entity.location}`"
+        if entity.username:
+            msg += f"\n**Username**: {entity.username}"
+        msg += "\n\n**Member Stats:**"
+        msg += f"\n`Admins:` `{len(totaladmin)}`"
+        if entity.invite_link:
+            msg += f"\n**Link**: {entity.invite_link}"
+        message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
- 
 def gifid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.animation:
@@ -227,7 +226,6 @@ def gifid(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 
- 
 def info(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -255,7 +253,9 @@ def info(update: Update, context: CallbackContext):
     else:
         return
 
-    rep = message.reply_text("<code>Searching Information...</code>", parse_mode=ParseMode.HTML)
+    rep = message.reply_text(
+        "<code>Searching Information...</code>", parse_mode=ParseMode.HTML
+    )
 
     text = (
         f"╒═══「<b> Information:</b> 」\n"
@@ -299,16 +299,16 @@ def info(update: Update, context: CallbackContext):
         text += "\n┣|• This user is member of 'Yone Developer Team'."
         disaster_level_present = True
     elif user.id in SD_ID:
-        text += "\n┣|• This person is my Inspector. his Power level is near to my 'Owner' "
+        text += (
+            "\n┣|• This person is my Inspector. his Power level is near to my 'Owner' "
+        )
         disaster_level_present = True
     elif user.id in SUPPORT_ID:
         text += "\n┣|• This person is my Requester."
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/LSF_UPDATES">?</a>]'.format(
-            bot.username
-        )
+        text += ' [<a href="https://t.me/LSF_UPDATES">?</a>]'.format(bot.username)
 
     try:
         user_member = chat.get_member(user.id)
@@ -341,25 +341,25 @@ def info(update: Update, context: CallbackContext):
                 IPHOTO,
                 caption=(text),
                 parse_mode=ParseMode.HTML,
-                
             )
 
             os.remove(f"{user.id}.png")
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
-                text, parse_mode=ParseMode.HTML, 
+                text,
+                parse_mode=ParseMode.HTML,
             )
 
     else:
         message.reply_text(
-            text, parse_mode=ParseMode.HTML, 
+            text,
+            parse_mode=ParseMode.HTML,
         )
 
     rep.delete()
 
 
- 
 def about_me(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -376,7 +376,6 @@ def about_me(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             f"*{user.first_name}*:\n{escape_markdown(info)}",
             parse_mode=ParseMode.MARKDOWN,
-            
         )
     elif message.reply_to_message:
         username = message.reply_to_message.from_user.first_name
@@ -387,7 +386,6 @@ def about_me(update: Update, context: CallbackContext):
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
 
- 
 def set_about_me(update: Update, context: CallbackContext):
     message = update.effective_message
     user_id = message.from_user.id
@@ -419,16 +417,17 @@ def set_about_me(update: Update, context: CallbackContext):
             )
 
 
- 
 @support_plus
 def stats(update: Update, context: CallbackContext):
     first_name = update.effective_user.first_name
-    stats = f"<b>Current stats of {escape_markdown(context.bot.first_name)}:</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats = (
+        f"<b>Current stats of {escape_markdown(context.bot.first_name)}:</b>\n"
+        + "\n".join([mod.__stats__() for mod in STATS])
+    )
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
     update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
 
 
- 
 def about_bio(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -445,7 +444,6 @@ def about_bio(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             "*{}*:\n{}".format(user.first_name, escape_markdown(info)),
             parse_mode=ParseMode.MARKDOWN,
-            
         )
     elif message.reply_to_message:
         username = user.first_name
@@ -458,7 +456,6 @@ def about_bio(update: Update, context: CallbackContext):
         )
 
 
- 
 def set_about_bio(update: Update, context: CallbackContext):
     message = update.effective_message
     sender_id = update.effective_user.id
@@ -515,7 +512,6 @@ def __user_info__(user_id):
         result += f"┣|• <b>What others say:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
-
 
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio, run_async=True)

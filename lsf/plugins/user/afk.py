@@ -18,7 +18,6 @@ AFK_GROUP = 20
 AFK_REPLY_GROUP = 20
 
 
-
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
@@ -48,7 +47,6 @@ def afk(update: Update, context: CallbackContext):
         pass
 
 
-
 def no_longer_afk(update: Update, context: CallbackContext):
     user = update.effective_user
     chat = update.effective_chat
@@ -58,7 +56,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
         return
 
     res = sql.rm_afk(user.id)
-    if res and not disable_sql.is_command_disabled(chat.id, 'afk'):
+    if res and not disable_sql.is_command_disabled(chat.id, "afk"):
         if message.new_chat_members:  # dont say msg
             return
         firstname = update.effective_user.first_name
@@ -81,14 +79,13 @@ def no_longer_afk(update: Update, context: CallbackContext):
             return
 
 
-
 def reply_afk(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
     userc = update.effective_user
     userc_id = userc.id
     chat = update.effective_chat
-    if chat and disable_sql.is_command_disabled(chat.id, 'afk'):
+    if chat and disable_sql.is_command_disabled(chat.id, "afk"):
         return ""
     if message.entities and message.parse_entities(
         [MessageEntity.TEXT_MENTION, MessageEntity.MENTION],
@@ -111,7 +108,7 @@ def reply_afk(update: Update, context: CallbackContext):
                 return
 
             user_id = get_user_id(
-                message.text[ent.offset: ent.offset + ent.length],
+                message.text[ent.offset : ent.offset + ent.length],
             )
             if not user_id:
                 # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
@@ -136,7 +133,9 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
+def check_afk(
+    update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int
+):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
         if not user:
@@ -164,10 +163,16 @@ def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk",
+    Filters.regex(r"^(?i)brb(.*)$"),
+    afk,
+    friendly="afk",
 )
-NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.chat_type.group, no_longer_afk, run_async=True)
-AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.chat_type.group, reply_afk, run_async=True)
+NO_AFK_HANDLER = MessageHandler(
+    Filters.all & Filters.chat_type.group, no_longer_afk, run_async=True
+)
+AFK_REPLY_HANDLER = MessageHandler(
+    Filters.all & Filters.chat_type.group, reply_afk, run_async=True
+)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
