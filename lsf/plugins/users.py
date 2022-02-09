@@ -17,6 +17,10 @@ from lsf.handlers.valid import dev_plus, sudo_plus
 from lsf.database.users_sql import get_all_users
 
 
+USERS_GROUP = 5
+CHAT_GROUP = 5
+
+
 def get_user_id(username):
     # ensure valid userid
     if len(username) <= 5:
