@@ -19,7 +19,6 @@ feedparser
 faker
 hachoir
 pykeyboard
-pynewtonmath
 aiofiles
 ffmpeg-python
 spongemock
@@ -31,7 +30,6 @@ Pillow
 CurrencyConverter
 jikanpy
 speedtest-cli
-coffeehouse
 regex
 wikipedia
 markdown2
@@ -63,7 +61,6 @@ emoji-country-flag
 countryinfo
 html2text
 bs4
-redis
 pySmartDL
 bing_image_downloader
 search_engine_parser
@@ -75,15 +72,14 @@ envparse
 better_profanity
 textblob 
 nudepy
-nekos.py
 motor
 gpytranslate
 fontTools
 opencv-python-headless
-odmantic
 tzlocal
 pendulum
 fuzzysearch
 img2pdf
 multicolorcaptcha
 bleach
+humanize
