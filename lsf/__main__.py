@@ -280,7 +280,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
                             text="Support", url="t.me/LSF_SupportGroup"
                         ),
                         InlineKeyboardButton(
-                            text="Federation", url="t.me/FederationSupportGroup"
+                            text="Developer", url="t.me/xelyourslurred"
                         ),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="lynx_back")],
