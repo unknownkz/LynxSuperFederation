@@ -12,13 +12,9 @@ from telegram.ext import (
 )
 
 import lsf.database.users_sql as sql
-from lsf import DEV_ID, LOGGER, OWNER_ID, dispatcher
+from lsf import LOGGER, dispatcher
 from lsf.handlers.valid import dev_plus, sudo_plus
 from lsf.database.users_sql import get_all_users
-
-USERS_GROUP = 4
-CHAT_GROUP = 5
-DEV_AND_MORE = DEV_ID.add(int(OWNER_ID))
 
 
 def get_user_id(username):
