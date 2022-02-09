@@ -15,7 +15,7 @@ if is_plugins_loaded(FILENAME):
 
     from lsf import EVENT_LOGS, LOGGER, dispatcher
     from lsf.handlers.valid import user_admin
-    from lsf.database import log_channel_sql as sql
+    from lsf.database import logsch_sql as sql
 
     def loggable(func):
         @wraps(func)
