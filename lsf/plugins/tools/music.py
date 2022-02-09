@@ -15,7 +15,6 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 
 
-
 def music(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
