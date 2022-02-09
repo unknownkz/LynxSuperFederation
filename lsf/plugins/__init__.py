@@ -6,6 +6,7 @@ from lsf import LOAD, LOGGER, NO_LOAD
 
 def __list_all_plugins():
     import glob
+    from os.path import basename, dirname, isfile
     import os
 
     path = r"./lsf/plugins/"
