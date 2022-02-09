@@ -97,7 +97,7 @@ def unload(update: Update, context: CallbackContext):
     )
 
     try:
-        imported_plugins = importlib.import_plugins("lsf.plugins." + text)
+        imported_plugins = importlib.import_module("lsf.plugins." + text)
     except:
         unload_messasge.edit_text("Does that plugins even exist?")
         return
@@ -109,7 +109,7 @@ def unload(update: Update, context: CallbackContext):
     else:
         unload_messasge.edit_text("Can't unload something that isn't loaded.")
         return
-    if "__handlers__" in dir(imported_module):
+    if "__handlers__" in dir(imported_plugins):
         handlers = imported_plugins.__handlers__
         for handler in handlers:
             if isinstance(handler, bool):
