@@ -4,7 +4,7 @@ from telegram import Message, MessageEntity
 from telegram.error import BadRequest
 
 from .. import LOGGER as LOGS_LSF
-from .plugins.users import get_user_id
+from ..plugins.users import get_user_id
 
 
 def id_from_reply(message):
