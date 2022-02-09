@@ -19,11 +19,14 @@ def start() -> scoped_session:
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
 
-BASE = declarative_base()
 try:
+    BASE = declarative_base()
     SESSION = start()
 except Exception as e:
     LSF_LOGS.exception(f"[PostgreSQL] Failed to connect due to {e}")
     sys.exit()
 
 LSF_LOGS.info("[PostgreSQL] Connection successful, session started.")
+
+if SESSION is start():
+   sessions.commit()
