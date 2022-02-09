@@ -11,10 +11,13 @@ from lsf.plugins.disable import DisableAbleCommandHandler
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext, run_async
 
+from lsf.handlers.valid import bot_admin, user_admin
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 
 
+@bot_admin
+@user_admin
 def music(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
@@ -105,6 +108,8 @@ def music(update: Update, context: CallbackContext):
             os.remove(files)
 
 
+@bot_admin
+@user_admin
 def video(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
