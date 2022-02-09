@@ -1,8 +1,20 @@
 import html
 import os
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, message
+from telegram import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    ParseMode,
+    Update,
+    message,
+)
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters, run_async
+from telegram.ext import (
+    CallbackContext,
+    CallbackQueryHandler,
+    CommandHandler,
+    Filters,
+    run_async,
+)
 from telegram.utils.helpers import mention_html
 
 from lsf import SD_ID, dispatcher
@@ -23,7 +35,6 @@ from lsf.handlers.extraction import (
 )
 from lsf.plugins.admins.log_channel import loggable
 from lsf.handlers.altaraction import send_message, typing_action
-
 
 
 @connection_status
@@ -84,7 +95,7 @@ def promote(update: Update, context: CallbackContext) -> str:
             # can_promote_members=bot_member.can_promote_members,
             can_restrict_members=bot_member.can_restrict_members,
             can_pin_messages=bot_member.can_pin_messages,
-            can_manage_voice_chats = bot_member.can_manage_voice_chats
+            can_manage_voice_chats=bot_member.can_manage_voice_chats,
         )
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
@@ -167,7 +178,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
             can_promote_members=bot_member.can_promote_members,
             can_restrict_members=bot_member.can_restrict_members,
             can_pin_messages=bot_member.can_pin_messages,
-            can_manage_voice_chats = bot_member.can_manage_voice_chats
+            can_manage_voice_chats=bot_member.can_manage_voice_chats,
         )
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
@@ -190,7 +201,6 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
     )
 
     return log_message
-
 
 
 @connection_status
@@ -266,7 +276,7 @@ def demote(update: Update, context: CallbackContext) -> str:
         )
         return
 
- 
+
 @user_admin
 def refresh_admin(update, _):
     try:
@@ -277,7 +287,6 @@ def refresh_admin(update, _):
     update.effective_message.reply_text("Admins cache refreshed!")
 
 
- 
 @connection_status
 @bot_admin
 @can_promote
@@ -351,7 +360,6 @@ def setchatpic(update, context):
     msg = update.effective_message
     user = update.effective_user
 
-
     if msg.reply_to_message:
         if msg.reply_to_message.photo:
             pic_id = msg.reply_to_message.photo[-1].file_id
@@ -394,7 +402,6 @@ def rmchatpic(update, context):
         return
 
 
-
 @user_can_changeinfo
 @bot_admin
 @user_admin
@@ -421,8 +428,7 @@ def setchat_title(update, context):
         return
 
 
-
-@user_can_changeinfo 
+@user_can_changeinfo
 @bot_admin
 @user_admin
 @typing_action
@@ -439,8 +445,7 @@ def set_sticker(update, context):
         stkr = msg.reply_to_message.sticker.set_name
         try:
             context.bot.set_chat_sticker_set(chat.id, stkr)
-            msg.reply_text(
-                f"Successfully set new group stickers in {chat.title}!")
+            msg.reply_text(f"Successfully set new group stickers in {chat.title}!")
         except BadRequest as excp:
             if excp.message == "Participants_too_few":
                 return msg.reply_text(
@@ -448,11 +453,10 @@ def set_sticker(update, context):
                 )
             msg.reply_text(f"Error! {excp.message}.")
     else:
-        msg.reply_text(
-            "You need to reply to some sticker to set chat sticker set!")
+        msg.reply_text("You need to reply to some sticker to set chat sticker set!")
 
 
-@user_can_changeinfo 
+@user_can_changeinfo
 @bot_admin
 @user_admin
 @typing_action
@@ -468,11 +472,9 @@ def set_desc(update, context):
         return msg.reply_text("Setting empty description won't do anything!")
     try:
         if len(desc) > 255:
-            return msg.reply_text(
-                "Description must needs to be under 255 characters!")
+            return msg.reply_text("Description must needs to be under 255 characters!")
         context.bot.set_chat_description(chat.id, desc)
-        msg.reply_text(
-            f"Successfully updated chat description in {chat.title}!")
+        msg.reply_text(f"Successfully updated chat description in {chat.title}!")
     except BadRequest as excp:
         msg.reply_text(f"Error! {excp.message}.")
 
@@ -482,7 +484,6 @@ def __chat_settings__(chat_id, user_id):
         dispatcher.bot.get_chat_member(chat_id, user_id).status
         in ("administrator", "creator")
     )
-
 
 
 @bot_admin
@@ -496,12 +497,12 @@ def pin(update: Update, context: CallbackContext) -> str:
     user = update.effective_user
     chat = update.effective_chat
 
-    is_group = chat.type not in ('private', 'channel')
+    is_group = chat.type not in ("private", "channel")
     prev_message = update.effective_message.reply_to_message
 
     is_silent = True
     if len(args) >= 1:
-        is_silent = args[0].lower() in ('notify', 'loud', 'violent')
+        is_silent = args[0].lower() in ("notify", "loud", "violent")
 
     if prev_message and is_group:
         try:
@@ -522,7 +523,6 @@ def pin(update: Update, context: CallbackContext) -> str:
         return log_message
 
 
- 
 @bot_admin
 @can_pin
 @user_admin
@@ -549,8 +549,6 @@ def unpin(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-
- 
 @bot_admin
 @user_admin
 @connection_status
@@ -575,11 +573,10 @@ def invite(update: Update, context: CallbackContext):
         )
 
 
- 
 @connection_status
 def adminlist(update, context):
-    chat = update.effective_chat  
-    user = update.effective_user 
+    chat = update.effective_chat
+    user = update.effective_user
     args = context.args
     bot = context.bot
 
@@ -689,8 +686,6 @@ def adminlist(update, context):
         return
 
 
-
-
 @bot_admin
 @can_pin
 @user_admin
@@ -702,11 +697,16 @@ def unpinall(update: Update, context: CallbackContext):
     context.bot.send_message(
         chat_id=update.effective_chat.id,
         text="Are you sure you want to unpin all messages?",
-        reply_markup=InlineKeyboardMarkup([[
-            InlineKeyboardButton(text="Yes", callback_data="unpinallbtn_yes"),
-            InlineKeyboardButton(text="No", callback_data="unpinallbtn_no"),
-        ]]),
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(text="Yes", callback_data="unpinallbtn_yes"),
+                    InlineKeyboardButton(text="No", callback_data="unpinallbtn_no"),
+                ]
+            ]
+        ),
     )
+
 
 @bot_admin
 @user_admin
@@ -718,9 +718,9 @@ def unpinallbtn(update: Update, context: CallbackContext):
     query = update.callback_query
     user = update.effective_user
     reply = query.data.split("_")[1]
-    if reply == 'yes':
+    if reply == "yes":
         try:
-            unpinned =  bot.unpinAllChatMessages(chat.id)
+            unpinned = bot.unpinAllChatMessages(chat.id)
             if unpinned:
                 query.message.edit_text("Successfully unpinned all messages!")
             else:
@@ -730,17 +730,20 @@ def unpinallbtn(update: Update, context: CallbackContext):
                 pass
             else:
                 raise
-        
+
     else:
         query.message.edit_text("Unpin of all pinned messages has been cancelled.")
         return
-    log_message = "<b>{}:</b>" \
-                  "\n#UNPINNEDALL" \
-                  "\n<b>Admin:</b> {}".format(
-                      html.escape(chat.title),
-                      mention_html(user.id, user.first_name),
-                  )
+    log_message = (
+        "<b>{}:</b>"
+        "\n#UNPINNEDALL"
+        "\n<b>Admin:</b> {}".format(
+            html.escape(chat.title),
+            mention_html(user.id, user.first_name),
+        )
+    )
     return log_message
+
 
 __help__ = """
 Admins Play Major Roles To Manage A Group, We Have Created Some Hack Command In Our Bot So It Will Help To Manage Group Easily Via Bot.
@@ -766,18 +769,25 @@ You Just Need To Give Commands To Bot And But Will Work for You. Click On Bellow
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist, run_async=True)
 
-PIN_HANDLER = CommandHandler("pin", pin, filters=Filters.chat_type.groups, run_async=True)
-UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.chat_type.groups, run_async=True)
-UNPINALL_HANDLER = CommandHandler("unpinall", unpinall, filters=Filters.chat_type.groups, run_async=True)
+PIN_HANDLER = CommandHandler(
+    "pin", pin, filters=Filters.chat_type.groups, run_async=True
+)
+UNPIN_HANDLER = CommandHandler(
+    "unpin", unpin, filters=Filters.chat_type.groups, run_async=True
+)
+UNPINALL_HANDLER = CommandHandler(
+    "unpinall", unpinall, filters=Filters.chat_type.groups, run_async=True
+)
 UNPINALL_BTN_HANDLER = CallbackQueryHandler(unpinallbtn, pattern=r"unpinallbtn_")
 
 
 INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, run_async=True)
 
 PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, run_async=True)
-FULL_PROMOTE_HANDLER = DisableAbleCommandHandler("fullpromote", fullpromote, run_async=True)
+FULL_PROMOTE_HANDLER = DisableAbleCommandHandler(
+    "fullpromote", fullpromote, run_async=True
+)
 DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
-
 
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, run_async=True)
@@ -785,18 +795,21 @@ ADMIN_REFRESH_HANDLER = CommandHandler(
     "admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True
 )
 
-CHAT_PIC_HANDLER = CommandHandler("setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True)
+CHAT_PIC_HANDLER = CommandHandler(
+    "setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True
+)
 DEL_CHAT_PIC_HANDLER = CommandHandler(
-    "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True)
+    "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True
+)
 SETCHAT_TITLE_HANDLER = CommandHandler(
     "setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True
 )
 SETSTICKET_HANDLER = CommandHandler(
-    "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True)
+    "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True
+)
 SETDESC_HANDLER = CommandHandler(
-    "setdescription",
-    set_desc,
-    filters=Filters.chat_type.groups, run_async=True)
+    "setdescription", set_desc, filters=Filters.chat_type.groups, run_async=True
+)
 
 dispatcher.add_handler(ADMINLIST_HANDLER)
 dispatcher.add_handler(PIN_HANDLER)
