@@ -46,7 +46,6 @@ if is_plugins_loaded(FILENAME):
                 if admin_ok:
                     ADMIN_CMDS.extend(command)
 
-
         def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
                 message = update.effective_message
@@ -90,7 +89,6 @@ if is_plugins_loaded(FILENAME):
                             return args, filter_result
                         return False
 
-
     class DisableAbleMessageHandler(MessageHandler):
         def __init__(self, filters, callback, friendly, **kwargs):
 
@@ -118,7 +116,6 @@ if is_plugins_loaded(FILENAME):
                     return False
                 return args, filter_result
 
-
     class DisableAbleRegexHandler(RegexHandler):
         def __init__(self, pattern, callback, friendly="", filters=None, **kwargs):
             super().__init__(pattern, callback, filters, **kwargs)
@@ -132,7 +129,6 @@ if is_plugins_loaded(FILENAME):
                     return False
 
                 return True
-
 
     @connection_status
     @user_admin
@@ -155,7 +151,6 @@ if is_plugins_loaded(FILENAME):
 
         else:
             update.effective_message.reply_text("What should I disable?")
-
 
     @connection_status
     @user_admin
@@ -209,7 +204,6 @@ if is_plugins_loaded(FILENAME):
         else:
             update.effective_message.reply_text("What should I disable?")
 
-
     @connection_status
     @user_admin
     def enable(update: Update, context: CallbackContext):
@@ -229,7 +223,6 @@ if is_plugins_loaded(FILENAME):
 
         else:
             update.effective_message.reply_text("What should I enable?")
-
 
     @connection_status
     @user_admin
@@ -283,7 +276,6 @@ if is_plugins_loaded(FILENAME):
         else:
             update.effective_message.reply_text("What should I enable?")
 
-
     @connection_status
     @user_admin
     def list_cmds(update: Update, context: CallbackContext):
@@ -308,7 +300,6 @@ if is_plugins_loaded(FILENAME):
         for cmd in disabled:
             result += " - `{}`\n".format(escape_markdown(cmd))
         return "The following commands are currently restricted:\n{}".format(result)
-
 
     @connection_status
     def commands(update: Update, context: CallbackContext):
