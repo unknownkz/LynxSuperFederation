@@ -1,13 +1,6 @@
 import threading
 
 from sqlalchemy import Column, Integer, String, UnicodeText
-
-from lsf.global.unvariable import (
-    CHAT_FLOOD,
-    INSERTION_FLOOD_LOCK,
-    INSERTION_FLOOD_SETTINGS_LOCK,
-)
-
 from . import BASE, SESSION
 
 DEF_COUNT = 1
@@ -46,6 +39,11 @@ class FloodSettings(BASE):
 
 FloodControl.__table__.create(checkfirst=True)
 FloodSettings.__table__.create(checkfirst=True)
+
+INSERTION_FLOOD_LOCK = threading.RLock()
+INSERTION_FLOOD_SETTINGS_LOCK = threading.RLock()
+
+CHAT_FLOOD = {}
 
 
 def set_flood(chat_id, amount):
@@ -136,6 +134,7 @@ def migrate_chat(old_chat_id, new_chat_id):
 
 
 def __load_flood_settings():
+    global CHAT_FLOOD
     try:
         all_chats = SESSION.query(FloodControl).all()
         CHAT_FLOOD = {chat.chat_id: (None, DEF_COUNT, chat.limit)
