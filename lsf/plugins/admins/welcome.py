@@ -24,7 +24,7 @@ from lsf.handlers.string_handling import (
     markdown_parser,
 )
 from lsf.plugins.admins.log_channel import loggable
-from lsf.database.global_bans_sql import is_user_gbanned
+from lsf.database.gban_sql import is_user_gbanned
 from telegram import (
     ChatPermissions,
     InlineKeyboardButton,
