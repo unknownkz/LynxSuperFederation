@@ -193,7 +193,7 @@ VIDEO_HANDLER = DisableAbleCommandHandler("video", video, run_async=True)
 dispatcher.add_handler(SONG_HANDLER)
 dispatcher.add_handler(VIDEO_HANDLER)
 
-__mod_name__ = "Music"
+__mod_name__ = "Music & Video"
 
 __help__ = """ *Now Donwload and hear/watch song on telegram
  ‣ `/song i'll be friends with u`*:* download song from youtube server for you
