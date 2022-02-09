@@ -29,4 +29,4 @@ except Exception as e:
 LSF_LOGS.info("[PostgreSQL] Connection successful, session started.")
 
 if SESSION is start():
-   sessions.commit()
+    sessions.commit()
