@@ -36,7 +36,7 @@ DEFAULT_WELCOME_MESSAGES = [
     "{first} hopped into the chat. Kangaroo!!",
     "{first} just showed up. Hold my beer.",
     "Challenger approaching! {first} has appeared!",
-    ]
+]
 
 DEFAULT_GOODBYE_MESSAGES = [
     "{first} will be missed.",
@@ -53,7 +53,8 @@ DEFAULT_GOODBYE_MESSAGES = [
     "Goodbye {first}! Guess who's gonna miss you :')",
     "Goodbye {first}! It's gonna be lonely without ya.",
     "Please don't leave me alone in this place, {first}!",
-    ]
+]
+
 
 class Welcome(BASE):
     __tablename__ = "welcome_pref"
@@ -63,7 +64,8 @@ class Welcome(BASE):
     custom_content = Column(UnicodeText, default=None)
 
     custom_welcome = Column(
-        UnicodeText, default=random.choice(DEFAULT_WELCOME_MESSAGES),
+        UnicodeText,
+        default=random.choice(DEFAULT_WELCOME_MESSAGES),
     )
     welcome_type = Column(BigInteger, default=Types.TEXT.value)
 
@@ -79,7 +81,8 @@ class Welcome(BASE):
 
     def __repr__(self):
         return "<Chat {} should Welcome new users: {}>".format(
-            self.chat_id, self.should_welcome,
+            self.chat_id,
+            self.should_welcome,
         )
 
 
@@ -223,7 +226,7 @@ def get_welc_pref(chat_id):
     if welc:
         return (
             welc.should_welcome,
-            welc.custom_welcome or '',
+            welc.custom_welcome or "",
             welc.custom_content,
             welc.welcome_type,
         )
@@ -289,7 +292,11 @@ def set_gdbye_preference(chat_id, should_goodbye):
 
 
 def set_custom_welcome(
-    chat_id, custom_content, custom_welcome, welcome_type, buttons=None,
+    chat_id,
+    custom_content,
+    custom_welcome,
+    welcome_type,
+    buttons=None,
 ):
     if buttons is None:
         buttons = []
