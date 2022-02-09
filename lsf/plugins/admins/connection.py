@@ -325,7 +325,6 @@ def help_connect_chat(update, context):
     send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
 
-
 def connect_button(update, context):
 
     query = update.callback_query
