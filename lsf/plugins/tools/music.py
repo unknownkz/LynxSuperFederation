@@ -187,16 +187,19 @@ def video(update: Update, context: CallbackContext):
             os.remove(files)
 
 
-__mod_name__ = "Music"
-
-__help__ = """ *Now Donwload and hear/watch song on telegram
- ‣ `/song on my way`*:* it will down song from youtube server for you
- ‣ `/video born alone die alone` *:* download video from youtube
-"""
-
-
 SONG_HANDLER = DisableAbleCommandHandler(["song", "music"], music, run_async=True)
 VIDEO_HANDLER = DisableAbleCommandHandler("video", video, run_async=True)
 
 dispatcher.add_handler(SONG_HANDLER)
 dispatcher.add_handler(VIDEO_HANDLER)
+
+__mod_name__ = "Music"
+
+__help__ = """ *Now Donwload and hear/watch song on telegram
+ ‣ `/song i'll be friends with u`*:* download song from youtube server for you
+ ‣ `/video if u could see me cryin` *:* download video from youtube
+"""
+
+__command_list__ = []
+
+__handlers__ = [SONG_HANDLER, VIDEO_HANDLER]
