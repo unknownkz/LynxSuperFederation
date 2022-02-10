@@ -92,7 +92,7 @@ def get_readable_time(seconds: int) -> str:
 
 SYNC = Path("LynxFederationSuperGroup/srcs/images/lynxfed.jpg").absolute().parent
 APAYA = SYNC / "lynxfed.jpg"
-file = APAYA.open()
+hmmm = APAYA.open()
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
 
@@ -199,7 +199,7 @@ def start(update: Update, context: CallbackContext):
 
         else:
             update.effective_message.reply_photo(
-                SYNC,
+                filename=hmmm,
                 caption=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name),
