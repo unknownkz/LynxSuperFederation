@@ -273,7 +273,8 @@ def lynx_about_callback(update: Update, context: CallbackContext):
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "lynx_":
         query.message.edit_text(
-            text="""Hello *{}*, My name is *{}*. A Powerful Telegram Group Management Bot built to help you manage Group easily.
+            text="""Hello *{}*, My name is *{}*.
+            A Powerful Telegram Group Management Bot built to help you manage Group easily.
             \n ‣ I can Restrict Users.
             \n ‣ I can Greet Users with customizable welcome message and even set a group rules
             \n ‣ I have an advanced Anti-Flood System which will help you to safe group from Spammmer.
@@ -282,8 +283,8 @@ def lynx_about_callback(update: Update, context: CallbackContext):
             \n ‣ I check Admins Permissions before perform any Command and more Stuffs.
             \n ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
             \n*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
-            \n*Info Server*\
-            `Starting from: {}`\
+            \n*Info Server*
+            `Starting from: {}`
             `and {} users in {} chats.`""".format(
                 escape_markdown(first_name),
                 escape_markdown(context.bot.first_name),
