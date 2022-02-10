@@ -1,5 +1,6 @@
 import html
 import time
+
 from datetime import datetime
 from io import BytesIO
 
@@ -13,8 +14,8 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-import lsf.database.gban_sql.py as sql
-from lsf.database.gban_sql.py import get_user_com_chats
+from lsf.database import gban_sql.py as sql
+from lsf.database.users_sql.py import get_user_com_chats
 from lsf import (
     DEV_ID,
     EVENT_LOGS,
@@ -93,7 +94,7 @@ def gban(update: Update, context: CallbackContext):
         )
         return
 
-    if int(user_id) in SD_ID :
+    if int(user_id) in SD_ID:
         message.reply_text(
             "I spy, with my little eye... a disaster! Why are you guys turning on each other?",
         )
@@ -109,7 +110,7 @@ def gban(update: Update, context: CallbackContext):
         message.reply_text("That's a Tiger! They cannot be banned!")
         return
 
-    if int(user_id) in WHITELIST_IW:
+    if int(user_id) in WHITELIST_ID:
         message.reply_text("That's a Wolf! They cannot be banned!")
         return
 
@@ -117,7 +118,7 @@ def gban(update: Update, context: CallbackContext):
         message.reply_text("You uhh...want me to punch myself?")
         return
 
-    if user_id in [777000, 1087968824]:
+    if user_id in [777000, 1448477501]:
         message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
 
@@ -415,7 +416,7 @@ def gbanlist(update: Update, context: CallbackContext):
 
 def check_and_ban(update, user_id, should_message=True):
 
-    if user_id in TIGERS_ID or user_id in WOLVES:
+    if user_id in TIGERS_ID or user_id in WHITELIST_ID:
         sw_ban = None
     else:
         try:
@@ -512,11 +513,11 @@ def __stats__():
 def __user_info__(user_id):
     is_gbanned = sql.is_user_gbanned(user_id)
     text = "Malicious: <b>{}</b>"
-    if user_id in [777000, 1087968824]:
+    if user_id in [777000, 1448477501]:
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
+    if int(user_id) in SD_ID + TIGERS_ID + WHITELIST_ID:
         return ""
     if is_gbanned:
         text = text.format("Yes")
@@ -539,7 +540,7 @@ def __chat_settings__(chat_id, user_id):
 
 __help__ = f"""
 *Admins only:*
-❂ `/antispam <on/off/yes/no>`*:* Will toggle our antispam tech or return your current settings.
+`/antispam <on/off/yes/no>`*:* Will toggle our antispam tech or return your current settings.
 Anti-Spam, used by bot devs to ban spammers across all groups. This helps protect \
 you and your groups by removing spam flooders as quickly as possible.
 *Note:* Users can appeal gbans or report spammers at @{SUPPORT_CHAT}
