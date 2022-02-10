@@ -249,7 +249,6 @@ def join_fed(update: Update, context: CallbackContext):
 
     message = update.effective_message
     administrators = chat.get_administrators()
-    fed_id = sql.get_fed_id(chat.id)
 
     if user.id in SD_ID:
         pass
@@ -264,9 +263,6 @@ def join_fed(update: Update, context: CallbackContext):
                         "Only group creators can use this command!",
                     )
                     return
-    if fed_id:
-        message.reply_text("You cannot join two federations from one chat")
-        return
 
     if len(args) >= 1:
         getfed = sql.search_fed_by_id(args[0])
