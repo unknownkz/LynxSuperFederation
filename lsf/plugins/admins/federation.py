@@ -26,6 +26,7 @@ from lsf.handlers.extraction import (
     extract_unt_fedban,
     extract_user,
     extract_user_fban,
+    extract_user_and_text,
 )
 
 from lsf.handlers.string_handling import markdown_parser
@@ -591,7 +592,7 @@ def fed_ban(update: Update, context: CallbackContext):
 
     message = update.effective_message
 
-    user_id, reason = extract_unt_fedban(message, args)
+    user_id, reason = extract_user_and_text(message, args)
 
     fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
 
