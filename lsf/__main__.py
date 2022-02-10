@@ -222,9 +222,7 @@ def start(update: Update, context: CallbackContext):
                             InlineKeyboardButton(
                                 text="Tools", callback_data="tools_back"
                             ),
-                            InlineKeyboardButton(
-                                text="About", callback_data="lynx_"
-                            ),
+                            InlineKeyboardButton(text="About", callback_data="lynx_"),
                         ],
                         [
                             InlineKeyboardButton(
