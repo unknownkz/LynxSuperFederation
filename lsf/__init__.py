@@ -92,6 +92,8 @@ if ENV:
     STRING_SESSION = os.environ.get("STRING_SESSION")
     DATABASE_URL = os.environ.get("DATABASE_URL")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
+    ARQ_API_URL = os.environ.get("ARQ_API_URL")
+    ARQ_API_KEY = os.environ.get("ARQ_API_KEY")
 
     DONATION_LINK = os.environ.get("DONATION_LINK", "https://patreon.com/iamkenzo")
     LOAD = os.environ.get("LOAD", "").split()
@@ -167,7 +169,7 @@ else:
     CERT_PATH = Unknown.CERT_PATH
     API_ID = Unknown.API_ID
     API_HASH = Unknown.API_HASH
-    ARQ_API = Unknown.ARQ_API_KEY
+    ARQ_API_KEY = Unknown.ARQ_API_KEY
     ARQ_API_URL = Unknown.ARQ_API_URL
 
     UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
