@@ -194,7 +194,8 @@ def start(update: Update, context: CallbackContext):
 
         else:
             update.effective_message.reply_photo(
-                INFOPIC, caption=PM_START_TEXT.format(
+                INFOPIC,
+                caption=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name),
                     escape_markdown(uptime),
