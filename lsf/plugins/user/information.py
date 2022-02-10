@@ -296,15 +296,15 @@ def info(update: Update, context: CallbackContext):
         text += "\n┣|• This User Is My 'Creator'."
         disaster_level_present = True
     elif user.id in DEV_ID:
-        text += "\n┣|• This user is member of 'Yone Developer Team'."
+        text += "\n┣|• This user is member of 'Lynx Developer Team'."
         disaster_level_present = True
     elif user.id in SD_ID:
         text += (
-            "\n┣|• This person is my Inspector. his Power level is near to my 'Owner' "
+            "\n┣|• This person is My Contributor. his Power level is near to my 'Owner' "
         )
         disaster_level_present = True
     elif user.id in SUPPORT_ID:
-        text += "\n┣|• This person is my Requester."
+        text += "\n┣|• This person is My Team Support."
         disaster_level_present = True
 
     if disaster_level_present:
