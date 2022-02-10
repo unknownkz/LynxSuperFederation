@@ -106,8 +106,8 @@ So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
 
 *INFO*
-`Starting from: {}`
-*And* `{} users` *in* `{} chats.`
+`Starting from: {}
+and {} users in {} chats.`
 """
 
 
