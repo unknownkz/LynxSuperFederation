@@ -41,36 +41,6 @@ def split_limits(text):
     return result
 
 
-def greatest(func):
-    @wraps(func)
-    async def metaverse(client, message, *args, **kwargs):
-        try:
-            return await func(client, message, *args, **kwargs)
-        except ChatWriteForbidden:
-            await xx.leave_chat(message.chat.id)
-            return
-        except Exception as master:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            errors = traceback.format_exception(
-                etype=exc_type,
-                value=exc_obj,
-                tb=exc_tb,
-            )
-            error_feedback = split_limits(
-                "**ERROR** | `{}` | `{}`\n\n```{}```\n\n```{}```\n".format(
-                    0 if not message.from_user else message.from_user.id,
-                    0 if not message.chat else message.chat.id,
-                    message.text or message.caption,
-                    "".join(errors),
-                ),
-            )
-            for a in error_feedback:
-                await xx.send_message(LOGGER, a)
-            raise master
-
-    return metaverse
-
-
 def portable(host, port, content):
     go = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     go.connect((host, port))
@@ -108,6 +78,36 @@ async def preview_str(preview: str) -> bool:
         else:
             return True if status == 200 else False
     return False
+
+
+def greatest(func):
+    @wraps(func)
+    async def metaverse(client, message, *args, **kwargs):
+        try:
+            return await func(client, message, *args, **kwargs)
+        except ChatWriteForbidden:
+            await xx.leave_chat(message.chat.id)
+            return
+        except Exception as master:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            errors = traceback.format_exception(
+                etype=exc_type,
+                value=exc_obj,
+                tb=exc_tb,
+            )
+            error_feedback = split_limits(
+                "**ERROR** | `{}` | `{}`\n\n```{}```\n\n```{}```\n".format(
+                    0 if not message.from_user else message.from_user.id,
+                    0 if not message.chat else message.chat.id,
+                    message.text or message.caption,
+                    "".join(errors),
+                ),
+            )
+            for a in error_feedback:
+                await xx.send_message(LOGGER, a)
+            raise master
+
+    return metaverse
 
 
 @xx.on_message(filters.command("pasbin") & ~filters.edited)
