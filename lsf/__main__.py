@@ -90,8 +90,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-SYNC = Path("/srcs/images/lynxfed.jpg").absolute().parent
-APAYA = SYNC / "lynxfed.jpg"
+SYNC = Path("lynxfed.jpg").absolute().parent
+APAYA = SYNC
 hmmm = APAYA.open()
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
