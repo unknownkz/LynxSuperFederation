@@ -282,9 +282,9 @@ def lynx_about_callback(update: Update, context: CallbackContext):
             \n ‣ I check Admins Permissions before perform any Command and more Stuffs.
             \n ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
             \n*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
-            \n*Info Server*
-            \n`Starting from: {}`
-            \n`and {} users in {} chats.`""".format(
+            \n*Info Server*\
+            `Starting from: {}`\
+            `and {} users in {} chats.`""".format(
                 escape_markdown(first_name),
                 escape_markdown(context.bot.first_name),
                 escape_markdown(uptime),
