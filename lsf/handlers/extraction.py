@@ -31,7 +31,7 @@ def extract_user_and_text(message: Message, args: List[str]) -> (Optional[int], 
 
     text_to_parse = split_text[1]
 
-    text = "_"
+    text = ""
 
     entities = list(message.parse_entities([MessageEntity.TEXT_MENTION]))
     ent = entities[0] if entities else None
