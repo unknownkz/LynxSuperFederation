@@ -270,6 +270,7 @@ def start(update: Update, context: CallbackContext):
 def lynx_about_callback(update: Update, context: CallbackContext):
     first_name = update.effective_user.first_name
     query = update.callback_query
+    uptime = get_readable_time((time.time() - StartTime))
     if query.data == "lynx_":
         query.message.edit_text(
             text="""Hello *{}*, My name is *{}*. A Powerful Telegram Group Management Bot built to help you manage Group easily.
