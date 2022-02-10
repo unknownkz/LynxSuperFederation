@@ -8,13 +8,5 @@ enabled = true
   runtime_version = "3.x.x"
 
 [[analyzers]]
-name = "shell"
-enabled = true
-
-[[analyzers]]
 name = "secrets"
-enabled = true
-
-[[transformers]]
-name = "black"
 enabled = true
