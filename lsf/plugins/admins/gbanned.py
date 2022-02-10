@@ -14,7 +14,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from lsf.database import gban_sql.py as sql
+from lsf.database import gban_sql as sql
 from lsf.database.users_sql.py import get_user_com_chats
 from lsf import (
     DEV_ID,
