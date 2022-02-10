@@ -113,7 +113,7 @@ async def preview_str(preview: str) -> bool:
 @greatest
 async def paste_func(_, message):
     if not message.reply_to_message:
-        return await message.reply_text("Reply To A Message With /paste")
+        return await message.reply_text("Reply To A Message With /pasbin")
     m = await message.reply_text("Pasting...")
     if message.reply_to_message.text:
         content = str(message.reply_to_message.text)
@@ -139,3 +139,6 @@ async def paste_func(_, message):
         except Exception:
             pass
     return await m.edit(link)
+
+
+__mod_name__ = "PasteBin​"
