@@ -22,7 +22,6 @@ from lsf import aiohttpsession as index
 from lsf import LOGGER, xx
 
 
-
 def split_limits(text):
     if len(text) < 2048:
         return [text]
@@ -87,7 +86,9 @@ def portable(host, port, content):
 
 async def paste_bin(content):
     loop = get_running_loop()
-    link = await loop.run_in_executor(None, partial(portable, "ezup.dev", 9999, content))
+    link = await loop.run_in_executor(
+        None, partial(portable, "ezup.dev", 9999, content)
+    )
     return link
 
 
