@@ -106,7 +106,7 @@ I have lots of handy features such as:
 So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
 
-*Info Server*
+*INFO SERVER*
 `Starting from: {}
 and {} users in {} chats.`
 """
@@ -223,7 +223,7 @@ def start(update: Update, context: CallbackContext):
                                 text="Tools", callback_data="tools_back"
                             ),
                             InlineKeyboardButton(
-                                text="Information", callback_data="lynx_"
+                                text="About", callback_data="lynx_"
                             ),
                         ],
                         [
@@ -267,20 +267,18 @@ def start(update: Update, context: CallbackContext):
         )
 
 
-PM_START_TEXT2 = """ Hello *{}*, My name is *{}*
+PM_START_TEXT2 = """ Hello *{}*, My Name is *{}*
 A Powerful Telegram Group Management Bot built to help you manage Group easily.
 
- ‣ I can Restrict Users.
- ‣ I can Greet Users with customizable welcome message and even set a group rules
- ‣ I have an advanced Anti-Flood System which will help you to safe group from Spammmer.
- ‣ I can Warn Users until they reach max Warns, with each predefined actions such as Ban, Mute, Kick, Fban etc.
- ‣ I have Note Keeping System, Blacklists, And even Predetermined replies on certain keywords.
- ‣ I check Admins Permissions before perform any Command and more Stuffs.
- ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
+*About me:*
+`I was created to manage your groups
+on telegram and focuses on the Federation.
+I made this to root out telegram users who
+global broadcast or spam etc.`
 
 *If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
 
-*Info Server*
+*INFO SERVER*
 `Starting from: {}
 and {} users in {} chats.`
 """
@@ -339,7 +337,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
                     ],
                     [
                         InlineKeyboardButton(text="Tools", callback_data="tools_back"),
-                        InlineKeyboardButton(text="Information", callback_data="lynx_"),
+                        InlineKeyboardButton(text="About", callback_data="lynx_"),
                     ],
                     [
                         InlineKeyboardButton(
