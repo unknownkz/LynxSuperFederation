@@ -3,6 +3,7 @@
 
 import time, re, psutil
 
+from pathlib import Path
 from platform import python_version
 from sys import argv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
@@ -89,7 +90,9 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-SYNC = open("/srcs/images/lynxfed.jpg", "rb")
+SYNC = Path("LynxFederationSuperGroup/srcs/images/lynxfed.jpg").absolute().parent
+APAYA = SYNC / "lynxfed.jpg"
+file = APAYA.open()
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
 
