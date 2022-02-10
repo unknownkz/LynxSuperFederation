@@ -19,6 +19,8 @@ import telegram.ext as tg
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
 
+from Python_ARQ import ARQ
+from pyrogram import Client
 
 StartTime = time.time()
 
@@ -164,6 +166,8 @@ else:
     CERT_PATH = Unknown.CERT_PATH
     API_ID = Unknown.API_ID
     API_HASH = Unknown.API_HASH
+    ARQ_API = Unknown.ARQ_API_KEY
+    ARQ_API_URL = Unknown.ARQ_API_URL
 
     UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
 
@@ -228,6 +232,17 @@ defaults = tg.Defaults(run_async=True)
 updater = tg.Updater(TGB_TOKEN, workers=WORKERS, use_context=True)
 lynx_client = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
+
+aiohttpsession = ClientSession()
+arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
+
+xx = Client(
+    ":memory:",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN,
+    workers=min(32, os.cpu_count() + 4),
+)
 
 CHANNELS = {}
 SD_ID = list(SD_ID) + list(DEV_ID)
