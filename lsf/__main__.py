@@ -212,7 +212,7 @@ def start(update: Update, context: CallbackContext):
                         ],
                         [
                             InlineKeyboardButton(
-                                text="Admin", callback_data="admin_back"
+                                text="Admins", callback_data="admin_back"
                             ),
                             InlineKeyboardButton(
                                 text="Users", callback_data="user_back"
@@ -223,7 +223,7 @@ def start(update: Update, context: CallbackContext):
                                 text="Tools", callback_data="tools_back"
                             ),
                             InlineKeyboardButton(
-                                text="Bot Info", callback_data="lynx_"
+                                text="Information", callback_data="lynx_"
                             ),
                         ],
                         [
@@ -304,6 +304,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
                             text="Developer", url="t.me/xelyourslurred"
                         ),
                     ],
+                    [InlineKeyboardButton(text="Donation", url="paypal.me/unknownkz")],
                     [InlineKeyboardButton(text="Back", callback_data="lynx_back")],
                 ]
             ),
@@ -326,12 +327,12 @@ def lynx_about_callback(update: Update, context: CallbackContext):
                         ),
                     ],
                     [
-                        InlineKeyboardButton(text="Admin", callback_data="admin_back"),
+                        InlineKeyboardButton(text="Admins", callback_data="admin_back"),
                         InlineKeyboardButton(text="Users", callback_data="user_back"),
                     ],
                     [
                         InlineKeyboardButton(text="Tools", callback_data="tools_back"),
-                        InlineKeyboardButton(text="Lynx Info", callback_data="lynx_"),
+                        InlineKeyboardButton(text="Information", callback_data="lynx_"),
                     ],
                     [
                         InlineKeyboardButton(
