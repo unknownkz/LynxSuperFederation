@@ -95,13 +95,13 @@ PM_START_TEXT = """ Hello *{}*, My name is *{}*!
 A telegram group management bot. I'm here to help you to manage your groups.
 I have lots of handy features such as:
 
-‣ `Federation`
-‣ `Warning System`
-‣ `Artificial Intelligence`
-‣ `Flood Control System`
-‣ `Note Keeping System`
-‣ `Filters Keeping System`
-‣ `Approvals and Much More.`
+ ‣ `Federation`
+ ‣ `Warning System`
+ ‣ `Artificial Intelligence`
+ ‣ `Flood Control System`
+ ‣ `Note Keeping System`
+ ‣ `Filters Keeping System`
+ ‣ `Approvals and Much More.`
 
 So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
@@ -266,6 +266,24 @@ def start(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
 
+PM_START_TEXT2 = """ Hello *{}*, My name is *{}*
+A Powerful Telegram Group Management Bot built to help you manage Group easily.
+
+ ‣ I can Restrict Users.
+ ‣ I can Greet Users with customizable welcome message and even set a group rules
+ ‣ I have an advanced Anti-Flood System which will help you to safe group from Spammmer.
+ ‣ I can Warn Users until they reach max Warns, with each predefined actions such as Ban, Mute, Kick, Fban etc.
+ ‣ I have Note Keeping System, Blacklists, And even Predetermined replies on certain keywords.
+ ‣ I check Admins Permissions before perform any Command and more Stuffs.
+ ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
+
+*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
+
+*Info Server*
+`Starting from: {}
+and {} users in {} chats.`
+"""
+
 
 def lynx_about_callback(update: Update, context: CallbackContext):
     first_name = update.effective_user.first_name
@@ -273,19 +291,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "lynx_":
         query.message.edit_text(
-            text="""Hello *{}*, My name is *{}**
-A Powerful Telegram Group Management Bot built to help you manage Group easily.
-\n ‣ I can Restrict Users.
-\n ‣ I can Greet Users with customizable welcome message and even set a group rules
-\n ‣ I have an advanced Anti-Flood System which will help you to safe group from Spammmer.
-\n ‣ I can Warn Users until they reach max Warns, with each predefined actions such as Ban, Mute, Kick, Fban etc.
-\n ‣ I have Note Keeping System, Blacklists, And even Predetermined replies on certain keywords.
-\n ‣ I check Admins Permissions before perform any Command and more Stuffs.
-\n ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
-\n*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
-\n*Info Server*
-`Starting from: {}
-and {} users in {} chats.`""".format(
+            PM_START_TEXT2.format(
                 escape_markdown(first_name),
                 escape_markdown(context.bot.first_name),
                 escape_markdown(uptime),
