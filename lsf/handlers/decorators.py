@@ -124,7 +124,7 @@ class LynxHandler:
                         MessageHandler(pattern, func, run_async=run_async)
                     )
                 LOGGER.debug(
-                    f"[SkyzuMSG] Loaded filter pattern {pattern} for function {func.__name__}"
+                    f"[LynxMSG] Loaded filter pattern {pattern} for function {func.__name__}"
                 )
 
             return func

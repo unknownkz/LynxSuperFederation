@@ -299,9 +299,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n┣|• This user is member of 'Lynx Developer Team'."
         disaster_level_present = True
     elif user.id in SD_ID:
-        text += (
-            "\n┣|• This person is My Contributor. his Power level is near to my 'Owner' "
-        )
+        text += "\n┣|• This person is My Contributor. his Power level is near to my 'Owner' "
         disaster_level_present = True
     elif user.id in SUPPORT_ID:
         text += "\n┣|• This person is My Team Support."
