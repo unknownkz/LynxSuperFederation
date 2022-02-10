@@ -1,9 +1,9 @@
 # Copyright © 2022 Unknown (The MIT License)
 # All Rights Reserved
 
+import os
 import time, re, psutil
 
-from pathlib import Path
 from platform import python_version
 from sys import argv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
@@ -90,9 +90,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-SYNC = Path("lynxfed.jpg").absolute().parent
-APAYA = SYNC
-hmmm = APAYA.open()
+SYNC = os.chdir(r"srcs/images/lynxfed.jpg")
+hmmm = open("lynxfed.jpg")
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
 
