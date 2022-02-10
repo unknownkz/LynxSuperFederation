@@ -139,6 +139,3 @@ celerybeat.pid
 
 # PyBuilder
 target/
-
-# File Images
-lynxfed.jpg/
