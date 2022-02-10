@@ -140,3 +140,7 @@ def extract_unt_fedban(
 
     else:
         return None, None
+
+
+def extract_user_fban(message: Message, args: List[str]) -> Optional[int]:
+    return extract_unt_fedban(message, args)[0]
