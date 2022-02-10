@@ -95,7 +95,7 @@ if ENV:
     ARQ_API_URL = os.environ.get("ARQ_API_URL")
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY")
 
-    DONATION_LINK = os.environ.get("DONATION_LINK", "https://patreon.com/iamkenzo")
+    DONATION_LINK = os.environ.get("DONATION_LINK", "paypal.me/unknownkz")
     LOAD = os.environ.get("LOAD", "").split()
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
