@@ -106,7 +106,7 @@ I have lots of handy features such as:
 So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
 
-*INFO*
+*Info Server*
 `Starting from: {}
 and {} users in {} chats.`
 """
@@ -282,7 +282,7 @@ def lynx_about_callback(update: Update, context: CallbackContext):
             \n ‣ I check Admins Permissions before perform any Command and more Stuffs.
             \n ‣ I have an advanced Artificial Chatbot System, so can talk with users like humans.
             \n*If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
-            \n*INFO*
+            \n*Info Server*
             \n`Starting from: {}`
             \n`and {} users in {} chats.`""".format(
                 escape_markdown(first_name),
