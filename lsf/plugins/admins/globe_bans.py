@@ -93,7 +93,7 @@ def gban(update: Update, context: CallbackContext):
         )
         return
 
-    if int(user_id) in SD_ID :
+    if int(user_id) in SD_ID:
         message.reply_text(
             "I spy, with my little eye... a disaster! Why are you guys turning on each other?",
         )
