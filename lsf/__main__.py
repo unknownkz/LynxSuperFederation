@@ -304,11 +304,11 @@ def lynx_about_callback(update: Update, context: CallbackContext):
     elif query.data == "lynx_back":
         query.message.edit_text(
             PM_START_TEXT.format(
-                    escape_markdown(first_name),
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(uptime),
-                    safe.num_users(),
-                    safe.num_chats(),
+                escape_markdown(first_name),
+                escape_markdown(context.bot.first_name),
+                escape_markdown(uptime),
+                safe.num_users(),
+                safe.num_chats(),
             ),
             reply_markup=InlineKeyboardMarkup(
                 [
