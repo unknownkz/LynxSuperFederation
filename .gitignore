@@ -141,4 +141,4 @@ celerybeat.pid
 target/
 
 # File Images
-/srcs/images/lynxfed.jpg
+lynxfed.jpg
