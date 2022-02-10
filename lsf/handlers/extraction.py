@@ -22,7 +22,9 @@ def extract_user(message: Message, args: List[str]) -> Optional[int]:
     return extract_user_and_text(message, args)[0]
 
 
-def extract_user_and_text(message: Message, args: List[str]) -> (Optional[int], Optional[str]):
+def extract_user_and_text(
+    message: Message, args: List[str]
+) -> (Optional[int], Optional[str]):
     prev_message = message.reply_to_message
     split_text = message.text.split(None, 1)
 
@@ -91,7 +93,9 @@ def extract_text(message) -> str:
     )
 
 
-def extract_unt_fedban(message: Message, args: List[str]) -> (Optional[int], Optional[str]):
+def extract_unt_fedban(
+    message: Message, args: List[str]
+) -> (Optional[int], Optional[str]):
     prev_message = message.reply_to_message
     split_text = message.text.split(None, 1)
 
