@@ -102,12 +102,12 @@ I have lots of handy features such as:
 ‣ `Filters Keeping System`
 ‣ `Approvals and Much More.`
 
-
 So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
 
-`Started since:` `{}`
-`Info:` `{}`user, `{}`chats.
+*INFO*
+`Starting from: {}`
+*And* `{} users` *in* `{} chats.`
 """
 
 
