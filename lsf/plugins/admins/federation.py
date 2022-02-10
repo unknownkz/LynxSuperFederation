@@ -592,7 +592,7 @@ def fed_ban(update: Update, context: CallbackContext):
 
     message = update.effective_message
 
-    user_id, reason = extract_user_and_text(message, args)
+    user_id, reason = extract_user_fban(message, args)
 
     fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
 
