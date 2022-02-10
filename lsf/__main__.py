@@ -90,7 +90,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-SYNC = Path("LynxFederationSuperGroup/srcs/images/lynxfed.jpg").absolute().parent
+SYNC = Path("/srcs/images/lynxfed.jpg").absolute().parent
 APAYA = SYNC / "lynxfed.jpg"
 hmmm = APAYA.open()
 
