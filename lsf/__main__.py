@@ -37,6 +37,7 @@ from lsf import (
     INFOPIC,
     lynx_client,
     updater,
+    xx,
 )
 
 from lsf.plugins import ALL_PLUGINS
@@ -418,4 +419,5 @@ def main():
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded plugins: " + str(ALL_PLUGINS))
     lynx_client.start(bot_token=TGB_TOKEN)
+    xx.start()
     main()
