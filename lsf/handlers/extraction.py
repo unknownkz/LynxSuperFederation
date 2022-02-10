@@ -135,6 +135,26 @@ def extract_unt_fedban(message: Message, args: List[str]) -> (Optional[int], Opt
     else:
         return None, None
 
+    try:
+        message.bot.get_chat(user_id)
+    except BadRequest as excp:
+        if excp.message in ("User_id_invalid", "Chat not found") and not isinstance(
+            user_id, int
+        ):
+            message.reply_text(
+                "I don't seem to have interacted with this user before "
+                "please forward a message from them to give me control! "
+                "(like a voodoo doll, I need a piece of them to be able to execute certain commands...)"
+            )
+            return None, None
+        elif excp.message != "Chat not found":
+            LOGGER.exception("Exception %s on user %s", excp.message, user_id)
+            return None, None
+        elif not isinstance(user_id, int):
+            return None, None
+
+    return user_id, text
+
 
 def extract_user_fban(message: Message, args: List[str]) -> Optional[int]:
     return extract_unt_fedban(message, args)[0]
