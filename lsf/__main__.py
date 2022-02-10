@@ -89,6 +89,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
+SYNC = open("/srcs/images/lynxfed.jpg", "rb")
+
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
 
 A telegram group management bot. I'm here to help you to manage your groups.
@@ -194,7 +196,7 @@ def start(update: Update, context: CallbackContext):
 
         else:
             update.effective_message.reply_photo(
-                INFOPIC,
+                SYNC,
                 caption=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name),
