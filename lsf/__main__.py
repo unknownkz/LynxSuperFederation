@@ -1,7 +1,6 @@
 # Copyright © 2022 Unknown (The MIT License)
 # All Rights Reserved
 
-import os
 import time, re, psutil
 
 from platform import python_version
@@ -89,9 +88,6 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
-
-SYNC = os.chdir(r"srcs/images/lynxfed.jpg")
-hmmm = open("lynxfed.jpg")
 
 PM_START_TEXT = """ Hello *{}*, My name is *{}*! 
 
@@ -197,9 +193,8 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            update.effective_message.reply_photo(
-                filename=hmmm,
-                caption=PM_START_TEXT.format(
+            update.effective_message.reply_text(
+                PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name),
                     escape_markdown(uptime),
