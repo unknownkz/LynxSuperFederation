@@ -14,6 +14,7 @@ from telegram.ext import (
     MessageHandler,
 )
 
+from lsf.database import users_sql as safe
 from telegram.utils.helpers import escape_markdown, mention_html
 from lsf.handlers.valid import is_user_admin
 from telegram.error import (
@@ -104,6 +105,9 @@ I have lots of handy features such as:
 
 So what are you waiting for?
 *Add me in your groups and give me full rights to make me function well.*
+
+`Started since:` `{}`
+`Info:` `{}`user, `{}`chats.
 """
 
 
@@ -164,7 +168,7 @@ def start(update: Update, context: CallbackContext):
                 )
                 send_tools_help(
                     update.effective_chat.id,
-                    USER[mod].__help__,
+                    TOOLS[mod].__help__,
                     InlineKeyboardMarkup(
                         [
                             [
@@ -189,9 +193,13 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            update.effective_message.reply_text(
-                PM_START_TEXT.format(
-                    escape_markdown(first_name), escape_markdown(context.bot.first_name)
+            update.effective_message.reply_photo(
+                INFOPIC, caption=PM_START_TEXT.format(
+                    escape_markdown(first_name),
+                    escape_markdown(context.bot.first_name),
+                    escape_markdown(uptime),
+                    safe.num_users(),
+                    safe.num_chats(),
                 ),
                 reply_markup=InlineKeyboardMarkup(
                     [
