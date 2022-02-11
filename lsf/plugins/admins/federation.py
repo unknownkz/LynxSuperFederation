@@ -249,9 +249,11 @@ def join_fed(update: Update, context: CallbackContext):
 
     message = update.effective_message
     administrators = chat.get_administrators()
+    fed_id = sql.fed_multiverse(chat.id)
 
     if user.id in SD_ID:
         pass
+
     else:
         for admin in administrators:
             status = admin.status
@@ -263,6 +265,13 @@ def join_fed(update: Update, context: CallbackContext):
                         "Only group creators can use this command!",
                     )
                     return
+
+    if fed_id:
+        getfed = sql.search_fed_by_id(fed_id)
+        if getfed is True:
+            message.reply_text("Successfuly Joined in *{}* ".format(getfed["fname"]),
+            )
+            return
 
     if len(args) >= 1:
         getfed = sql.search_fed_by_id(args[0])
@@ -581,6 +590,8 @@ def fed_ban(update: Update, context: CallbackContext):
 
     info = sql.get_fed_info(fed_id)
     getfednotif = sql.user_feds_report(info["owner"])
+
+
 
     if is_user_fed_admin(fed_id, user.id) is False:
         update.effective_message.reply_text("Only federation admins can do this!")
