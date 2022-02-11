@@ -95,15 +95,16 @@ PM_START_TEXT = """ Hello *{}*, My name is *{}*!
 A telegram group management bot. I'm here to help you to manage your groups.
 I have lots of handy features such as:
 
- ‣ `Federation`
- ‣ `Warning System`
- ‣ `Artificial Intelligence`
- ‣ `Flood Control System`
- ‣ `Note Keeping System`
- ‣ `Filters Keeping System`
- ‣ `Approvals and Much More.`
+ - `Hybrid Federation`
+ - `Warning System`
+ - `Artificial Intelligence`
+ - `Flood Control System`
+ - `Note Keeping System`
+ - `Filters Keeping System`
+ - `Approvals and Much More.`
 
 So what are you waiting for?
+
 *Add me in your groups and give me full rights to make me function well.*
 
 *INFO SERVER*
@@ -265,14 +266,14 @@ def start(update: Update, context: CallbackContext):
         )
 
 
-PM_START_TEXT2 = """ Hello *{}*, My Name is *{}*
+PM_START_TEXT2 = """*About*
 A Powerful Telegram Group Management Bot built to help you manage Group easily.
 
 *About me:*
 `I was created to manage your groups
 on telegram and focuses on the Federation.
 I made this to root out telegram users who
-global broadcast or spam etc.`
+global broadcast, nsfw or spam etc.`
 
 *If you have any Question, You can join Support Chat. My Developer Team will Answer. Check Link Below*
 
@@ -289,8 +290,6 @@ def lynx_about_callback(update: Update, context: CallbackContext):
     if query.data == "lynx_":
         query.message.edit_text(
             PM_START_TEXT2.format(
-                escape_markdown(first_name),
-                escape_markdown(context.bot.first_name),
                 escape_markdown(uptime),
                 safe.num_users(),
                 safe.num_chats(),
