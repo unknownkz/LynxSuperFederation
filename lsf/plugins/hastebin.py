@@ -5,10 +5,10 @@ All Rights Reserved
 """
 import requests
 
-from ... import dispatcher
+from .. import dispatcher
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
-from ...handlers.valid import dev_plus, sudo_plus
+from ..handlers.valid import dev_plus, sudo_plus
 
 
 
