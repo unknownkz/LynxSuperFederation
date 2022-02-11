@@ -105,9 +105,7 @@ def reply_afk(update: Update, context: CallbackContext):
             if ent.type != MessageEntity.MENTION:
                 return
 
-            user_id = get_user_id(
-                message.text[ent.offset : ent.offset + ent.length],
-            )
+            user_id = get_user_id(message.text[ent.offset : ent.offset + ent.length])
             if not user_id:
                 return
 
@@ -118,7 +116,7 @@ def reply_afk(update: Update, context: CallbackContext):
             try:
                 chat = bot.get_chat(user_id)
             except BadRequest:
-                print(f"Error: Could not fetch userid {} for AFK plugins".format(user_id))
+                print("Error: Could not fetch userid {} for AFK plugins".format(user_id))
                 return
             fst_name = chat.first_name
 
