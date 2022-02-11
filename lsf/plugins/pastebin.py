@@ -4,17 +4,14 @@ Copyright 2022 Unknown
 All Rights Reserved
 """
 import requests
-
 from .. import dispatcher
+from .disable import DisableAbleCommandHandler
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext
-from ..handlers.valid import dev_plus, sudo_plus
+from telegram.ext import CallbackContext, run_async
 
 
-
-@dev_plus
-@sudo_plus
-def haste(update: Update, context: CallbackContext):
+@run_async
+def paste(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
 
@@ -29,18 +26,23 @@ def haste(update: Update, context: CallbackContext):
         return
 
     key = (
-        requests.post("https://hastebin.com/documents", json={"content": data})
+        requests.post("https://nekobin.com/api/documents", json={"content": data})
         .json()
         .get("result")
         .get("key")
     )
 
-    url = f"https://hastebin.com/{key}"
+    url = f"https://nekobin.com/{key}"
 
-    reply_text = f"Hastebin to *Haste* : {url}"
+    reply_text = f"Nekofied to *Nekobin* : {url}"
 
     message.reply_text(
         reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
     )
 
-__mod_name__ = "HasteBin​"
+
+PASTE_HANDLER = DisableAbleCommandHandler("paste", paste)
+dispatcher.add_handler(PASTE_HANDLER)
+
+__command_list__ = ["paste"]
+__handlers__ = [PASTE_HANDLER]
