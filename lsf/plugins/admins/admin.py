@@ -229,11 +229,11 @@ def demote(update: Update, context: CallbackContext) -> str:
         return
 
     if user_member.status == "creator":
-        message.reply_text("This person CREATED the chat, how would I demote them?")
+        message.reply_text("I can't demote Owner Group.")
         return
 
     if not user_member.status == "administrator":
-        message.reply_text("Can't demote what wasn't promoted!")
+        message.reply_text("I can't demote Administrator (CO)")
         return
 
     if user_id == bot.id:
@@ -312,7 +312,7 @@ def set_title(update: Update, context: CallbackContext):
 
     if user_member.status == "creator":
         message.reply_text(
-            "This person created the chat, how can i set custom title for him?"
+            "This person owner the chat, how can i set custom title for him?"
         )
         return
 
@@ -428,14 +428,15 @@ def setchat_title(update, context):
         return
 
 
-@user_can_changeinfo
 @bot_admin
 @user_admin
-@typing_action
-def set_sticker(update, context):
+def set_sticker(update: Update, context: CallbackContext):
     msg = update.effective_message
     chat = update.effective_chat
     user = update.effective_user
+
+    if user_can_changeinfo(chat, user, context.bot.id) is False:
+        return msg.reply_text("You're missing rights to change chat info!")
 
     if msg.reply_to_message:
         if not msg.reply_to_message.sticker:
@@ -624,13 +625,13 @@ def adminlist(update, context):
         # if user.username:
         #    name = escape_markdown("@" + user.username)
         if status == "creator":
-            text += "\n 👑 Creator:"
-            text += "\n<code> • </code>{}\n".format(name)
+            text += "\n 🔥 Creator 🔥"
+            text += "\n<code>- </code>{}\n".format(name)
 
             if custom_title:
                 text += f"<code> ┗━ {html.escape(custom_title)}</code>\n"
 
-    text += "\n👤 Admins:"
+    text += "\nNormal Admins :"
 
     custom_admin_list = {}
     normal_admin_list = []
@@ -660,25 +661,25 @@ def adminlist(update, context):
                 normal_admin_list.append(name)
 
     for admin in normal_admin_list:
-        text += "\n<code> • </code>{}".format(admin)
+        text += "\n<code>-› </code>{}".format(admin)
 
     for admin_group in custom_admin_list.copy():
         if len(custom_admin_list[admin_group]) == 1:
-            text += "\n<code> • </code>{} | <code>{}</code>".format(
+            text += "\n<code>-› </code>{} | <code>{}</code>".format(
                 custom_admin_list[admin_group][0], html.escape(admin_group)
             )
             custom_admin_list.pop(admin_group)
 
     text += "\n"
     for admin_group, value in custom_admin_list.items():
-        text += "\n🚨 <code>{}</code>".format(admin_group)
+        text += "\nCustom Admins : <code>{}</code>".format(admin_group)
         for admin in value:
-            text += "\n<code> • </code>{}".format(admin)
+            text += "\n<code>-› </code>{}".format(admin)
         text += "\n"
 
-    text += "\n🤖 Bots:"
+    text += "\n🤖 Bot List:"
     for each_bot in bot_admin_list:
-        text += "\n<code> • </code>{}".format(each_bot)
+        text += "\n<code>-› </code>{}".format(each_bot)
 
     try:
         msg.edit_text(text, parse_mode=ParseMode.HTML)
@@ -744,40 +745,20 @@ def unpinallbtn(update: Update, context: CallbackContext):
     )
     return log_message
 
-
-__help__ = """
-Admins Play Major Roles To Manage A Group, We Have Created Some Hack Command In Our Bot So It Will Help To Manage Group Easily Via Bot.
-You Just Need To Give Commands To Bot And But Will Work for You. Click On Bellow Buttons & Get Detailed Information.
- ‣ `/admins`*:* list of admins in the chat
-
- *Admins only:*
- ‣ `/pin`*:* silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users
- ‣ `/unpin`*:* unpins the currently pinned message in group
- ‣ `/unpinall`*:* unpins all the currently pinned messages in group
- ‣ `/invitelink`*:* gets invitelink
- ‣ `/promote`*:* promotes the user replied to
- ‣ `/fullpromote`*:* promotes the user with all rights
- ‣ `/demote`*:* demotes the user replied to
- ‣ `/title <title here>`*:* sets a custom title for an admin that the bot promoted
- ‣ `/admincache`*:* force refresh the admins list
- ‣ `/setgpic`*:* set new profile pic of the group (reply image)
- ‣ `/delgpic`*:* del the currently profile pic of the group
- ‣ `/setgtitle <New Name for Group>`*:* change the title of group
- ‣ `/setdescription <New Description for Group>`*:* change the Description of group
- ‣ `/setsticker`*:* set the stricker pack for group
-"""
-
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist, run_async=True)
 
 PIN_HANDLER = CommandHandler(
     "pin", pin, filters=Filters.chat_type.groups, run_async=True
 )
+
 UNPIN_HANDLER = CommandHandler(
     "unpin", unpin, filters=Filters.chat_type.groups, run_async=True
 )
+
 UNPINALL_HANDLER = CommandHandler(
     "unpinall", unpinall, filters=Filters.chat_type.groups, run_async=True
 )
+
 UNPINALL_BTN_HANDLER = CallbackQueryHandler(unpinallbtn, pattern=r"unpinallbtn_")
 
 
@@ -787,8 +768,8 @@ PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, run_async=True)
 FULL_PROMOTE_HANDLER = DisableAbleCommandHandler(
     "fullpromote", fullpromote, run_async=True
 )
-DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
 
+DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, run_async=True)
 ADMIN_REFRESH_HANDLER = CommandHandler(
@@ -798,15 +779,19 @@ ADMIN_REFRESH_HANDLER = CommandHandler(
 CHAT_PIC_HANDLER = CommandHandler(
     "setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True
 )
+
 DEL_CHAT_PIC_HANDLER = CommandHandler(
     "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True
 )
+
 SETCHAT_TITLE_HANDLER = CommandHandler(
     "setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True
 )
+
 SETSTICKET_HANDLER = CommandHandler(
     "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True
 )
+
 SETDESC_HANDLER = CommandHandler(
     "setdescription", set_desc, filters=Filters.chat_type.groups, run_async=True
 )
@@ -828,8 +813,32 @@ dispatcher.add_handler(SETCHAT_TITLE_HANDLER)
 dispatcher.add_handler(SETSTICKET_HANDLER)
 dispatcher.add_handler(SETDESC_HANDLER)
 
+__help__ = """
+Admins Play Major Roles To Manage A Group, We Have Created Some Hack Command In Our Bot So It Will Help To Manage Group Easily Via Bot.
+You Just Need To Give Commands To Bot And But Will Work for You. Click On Bellow Buttons & Get Detailed Information.
+
+*User's*
+ • /admins : get list of admins in the chat
+
+*Admins Only*
+ • /pin : silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users
+ • /unpin : unpins the currently pinned message in group
+ • /unpinall : unpins all the currently pinned messages in group
+ • /invitelink : gets invitelink
+ • /promote : promotes the user replied to
+ • /fullpromote : promotes the user with all rights
+ • /demote : demotes the user replied to
+ • /title <title here> : sets a custom title for an admin that the bot promoted
+ • /admincache : force refresh the admins list
+ • /setgpic : set new profile pic of the group (reply image)
+ • /delgpic : del the currently profile pic of the group
+ • /setgtitle <New Name for Group> : change the title of group
+ • /setdescription <New Description for Group> : change the Description of group
+ • /setsticker : set the stricker pack for group
+"""
 
 __mod_name__ = "Admin"
+
 __command_list__ = [
     "adminlist",
     "admins",
@@ -839,6 +848,7 @@ __command_list__ = [
     "demote",
     "admincache",
 ]
+
 __handlers__ = [
     ADMINLIST_HANDLER,
     PIN_HANDLER,
