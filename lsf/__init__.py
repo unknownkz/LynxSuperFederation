@@ -4,7 +4,6 @@
 Credit: @Unknownkz | @notudope | @AnimeKaizoku
 """
 
-import base64
 import heroku3
 import logging
 import os
@@ -23,6 +22,7 @@ from telethon.sessions import MemorySession
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from pyrogram import Client
+from base64 import b64decode
 
 StartTime = time.time()
 
