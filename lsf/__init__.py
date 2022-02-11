@@ -245,7 +245,7 @@ xx = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=TGB_TOKEN,
-    workers=min(32, os.cpu_count() + 8),
+    workers=min(64, os.cpu_count() + 16),
 )
 
 CHANNELS = {}
