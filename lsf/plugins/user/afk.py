@@ -175,8 +175,11 @@ dispatcher.add_handler(NO_AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REPLY_HANDLER, AFK_REPLY_GROUP)
 
 __help__ = """
- ‣ `/afk <reason>`*:* mark yourself as AFK(away from keyboard).
- ‣ `brb <reason>`*:* same as the afk command - but not a command.
+*Away From Keyboard*
+
+ • /afk <reason> : mark yourself as AFK(away from keyboard).
+ • brb <reason> : same as the afk command - but not a command.
+
 When marked as AFK, any mentions will be replied to with a message to say you're not available!
 """
 
