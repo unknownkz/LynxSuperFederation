@@ -537,24 +537,27 @@ dispatcher.add_handler(GET_ABOUT_HANDLER)
 
 
 __help__ = """
-*ID:*
- ‣ `/id`*:* get the current group id. If used by replying to a message, gets that user's id.
- ‣ `/gifid`*:* reply to a gif to me to tell you its file ID.
+*Get ID:*
+ • /id : get the current group id. If used by replying to a message, gets that user's id.
+ • /gifid : reply to a gif to me to tell you its file ID.
+
 *Self addded information:* 
- ‣ `/setme <text>`*:* will set your info
- ‣ `/me`*:* will get your or another user's info.
+ • /setme <text> : will set your info
+ • /me : will get your or another user's info.
 Examples:
- `/setme I am a wolf.`
- `/me @username(defaults to yours if no user specified)`
+ /setme I am a wolf.
+ /me @username
+
 *Information others add on you:* 
- ‣ `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
-‣ `/setbio <text>`*:* while replying, will save another user's bio 
+ • /bio : will get your or another user's bio. This cannot be set by yourself.
+ • /setbio <text> : while replying, will save another user's bio 
 Examples:
- `/bio @username(defaults to yours if not specified).`
- `/setbio This user is a wolf` (reply to the user)
+ /bio @username(defaults to yours if not specified).
+ /setbio This user is a wolf (reply to the user)
+
 *Overall Information about you:*
- ‣ `/info`*:* get information about a user. 
- ‣ `/ginfo`*:* get information about a Group. 
+ • /info : get information about a User. 
+ • /ginfo : get information about a Group. 
  
 `What is that health thingy?`
  Come and see [HP System explained](https://t.me/LSF_UPDATES)
