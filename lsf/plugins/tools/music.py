@@ -198,11 +198,16 @@ dispatcher.add_handler(SONG_HANDLER)
 dispatcher.add_handler(VIDEO_HANDLER)
 
 __help__ = """
-*Now Donwload and hear or watch song on telegram
- ‣ `/song i'll be friends with u`*:* download song from youtube server for you
- ‣ `/video if u could see me cryin` *:* download video from youtube
+*Youtube Downloader*
+
+ • /song i'll be friends with u : Download song from Youtube.
+ • /video if u could see me cryin : Download video from Youtube.
+
+*Now Download and hear or watch song on telegram.*
 """
 
 __mod_name__ = "Music & Video"
+
+__command_list__ = ["song", "music", "video"]
 
 __handlers__ = [SONG_HANDLER, VIDEO_HANDLER]
