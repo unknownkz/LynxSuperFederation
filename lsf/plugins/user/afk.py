@@ -118,7 +118,7 @@ def reply_afk(update: Update, context: CallbackContext):
             try:
                 chat = bot.get_chat(user_id)
             except BadRequest:
-                print(f"Error: Could not fetch userid {} for AFK plugins".format(user.id))
+                print(f"Error: Could not fetch userid {} for AFK plugins".format(user_id))
                 return
             fst_name = chat.first_name
 
