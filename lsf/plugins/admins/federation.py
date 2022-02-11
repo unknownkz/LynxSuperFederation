@@ -288,7 +288,7 @@ def join_fed(update: Update, context: CallbackContext):
             if ast.literal_eval(get_fedlog):
                 bot.send_message(
                     get_fedlog,
-                    "Chat *{}* has joined the federation *{}*".format(
+                    "*{}* has joined the Federation !\n{}".format(
                         chat.title,
                         getfed["fname"],
                     ),
@@ -296,7 +296,7 @@ def join_fed(update: Update, context: CallbackContext):
                 )
 
         message.reply_text(
-            "This group has joined the federation: {}!".format(getfed["fname"]),
+            "This group has joined the Federation !\n{}".format(getfed["fname"]),
         )
 
 
