@@ -320,7 +320,7 @@ def leave_fed(update: Update, context: CallbackContext):
 
     # administrators = chat.get_administrators().status
     getuser = bot.get_chat_member(chat.id, user.id).status
-    if getuser in "creator" or user.id in DRAGONS:
+    if getuser in "creator" or user.id in SD_ID:
         if sql.chat_leave_fed(chat.id) is True:
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
