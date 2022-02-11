@@ -133,7 +133,7 @@ def fed_multiverse(chat_id):
     get = {str(chat.id) for chat.id in FEDERATION_CHATS.get("chat.id", "").split()}
     if get is None:
         return False
-    return get["fid"]
+    return get
 
 
 def get_fed_name(chat_id):
