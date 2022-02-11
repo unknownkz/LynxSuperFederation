@@ -4,12 +4,6 @@ from lsf.plugins.disable import DisableAbleCommandHandler
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext, run_async
 
-__mod_name__ = "Github"
-
-__help__ = """ Get Your Github Profile Information by using this Command - 
-
- ‣ `/github unknownkz` - will send profile of your github account """
-
 
 def github(update: Update, context: CallbackContext):
     bot = context.bot
@@ -61,3 +55,16 @@ def github(update: Update, context: CallbackContext):
 
 GIT_HANDLER = DisableAbleCommandHandler("github", github, run_async=True)
 dispatcher.add_handler(GIT_HANDLER)
+
+
+__mod_name__ = "Github"
+
+__help__ = """
+Get Your Github Profile Information by using this Command
+
+ • /github unknownkz
+
+will send profile of your github account.
+"""
+
+

@@ -193,14 +193,17 @@ if is_plugins_loaded(FILENAME):
         return "No log channel is set for this group!"
 
     __help__ = """
+*Log Channel*
+
 *Admins only:*
- ‣ `/logchannel`*:* get log channel info
- ‣ `/setlog`*:* set the log channel.
- ‣ `/unsetlog`*:* unset the log channel.
+ • /logchannel : get log channel info
+ • /setlog : set the log channel.
+ • /unsetlog : unset the log channel.
+
 Setting the log channel is done by:
- ‣ adding the bot to the desired channel (as an admin!)
- ‣ sending /setlog in the channel
- ‣ forwarding the /setlog to the group
+1.) Adding the bot to the desired channel (as an admin!)
+2.) Sending /setlog in the channel
+3.) Forwarding the /setlog to the group
 """
 
     __mod_name__ = "Log Channel"
