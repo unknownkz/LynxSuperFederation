@@ -28,7 +28,6 @@ lsf/config.py
 lsf/config.ini
 lsf/modules/helper_funcs/temp.txt
 lsf/elevated_users.json
-logs.log
 log.txt
 updates.txt
 
