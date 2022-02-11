@@ -19,7 +19,7 @@ from pyrogram.types import InlineKeyboardButton
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 
 from lsf import aiohttpsession as index
-from lsf import LOGGER, xx
+from lsf import ERROR_LOGS, xx
 
 
 def split_limits(text):
@@ -104,7 +104,7 @@ def greatest(func):
                 ),
             )
             for a in error_feedback:
-                await xx.send_message(LOGGER, a)
+                await xx.send_message(ERROR_LOGS, a)
             raise master
 
     return metaverse
