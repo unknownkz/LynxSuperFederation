@@ -26,9 +26,8 @@ from base64 import b64decode
 
 StartTime = time.time()
 
-
-logging.basicConfig(
-    format="%(asctime)s || [%(levelname)s] - ℅(name)s - %(message)s",
+logging.basicConfig(filename="log.txt",
+    format="%(asctime)s - %(levelname)s - ℅(name)s - %(message)s",
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
 )
@@ -46,7 +45,6 @@ if os.sys.version_info[0] < 3 or os.sys.version_info[1] < 10:
         "You have to use python version of at least {} ! quitting.."
     ).format(python_version())
     os.system('clear') and os.sys.exit(1)
-
 
 ENV = bool(os.environ.get("ENV", False))
 
