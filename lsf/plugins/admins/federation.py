@@ -267,11 +267,8 @@ def join_fed(update: Update, context: CallbackContext):
                     return
 
     if fed_id:
-        getfed = sql.search_fed_by_id(fed_id)
-        if getfed is True:
-            message.reply_text("Successfuly Joined in *{}* ".format(getfed["fname"]),
-            )
-            return
+        message.reply_text("Successfuly Joined !")
+        return
 
     if len(args) >= 1:
         getfed = sql.search_fed_by_id(args[0])
