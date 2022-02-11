@@ -118,7 +118,7 @@ def connect_chat(update, context):
             ismember = getstatusadmin.status in ("member")
             isallow = sql.allow_connect_to_chat(connect_chat)
 
-            if (isadmin) or (isallow and ismember) or (user.id in INSPECTOR):
+            if (isadmin) or (isallow and ismember) or (user.id in SD_ID):
                 connection_status = sql.connect(
                     update.effective_message.from_user.id, connect_chat
                 )
