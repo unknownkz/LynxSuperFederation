@@ -34,7 +34,7 @@ def music(update: Update, context: CallbackContext):
 
     kenzo = bot.send_message(
         chat.id,
-        textwrap.dedent(f"`Getting {urlissed} From Youtube Servers. Please Wait.`"),
+        textwrap.dedent(f"Getting {urlissed} From Youtube Servers..."),
     )
 
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
