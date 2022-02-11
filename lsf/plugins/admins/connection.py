@@ -343,7 +343,7 @@ def connect_button(update, context):
         ismember = getstatusadmin.status in ("member")
         isallow = sql.allow_connect_to_chat(target_chat)
 
-        if (isadmin) or (isallow and ismember) or (user.id in INSPECTOR):
+        if (isadmin) or (isallow and ismember) or (user.id in SD_ID):
             connection_status = sql.connect(query.from_user.id, target_chat)
 
             if connection_status:
