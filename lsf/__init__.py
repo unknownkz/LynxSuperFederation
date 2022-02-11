@@ -26,7 +26,7 @@ from base64 import b64decode
 
 StartTime = time.time()
 
-logging.basicConfig(filename="log.txt",
+logging.basicConfig(filename="logs.log",
     format="%(asctime)s - %(levelname)s - ℅(name)s - %(message)s",
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
