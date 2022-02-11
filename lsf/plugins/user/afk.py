@@ -40,9 +40,7 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text(
-            f"{fname} is now away!{notice}",
-        )
+        update.effective_message.reply_text("{} is now away!{}".format(fname, notice))
     except BadRequest:
         pass
 
@@ -111,7 +109,6 @@ def reply_afk(update: Update, context: CallbackContext):
                 message.text[ent.offset : ent.offset + ent.length],
             )
             if not user_id:
-                # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
                 return
 
             if user_id in chk_users:
@@ -121,7 +118,7 @@ def reply_afk(update: Update, context: CallbackContext):
             try:
                 chat = bot.get_chat(user_id)
             except BadRequest:
-                print(f"Error: Could not fetch userid {user_id} for AFK plugins")
+                print(f"Error: Could not fetch userid {} for AFK plugins".format(user.id))
                 return
             fst_name = chat.first_name
 
@@ -133,9 +130,7 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-def check_afk(
-    update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int
-):
+def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
         if not user:
