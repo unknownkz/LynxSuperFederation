@@ -46,7 +46,7 @@ if os.sys.version_info.major[0] < 3 or os.sys.version_info.minor[1] < 10 or os.s
         "You have to use python version of at least {major}.{minor}.{micro} ! quitting.."
     ).format(sys.version_info[0],
              sys.version_info[1],
-             sys.version_info[2]))
+             sys.version_info[2])
     os.system('clear') and os.sys.exit(1)
 
 ENV = bool(os.environ.get("ENV", False))
