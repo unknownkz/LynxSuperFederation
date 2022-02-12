@@ -9,6 +9,7 @@ import logging
 import os
 import sys
 import time
+import base64
 
 from inspect import getfullargspec
 from os import path, remove
