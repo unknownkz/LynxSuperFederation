@@ -15,7 +15,6 @@ telegram
 python-telegram-bot
 sqlalchemy
 psycopg2-binary
-feedparser
 faker
 hachoir
 pykeyboard
