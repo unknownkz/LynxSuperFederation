@@ -41,6 +41,7 @@ jobs:
           VALIDATE_DOCKER: true
           VALIDATE_BASH: true
           VALIDATE_PYTHON: true
+          YAML_ERROR_ON_WARNING: false
           DISABLE_ERRORS: false
           DEFAULT_BRANCH: main
           FILTER_REGEX_EXCLUDE: '.*.md'
