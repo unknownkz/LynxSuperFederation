@@ -19,7 +19,7 @@ def __list_all_plugins():
     all_plugins = [
         basename(name)[:-3]
         for name in list_of_files
-        if isfile(name) and name.endswith(".py") not name.endswith("__init__.py") and not name.endswith("README.md") 
+        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("README.md") 
     ]
 
     if LOAD or NO_LOAD:
