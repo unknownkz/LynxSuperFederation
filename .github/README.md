@@ -5,7 +5,7 @@
 >> I made this to root out telegram users 'global broadcast'(userbot), scam, nsfw and spamming etc. more info please see federation rules in our group.
 
 ![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
-[![GitHub Super-Linter](https://github.com/unknownkz/LynxSuperFederation/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Lint Code Base](https://github.com/unknownkz/LynxSuperFederation/actions/workflows/super-linter.yml/badge.svg)](https://github.com/unknownkz/LynxSuperFederation/actions/workflows/super-linter.yml)
 [![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=active+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
 [![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=resolved+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
 ---
