@@ -99,6 +99,7 @@ if ENV:
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
     ARQ_API_URL = os.environ.get("ARQ_API_URL")
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY")
+    SimSimiKey = os.environ.get("SimSimiKey")
 
     DONATION_LINK = os.environ.get("DONATION_LINK", "paypal.me/unknownkz")
     LOAD = os.environ.get("LOAD", "").split()
@@ -176,6 +177,7 @@ else:
     API_HASH = Unknown.API_HASH
     ARQ_API_KEY = Unknown.ARQ_API_KEY
     ARQ_API_URL = Unknown.ARQ_API_URL
+    SimSimiKey = Unknown.SimSimiKey
 
     UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
 
