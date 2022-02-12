@@ -41,7 +41,7 @@ if not os.sys.platform.startswith("linux") and not os.sys.build_platform.startsw
     ).format(platform())
     os.system('clear') and os.sys.exit(1)
 
-if os.sys.version_info.major < (3,) or os.sys.version_info.minor < (10,) or os.sys.version_info.micro < (2,):
+if os.sys.version_info.major =< (3,) or os.sys.version_info.minor =< (10,) or os.sys.version_info.micro =< (2,):
     LOGGER.error(
         "You have to use python version of at least {}.{}.{} ! quitting.."
     ).format(sys.version_info.major(),
