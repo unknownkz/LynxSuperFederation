@@ -140,7 +140,7 @@ def chatbot(update: Update, context: CallbackContext):
             "http://sandbox.api.simsimi.com/request.p?key={}&lc=id&ft=1.0&text={}".format(SimSimiKey, Message),
         )
         Lynx = json.loads(lynxurl.text)
-        lynx = Lynx["reply"]
+        lynx = Lynx["response"]
         sleep(0.3)
         message.reply_text(lynx, timeout=60)
 
