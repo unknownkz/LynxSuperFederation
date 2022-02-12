@@ -408,10 +408,10 @@ def main():
 
         if CERT_PATH:
             updater.bot.set_webhook(
-                url=URL + TGB_TOKEN, certificate=open(CERT_PATH, "rb")
+                url=URL + TGB_TOKEN + '/', certificate=open(CERT_PATH, "rb")
             )
         else:
-            updater.bot.set_webhook(url=URL + TGB_TOKEN)
+            updater.bot.set_webhook(url=URL + TGB_TOKEN + '/')
 
     else:
         LOGGER.info("Using long polling.")
