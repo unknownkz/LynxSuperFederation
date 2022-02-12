@@ -16,18 +16,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Lint Code Base
         uses: github/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
-  super-lint:
-    name: Lint Code Base
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
       - name: Lint Code base
         uses: docker://github/super-linter:v3
         env:
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_DOCKER: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
