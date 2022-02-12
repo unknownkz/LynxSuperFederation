@@ -141,7 +141,7 @@ def chatbot(update: Update, context: CallbackContext):
             + Message
         )
         Lynx = json.loads(lynxurl.text)
-        lynx = Lynx["response"]
+        lynx = Lynx["reply"]
         sleep(0.3)
         message.reply_text(lynx, timeout=60)
 
