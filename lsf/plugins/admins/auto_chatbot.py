@@ -182,7 +182,7 @@ CHATBOT_HANDLER = MessageHandler(
     run_async=True,
 )
 LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "allchats", list_all_chats, filters=CustomFilters.dev_filter, run_async=True
+    "listchatbot", list_all_chats, filters=CustomFilters.dev_filter, run_async=True
 )
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
