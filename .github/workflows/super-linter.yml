@@ -14,8 +14,7 @@ on:
 jobs:
   build:
     name: Lint Code Base
-
-  run-lint:
+-
     runs-on: ubuntu-latest
     steps:
 
