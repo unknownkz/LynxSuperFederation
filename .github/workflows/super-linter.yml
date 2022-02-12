@@ -7,6 +7,24 @@ on:
     branches: [main, Unknown-Dev]
 
 jobs:
+
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v2.0.3
+
+
+
   super-lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
@@ -14,12 +32,17 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v2
+
       - name: Lint Code Base
         uses: github/super-linter@v4
+
       - name: Lint Code base
         uses: docker://github/super-linter:v3
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_DOCKER: true
           DEFAULT_BRANCH: main
+          FILTER_REGEX_EXCLUDE: '.*.md'
+          {% raw -%}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          {%- endraw %}
