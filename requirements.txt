@@ -55,7 +55,6 @@ cloudscraper
 dateparser
 pymongo
 dnspython
-secureme
 apscheduler
 emoji-country-flag
 countryinfo
