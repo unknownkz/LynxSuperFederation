@@ -32,7 +32,7 @@ from telegram.utils.helpers import mention_html, mention_markdown, escape_markdo
 
 from lsf.database import auto_chatbot_sql as sql
 from lsf.utils.customfilters import CustomFilters
-from lsf.handlers.valid import user_admin, user_admin_no_reply
+from lsf.handlers.valid import user_admin, user_admin_no_reply, dev_plus
 from lsf import dispatcher, updater, SUPPORT_CHAT, SimSimiKey
 from .log_channel import gloggable
 
@@ -145,7 +145,8 @@ def chatbot(update: Update, context: CallbackContext):
         message.reply_text(lynx, timeout=60)
 
 
-def list_all_chats(update: Update, context: CallbackContext):
+@dev_plus
+def listchatbot(update: Update, context: CallbackContext):
     chats = sql.get_all_lynx_chats()
     text = "<b>Lynx-Bot Enabled Chats</b>\n"
     for chat in chats:
@@ -182,7 +183,7 @@ CHATBOT_HANDLER = MessageHandler(
     run_async=True,
 )
 LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "listchatbot", list_all_chats, filters=CustomFilters.dev_filter, run_async=True
+    "listchatbot", listchatbot, filters=CustomFilters.dev_filter, run_async=True
 )
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
