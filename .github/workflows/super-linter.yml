@@ -41,6 +41,4 @@ jobs:
           VALIDATE_DOCKER: true
           DEFAULT_BRANCH: main
           FILTER_REGEX_EXCLUDE: '.*.md'
-          {% raw -%}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          {%- endraw %}
