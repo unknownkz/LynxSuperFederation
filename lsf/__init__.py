@@ -65,8 +65,8 @@ if ENV:
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME")
 
     try:
-        SD_ID = {int(x) for x in os.environ.get("SD", "").split()}
-        DEV_ID = {int(x) for x in os.environ.get("DEV", "").split()}
+        SD_ID = {int(x) for x in os.environ.get("SD_ID", "").split()}
+        DEV_ID = {int(x) for x in os.environ.get("DEV_ID", "").split()}
     except ValueError:
         raise Exception("Your SUDO or DEV Users list does not contain valid integers")
 
