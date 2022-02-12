@@ -35,7 +35,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 
-if not os.sys.platform.startswith("linux"):
+if not os.sys.platform.startswith("linux") and not os.sys.build_platform.startswith("64"):
     LOGGER.error(
         "You have to use linux system first. Such as {} ! quitting.."
     ).format(platform())
