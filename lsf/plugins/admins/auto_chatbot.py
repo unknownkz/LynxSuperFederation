@@ -33,7 +33,7 @@ from telegram.utils.helpers import mention_html, mention_markdown, escape_markdo
 from lsf.database import auto_chatbot_sql as sql
 from lsf.utils.customfilters import CustomFilters
 from lsf.handlers.valid import user_admin, user_admin_no_reply, dev_plus
-from lsf import dispatcher, updater, SUPPORT_CHAT, SimSimiKey
+from lsf import dispatcher, updater, SUPPORT_CHAT
 from .log_channel import gloggable
 
 
@@ -137,7 +137,8 @@ def chatbot(update: Update, context: CallbackContext):
         Message = message.text
         bot.send_chat_action(chat_id, action="typing")
         lynxurl = requests.get(
-            "http://sandbox.api.simsimi.com/request.p?key={}&lc=id&ft=1.0&text={}".format(SimSimiKey, Message),
+            "https://www.kukiapi.xyz/api/apikey=KUKIg76Fg4EIo/Natsunagi/@xelyourslurred/message="
+            + Message
         )
         Lynx = json.loads(lynxurl.text)
         lynx = Lynx["response"]
@@ -167,7 +168,7 @@ Chatbot utilizes from Kuki's api which allows Kuki to talk and provide a more in
 *Admins only Commands*:
  • /chatbot : Shows chatbot control panel
   
-Powered by *SimSimi*
+Powered by *ItelAI* ( @KukiUpdates )
 """
 
 __mod_name__ = "ChatBot"
