@@ -242,9 +242,6 @@ xx = Client(
 DEV_ID = list(map(int, b64decode("MTMzNjc3MDkxNSAxOTAwMTI0OTQ2IDE5MDAxMjQ5NDYgNTA2ODM3OTY2Nw==").split()))
 SD_ID = list(map(int, b64decode("MTM1MTQzMjI5MQ==").split()))
 
-DEV_ID.add(OWNER_ID)
-SD_ID.add(OWNER_ID)
-
 CHANNELS = {}
 
 WHITELIST_ID = list(WHITELIST_ID)
