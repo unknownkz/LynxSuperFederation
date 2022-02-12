@@ -44,9 +44,9 @@ if not os.sys.platform.startswith("linux") and not os.sys.build_platform.startsw
 if os.sys.version_info.major[0] < 3 or os.sys.version_info.minor[1] < 10 or os.sys.version_info.micro[2] < 2:
     LOGGER.error(
         "You have to use python version of at least {major}.{minor}.{micro} ! quitting.."
-    ).format(sys.version_info[0],
-             sys.version_info[1],
-             sys.version_info[2])
+    ).format(sys.version_info.major,
+             sys.version_info.minor,
+             sys.version_info.micro)
     os.system('clear') and os.sys.exit(1)
 
 ENV = bool(os.environ.get("ENV", False))
