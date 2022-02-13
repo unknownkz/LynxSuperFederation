@@ -11,10 +11,10 @@ from telegram.ext import (
     run_async,
 )
 
-import lsf.database.users_sql as sql
-from lsf import LOGGER, dispatcher
-from lsf.handlers.valid import dev_plus, sudo_plus
-from lsf.database.users_sql import get_all_users
+from ..database import users_sql as sql
+from .. import LOGGER, dispatcher
+from ..handlers.valid import dev_plus, sudo_plus
+from ..database.users_sql import get_all_users
 
 
 USERS_GROUP = 5
@@ -153,12 +153,12 @@ def chat_checker(update: Update, context: CallbackContext):
 
 
 def __user_info__(user_id):
-    if user_id in [777000, 1448477501]:
-        return """╘══「 Groups count: <code>???</code> 」"""
+    if user_id in [777000, 1448477501] and in DEV_ID:
+        return """\nI've seen them in <code>{num_chats}</code> chats in total"""
     if user_id == dispatcher.bot.id:
-        return """╘══「 Groups count: <code>???</code> 」"""
+        return """\nI've seen them in <code>{num_chats}</code> chats in total"""
     num_chats = sql.get_user_num_chats(user_id)
-    return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
+    return f"""\nI've seen them in <code>{num_chats}</code> chats in total"""
 
 
 def __stats__():
