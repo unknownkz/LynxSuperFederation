@@ -13,7 +13,7 @@ heroku_api = "https://api.heroku.com"
 Heroku = heroku3.from_key(HEROKU_API_KEY)
 
 
-@register(pattern="^/(set|see|del) env(?: |$)(.*)(?: |$)([\s\S]*)")
+@register(pattern=r"^[.$!/-;@](set|see|del) env(?: |$)(.*)(?: |$)([\s\S]*)")
 async def variable(var):
     if var.fwd_from:
         return
@@ -102,7 +102,7 @@ async def variable(var):
             return await m.edit(f"`Environments` **{variable}** `is not exists`")
 
 
-@register(pattern="^/usage(?: |$)")
+@register(pattern=r"^[.$!/-;@]usage(?: |$)")
 async def dyno_usage(view):
     if view.fwd_from:
         return
@@ -168,7 +168,7 @@ async def dyno_usage(view):
     )
 
 
-@register(pattern="^/logs$")
+@register(pattern=r"^[.$!/-;@]logs$")
 async def _(view):
     if view.fwd_from:
         return
