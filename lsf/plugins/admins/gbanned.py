@@ -179,7 +179,7 @@ def gban(update: Update, context: CallbackContext):
 
     log_message = (
         f"#ANTISPAM\n"
-        f"<b>Originated from:</b> <code>{chat_origin}</code>\n"
+        f"<code>{chat_origin}</code>\n"
         f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
         f"<b>Banned User:</b> {mention_html(user_chat.id, user_chat.first_name)}\n"
         f"<b>Banned User ID:</b> <code>{user_chat.id}</code>\n"
@@ -203,7 +203,7 @@ def gban(update: Update, context: CallbackContext):
             )
 
     else:
-        send_to_list(bot, SD_ID + SUPPORT_ID, log_message, html=True)
+        send_to_list(bot, SD_ID and SUPPORT_ID, log_message, html=True)
 
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
