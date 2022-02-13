@@ -19,6 +19,7 @@ AFK_GROUP = 20
 AFK_REPLY_GROUP = 20
 
 
+@run_async
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
@@ -72,12 +73,13 @@ def no_longer_afk(update: Update, context: CallbackContext):
             ]
             chosen_option = random.choice(options)
             update.effective_message.reply_text(
-                chosen_option.format(firstname),
+                chosen_option.format(firstname()),
             )
         except:
             return
 
 
+@run_async
 def reply_afk(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
@@ -129,6 +131,7 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
+@run_async
 def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
@@ -148,25 +151,17 @@ def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: 
             update.effective_message.reply_text(res)
         else:
             res = "{} is afk.\nReason: <code>{}</code>\n\nLast seen {} ago.".format(
-                html.escape(fst_name),
-                html.escape(user.reason),
+                html.escape(fst_name()),
+                html.escape(user.reason()),
                 time(),
             )
             update.effective_message.reply_text(res, parse_mode="html")
 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
-AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"),
-    afk,
-    friendly="afk",
-)
-NO_AFK_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.group, no_longer_afk, run_async=True
-)
-AFK_REPLY_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.group, reply_afk, run_async=True
-)
+AFK_REGEX_HANDLER = DisableAbleMessageHandler(Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk")
+NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.chat_type.group, no_longer_afk, run_async=True)
+AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.chat_type.group, reply_afk, run_async=True)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
@@ -184,9 +179,4 @@ When marked as AFK, any mentions will be replied to with a message to say you're
 
 __mod_name__ = "AFK"
 __command_list__ = ["afk"]
-__handlers__ = [
-    (AFK_HANDLER, AFK_GROUP),
-    (AFK_REGEX_HANDLER, AFK_GROUP),
-    (NO_AFK_HANDLER, AFK_GROUP),
-    (AFK_REPLY_HANDLER, AFK_REPLY_GROUP),
-]
+__handlers__ = [(AFK_HANDLER, AFK_GROUP), (AFK_REGEX_HANDLER, AFK_GROUP), (NO_AFK_HANDLER, AFK_GROUP), (AFK_REPLY_HANDLER, AFK_REPLY_GROUP)]
