@@ -139,7 +139,7 @@ class LynxHandler:
                 )
             )
             LOGGER.debug(
-                f"[SkyzuCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
+                f"[LynxCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
             return func
 
