@@ -190,9 +190,9 @@ DEL_HANDLER = delete_messages, events.NewMessage(pattern="^[.$!/-;]del$")
 PURGEFROM_HANDLER = CommandHandler("purgefrom", purgefrom, filters=Filters.chat_type.group, run_async=True)
 dispatcher.add_handler(PURGEFROM_HANDLER)
 
-telethn.add_event_handler(*PURGE_HANDLER)
-telethn.add_event_handler(*PURGETO_HANDLER)
-telethn.add_event_handler(*DEL_HANDLER)
+lynx_client.add_event_handler(*PURGE_HANDLER)
+lynx_client.add_event_handler(*PURGETO_HANDLER)
+lynx_client.add_event_handler(*DEL_HANDLER)
 
 __mod_name__ = "Purge"
 __command_list__ = ["del", "purge", "purgefrom", "purgeto"]
