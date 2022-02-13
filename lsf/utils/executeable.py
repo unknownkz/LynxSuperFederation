@@ -14,16 +14,8 @@ from sys import executable
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from pyrogram.types import Message
 
-from lsf.mongodb.utilities_mongodb import start_restart_stage
-
 from .. import aiohttpsession as aiosession
 from .https import get, post
-
-
-async def restart(m: Message):
-    if m:
-        await start_restart_stage(m.chat.id, m.message_id)
-    execvp(executable, [executable, "-m", "lsf"])
 
 
 def generate_captcha():
