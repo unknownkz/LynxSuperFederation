@@ -6,6 +6,7 @@ import lsf
 from contextlib import suppress
 from time import sleep
 
+from lsf import dispatcher, ALLOW_CHATS
 from lsf.handlers.valid import dev_plus
 from telegram import TelegramError, Update
 from telegram.error import Unauthorized
