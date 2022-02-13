@@ -18,7 +18,7 @@ def allow_groups(update: Update, context: CallbackContext):
     args = context.args
     if not args:
         state = "Lockdown is " + "on" + "yes" if not lsf.ALLOW_CHATS else "off" + "no"
-        update.effective_message.reply_text(f"Current state: {state}")
+        update.effective_message.reply_text("Current state: {}").format(state())
         return
     if args[0].lower() in ["off", "no"]:
         lsf.ALLOW_CHATS = True
