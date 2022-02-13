@@ -19,7 +19,6 @@ AFK_GROUP = 20
 AFK_REPLY_GROUP = 20
 
 
-@run_async
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
@@ -42,7 +41,7 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} is now away! {}").format(fname(), notice())
+        update.effective_message.reply_text("{} is now away! {}").format(fname, notice)
     except BadRequest:
         pass
 
@@ -73,13 +72,12 @@ def no_longer_afk(update: Update, context: CallbackContext):
             ]
             chosen_option = random.choice(options)
             update.effective_message.reply_text(
-                chosen_option.format(firstname()),
+                chosen_option.format(firstname),
             )
         except:
             return
 
 
-@run_async
 def reply_afk(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
@@ -131,7 +129,6 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-@run_async
 def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
@@ -144,16 +141,14 @@ def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: 
         time = humanize.naturaldelta(datetime.now() - user.time)
 
         if not user.reason:
-            res = "{} is afk.\n\nLast seen {} ago.".format(
-                fst_name(),
-                time(),
-            )
+            res = "{} is afk.\n\nLast seen {} ago.".format(fst_name, time)
+
             update.effective_message.reply_text(res)
         else:
             res = "{} is afk.\nReason: <code>{}</code>\n\nLast seen {} ago.".format(
-                html.escape(fst_name()),
-                html.escape(user.reason()),
-                time(),
+                html.escape(fst_name),
+                html.escape(user.reason),
+                time,
             )
             update.effective_message.reply_text(res, parse_mode="html")
 
