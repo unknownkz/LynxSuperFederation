@@ -1,7 +1,8 @@
 import random
 import html
-from datetime import datetime
 import humanize
+
+from datetime import datetime
 
 from lsf import dispatcher
 from lsf.plugins.disable import (
@@ -40,7 +41,7 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} is now away!{}".format(fname, notice))
+        update.effective_message.reply_text("{} is now away! {}").format(fname(), notice())
     except BadRequest:
         pass
 
@@ -141,15 +142,15 @@ def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: 
 
         if not user.reason:
             res = "{} is afk.\n\nLast seen {} ago.".format(
-                fst_name,
-                time,
+                fst_name(),
+                time(),
             )
             update.effective_message.reply_text(res)
         else:
             res = "{} is afk.\nReason: <code>{}</code>\n\nLast seen {} ago.".format(
-                html.escape(fst_name),
-                html.escape(user.reason),
-                time,
+                html.escape(fst_name()),
+                html.escape(user.reason()),
+                time(),
             )
             update.effective_message.reply_text(res, parse_mode="html")
 
