@@ -1,7 +1,8 @@
-import lsf.database.blacklistusers_sql as sql
 from lsf import ALLOW_EXCL
 from lsf import DEV_ID, SD_ID, SUPPORT_ID, TIGERS_ID, WHITELIST_ID
+from lsf.database import blacklistusers_sql as sql
 
+from itertools import chain
 from telegram import Update
 from telegram.ext import CommandHandler, MessageHandler, RegexHandler, Filters
 from pyrate_limiter import (
@@ -26,11 +27,7 @@ else:
 class AntiSpam:
     def __init__(self):
         self.whitelist = (
-            (DEV_ID or [])
-            + (SD_ID or [])
-            + (WHITELIST_ID or [])
-            + (SUPPORT_ID or [])
-            + (TIGERS_ID or [])
+            (DEV_ID or []).union(SD_ID or []).union(WHITELIST_ID or []).union(SUPPORT_ID or []).union(TIGERS_ID or [])
         )
         Duration.CUSTOM = 15  # Custom duration, 15 seconds
         self.sec_limit = RequestRate(6, Duration.CUSTOM)  # 6 / Per 15 Seconds
