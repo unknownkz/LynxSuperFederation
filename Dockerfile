@@ -9,9 +9,7 @@ RUN git clone https://github.com/unknownkz/LynxSuperFederation /usr/src/lsf
 WORKDIR /usr/src/lsf
 ENV PATH="/usr/src/lsf:$PATH"
 
-RUN pip3 install --no-cache-dir -U -r requirements.txt
-
-RUN apt-get --list --upgrade
+RUN pip3 install -U -r requirements.txt
 
 RUN chmod a+x startapp
 CMD ["./startapp"]
