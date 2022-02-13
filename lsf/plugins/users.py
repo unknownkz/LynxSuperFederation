@@ -17,8 +17,8 @@ from ..handlers.valid import dev_plus, sudo_plus
 from ..database.users_sql import get_all_users
 
 
-USERS_GROUP = 5
-CHAT_GROUP = 5
+USERS_GROUP = 20
+CHAT_GROUP = 20
 
 
 def get_user_id(username):
