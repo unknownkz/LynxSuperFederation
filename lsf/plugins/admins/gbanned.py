@@ -235,7 +235,7 @@ def gban(update: Update, context: CallbackContext):
                 else:
                     send_to_list(
                         bot,
-                        SD_ID + SUPPORT_ID,
+                        SD_ID and SUPPORT_ID,
                         f"Could not gban due to: {excp.message}",
                     )
                 sql.ungban_user(user_id)
@@ -251,7 +251,7 @@ def gban(update: Update, context: CallbackContext):
     else:
         send_to_list(
             bot,
-            SD_ID + SUPPORT_ID,
+            SD_ID and SUPPORT_ID,
             f"Gban complete! (User banned in <code>{gbanned_chats}</code> chats)",
             html=True,
         )
@@ -333,7 +333,7 @@ def ungban(update: Update, context: CallbackContext):
                 + "\n\nFormatting has been disabled due to an unexpected error.",
             )
     else:
-        send_to_list(bot, SD_ID + SUPPORT_ID, log_message, html=True)
+        send_to_list(bot, SD_ID and SUPPORT_ID, log_message, html=True)
 
     chats = get_user_com_chats(user_id)
     ungbanned_chats = 0
@@ -379,7 +379,7 @@ def ungban(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
     else:
-        send_to_list(bot, SD_ID + SUPPORT_ID, "un-gban complete!")
+        send_to_list(bot, SD_ID and SUPPORT_ID, "un-gban complete!")
 
     end_time = time.time()
     ungban_time = round((end_time - start_time), 2)
