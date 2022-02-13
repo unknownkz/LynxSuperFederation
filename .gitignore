@@ -139,3 +139,6 @@ celerybeat.pid
 
 # PyBuilder
 target/
+
+# Rebooting
+lynx_start-3.10.bat
