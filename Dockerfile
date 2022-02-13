@@ -11,5 +11,7 @@ ENV PATH="/usr/src/lsf:$PATH"
 
 RUN pip3 install --no-cache-dir -U -r requirements.txt
 
+RUN apt-get --list --upgrade
+
 RUN chmod a+x startapp
 CMD ["./startapp"]
