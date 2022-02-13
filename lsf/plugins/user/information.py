@@ -253,26 +253,24 @@ def info(update: Update, context: CallbackContext):
     else:
         return
 
-    rep = message.reply_text(
-        "<code>Searching Information...</code>", parse_mode=ParseMode.HTML
-    )
+    rep = message.reply_text("<code>Searching Information...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f"<b>User Information:</b>\n"
-        f"ID: <code>{user.id}</code>\n"
-        f"First Name: {html.escape(user.first_name)}"
+        f" <b>User Information:</b>\n"
+        f" ID: <code>{user.id}</code>\n"
+        f" First Name: {html.escape(user.first_name)}"
     )
 
     if user.last_name:
-        text += f"\nLast Name: {html.escape(user.last_name)}"
+        text += f"\n Last Name: {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\nUsername: @{html.escape(user.username)}"
+        text += f"\n Username: @{html.escape(user.username)}"
 
     text += f"\nPermalink: {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
-        _stext = "\nPresence: <code>{}</code>"
+        _stext = "\n Presence: <code>{}</code>"
 
         afk_st = is_afk(user.id)
         if afk_st:
@@ -288,21 +286,21 @@ def info(update: Update, context: CallbackContext):
                     text += _stext.format("Admin")
     if user_id not in [bot.id, 777000, 1448477501]:
         userhp = hpmanager(user)
-        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+        text += f"\n\n <b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\nThis User Is My 'Creator'."
+        text += "\n This User Is My 'Creator'."
         disaster_level_present = True
     elif user.id in DEV_ID:
-        text += "\nThis user is member of 'Lynx Developer Team'."
+        text += "\n This user is member of 'Lynx Developer Team'."
         disaster_level_present = True
     elif user.id in SD_ID:
-        text += "\nThis person is My Contributor. his Power level is near to my 'Owner' "
+        text += "\n This person is My Contributor. his Power level is near to my 'Owner' "
         disaster_level_present = True
     elif user.id in SUPPORT_ID:
-        text += "\nThis person is My Team Support."
+        text += "\n This person is My Team Support."
         disaster_level_present = True
 
     if disaster_level_present:
@@ -317,7 +315,7 @@ def info(update: Update, context: CallbackContext):
             result = result.json()["result"]
             if "custom_title" in result.keys():
                 custom_title = result["custom_title"]
-                text += f"\nTitle:\n<b>{custom_title}</b>"
+                text += f"\n Title:\n<b>{custom_title}</b>"
     except BadRequest:
         pass
 
@@ -327,7 +325,7 @@ def info(update: Update, context: CallbackContext):
         except TypeError:
             mod_info = mod.__user_info__(user.id, chat.id).strip()
         if mod_info:
-            text += "\n\n" + mod_info
+            text += "\n" + mod_info
 
     if INFOPIC:
         try:
