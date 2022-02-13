@@ -241,8 +241,8 @@ xx = Client(
 )
 
 
-SD_ID.extend(OWNER_ID)
-DEV_ID.extend(OWNER_ID)
+SD_ID.add(OWNER_ID)
+DEV_ID.add(OWNER_ID)
 
 CHANNELS = {}
 
