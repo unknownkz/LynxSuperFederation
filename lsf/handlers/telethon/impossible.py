@@ -1,6 +1,6 @@
 from telethon.tl.types import ChannelParticipantsAdmins
 
-from .. import SD_ID, lynx_client
+from ... import SD_ID, lynx_client
 from . import U_ABSURD
 
 

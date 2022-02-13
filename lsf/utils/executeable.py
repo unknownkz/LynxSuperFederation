@@ -1,3 +1,6 @@
+import aiofiles
+import speedtest
+
 from asyncio import gather
 from datetime import datetime, timedelta
 from io import BytesIO
@@ -8,21 +11,19 @@ from re import findall
 from re import sub as re_sub
 from sys import executable
 
-import aiofiles
-import speedtest
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from pyrogram.types import Message
 
-from lsf.ex_plugins.dbfunctions import start_restart_stage
+from lsf.mongodb.utilities_mongodb import start_restart_stage
 
-from . import aiohttpsession as aiosession
+from .. import aiohttpsession as aiosession
 from .https import get, post
 
 
 async def restart(m: Message):
     if m:
         await start_restart_stage(m.chat.id, m.message_id)
-    execvp(executable, ["python3", "-m", "lsf"])
+    execvp(executable, [executable, "-m", "lsf"])
 
 
 def generate_captcha():
