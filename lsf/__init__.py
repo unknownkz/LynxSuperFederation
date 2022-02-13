@@ -23,7 +23,6 @@ from telethon.sessions import MemorySession
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from pyrogram import Client
-from base64 import b64decode
 
 StartTime = time.time()
 
@@ -241,11 +240,13 @@ xx = Client(
     workers=min(64, os.cpu_count() + 16),
 )
 
-DEV_ID = list(map(int, b64decode("MTMzNjc3MDkxNSAxOTAwMTI0OTQ2IDE5MDAxMjQ5NDYgNTA2ODM3OTY2Nw==").split()))
-SD_ID = list(map(int, b64decode("MTM1MTQzMjI5MQ==").split()))
+SD_ID = add.(OWNER_ID + 1351432291)
+DEV_ID = add.(OWNER_ID + 1336770915 + 1900124946 + 5068379667 + 1345333945)
 
 CHANNELS = {}
 
+SD_ID = list(SD_ID)
+DEV_ID = list(DEV_ID)
 WHITELIST_ID = list(WHITELIST_ID)
 SUPPORT_ID = list(SUPPORT_ID)
 TIGERS_ID = list(TIGERS_ID)
