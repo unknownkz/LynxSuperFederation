@@ -258,21 +258,21 @@ def info(update: Update, context: CallbackContext):
     )
 
     text = (
-        f"╒═══「<b> Information:</b> 」\n"
-        f"┣|• ID: <code>{user.id}</code>\n"
-        f"┣|• First Name: {html.escape(user.first_name)}"
+        f"<b>User Information:</b>\n"
+        f"ID: <code>{user.id}</code>\n"
+        f"First Name: {html.escape(user.first_name)}"
     )
 
     if user.last_name:
-        text += f"\n┣|• Last Name: {html.escape(user.last_name)}"
+        text += f"\nLast Name: {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\n┣|• Username: @{html.escape(user.username)}"
+        text += f"\nUsername: @{html.escape(user.username)}"
 
-    text += f"\n┣|• Permalink: {mention_html(user.id, 'link')}"
+    text += f"\nPermalink: {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
-        _stext = "\n┣|• Presence: <code>{}</code>"
+        _stext = "\nPresence: <code>{}</code>"
 
         afk_st = is_afk(user.id)
         if afk_st:
@@ -293,16 +293,16 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n┣|• This User Is My 'Creator'."
+        text += "\nThis User Is My 'Creator'."
         disaster_level_present = True
     elif user.id in DEV_ID:
-        text += "\n┣|• This user is member of 'Lynx Developer Team'."
+        text += "\nThis user is member of 'Lynx Developer Team'."
         disaster_level_present = True
     elif user.id in SD_ID:
-        text += "\n┣|• This person is My Contributor. his Power level is near to my 'Owner' "
+        text += "\nThis person is My Contributor. his Power level is near to my 'Owner' "
         disaster_level_present = True
     elif user.id in SUPPORT_ID:
-        text += "\n┣|• This person is My Team Support."
+        text += "\nThis person is My Team Support."
         disaster_level_present = True
 
     if disaster_level_present:
@@ -317,7 +317,7 @@ def info(update: Update, context: CallbackContext):
             result = result.json()["result"]
             if "custom_title" in result.keys():
                 custom_title = result["custom_title"]
-                text += f"\n┣|• Title:\n<b>{custom_title}</b>"
+                text += f"\nTitle:\n<b>{custom_title}</b>"
     except BadRequest:
         pass
 
@@ -475,7 +475,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_ID:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio."
+                "Yeahh.. I only trust Heroes Association to set my bio."
             )
             return
 
@@ -505,9 +505,9 @@ def __user_info__(user_id):
     me = html.escape(sql.get_user_me_info(user_id) or "")
     result = ""
     if me:
-        result += f"┣|• <b>About user:</b>\n{me}\n"
+        result += f"<b>About user:</b>\n{me}\n"
     if bio:
-        result += f"┣|• <b>What others say:</b>\n{bio}\n"
+        result += f"<b>What others say:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
 
