@@ -173,18 +173,18 @@ __help__ = """
  • /purgefrom : marks a start point to purge from
  • /purgeto : marks the end point, messages bet to and from are deleted
  
-Variable Pattern : $ ! / - ; .
+Variable Pattern : $  !  /  ;  .
 	
- *Example:*
-$del !del -del ;del .del
+*Example:*
+$del  !del  /del  ;del  .del
 
 """
 
 
 # Telethon Handlers
-PURGE_HANDLER = purge_messages, events.NewMessage(pattern=r"^[.$!/-;]purge(?!\S+)")
-PURGETO_HANDLER = purgeto_messages, events.NewMessage(pattern="^[.$!/-;]purgeto$")
-DEL_HANDLER = delete_messages, events.NewMessage(pattern="^[.$!/-;]del$")
+PURGE_HANDLER = purge_messages, events.NewMessage(pattern=r"^[.$!/;]purge(?!\S+)")
+PURGETO_HANDLER = purgeto_messages, events.NewMessage(pattern="^[.$!/;]purgeto$")
+DEL_HANDLER = delete_messages, events.NewMessage(pattern="^[.$!/;]del$")
 
 
 PURGEFROM_HANDLER = CommandHandler("purgefrom", purgefrom, filters=Filters.chat_type.group, run_async=True)
