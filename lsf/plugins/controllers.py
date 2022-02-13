@@ -63,8 +63,8 @@ def gitpull(update: Update, context: CallbackContext):
 
     lynx_msg.edit_text("Restarted.")
 
-    os.system("restart.bat")
-    os.execv("start.bat", sys.argv)
+    os.system("lynx_restart.bat")
+    os.execv("lynx_start.bat", sys.argv)
 
 
 @dev_plus
@@ -72,8 +72,8 @@ def rebooting(update: Update, context: CallbackContext):
     lynx_msg = update.effective_message.reply_text(
         "Restarting... please wait!",
     )
-    os.system("restart.bat")
-    os.execv("start.bat", sys.argv)
+    os.system("lynx_restart.bat")
+    os.execv("lynx_start.bat", sys.argv)
     lynx_msg.edit_text("Done.. I've come back to life")
 
 
