@@ -92,36 +92,36 @@ def gban(update: Update, context: CallbackContext):
 
     if int(user_id) in DEV_ID:
         message.reply_text(
-            "That user is part of the Association\nI can't act against our own.",
+            "?",
         )
         return
 
     if int(user_id) in SD_ID:
         message.reply_text(
-            "I spy, with my little eye... a disaster! Why are you guys turning on each other?",
+            "?",
         )
         return
 
     if int(user_id) in SUPPORT_ID:
         message.reply_text(
-            "OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*",
+            "?",
         )
         return
 
     if int(user_id) in TIGERS_ID:
-        message.reply_text("That's a Tiger! They cannot be banned!")
+        message.reply_text("?")
         return
 
     if int(user_id) in WHITELIST_ID:
-        message.reply_text("That's a Wolf! They cannot be banned!")
+        message.reply_text("?")
         return
 
     if user_id == bot.id:
-        message.reply_text("You uhh...want me to punch myself?")
+        message.reply_text("u're stupid.")
         return
 
     if user_id in [777000, 1448477501]:
-        message.reply_text("Fool! You can't attack Telegram's native tech!")
+        message.reply_text("U're Fool bro!")
         return
 
     try:
@@ -166,7 +166,7 @@ def gban(update: Update, context: CallbackContext):
 
         return
 
-    message.reply_text("On it!")
+    message.reply_text("Done.")
 
     start_time = time.time()
     datetime_fmt = "%Y-%m-%dT%H:%M"
@@ -519,7 +519,7 @@ def __user_info__(user_id):
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in SD_ID + TIGERS_ID + WHITELIST_ID:
+    if int(user_id) in SD_ID and TIGERS_ID and WHITELIST_ID:
         return ""
     if is_gbanned:
         text = text.format("Yes")
