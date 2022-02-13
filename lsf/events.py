@@ -18,7 +18,7 @@ def register(**args):
     """Registers a new message."""
     pattern = args.get("pattern")
 
-    r_pattern = r"^[/!.]"
+    r_pattern = r"^[.$!/-;@]"
 
     if pattern is not None and not pattern.startswith("(?i)"):
         args["pattern"] = "(?i)" + pattern
