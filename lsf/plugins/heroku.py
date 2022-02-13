@@ -195,7 +195,7 @@ async def _(view):
     )
 
     await asyncio.sleep(5)
-    await kz.delete()
+    await client.delete()
     return os.remove("logs.txt")
 
 
