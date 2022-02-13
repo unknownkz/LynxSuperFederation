@@ -159,7 +159,7 @@ def listchatbot(update: Update, context: CallbackContext):
             sql.rem_lynx(*chat)
         except RetryAfter as e:
             sleep(e.retry_after)
-    update.effective_message.reply_text(text, parse_mode="HTML")
+    update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
 __help__ = """
