@@ -13,7 +13,7 @@ from lsf import lynx_client
 spam_chats = []
 
 
-@lynx_client.on(events.NewMessage(pattern=r"^[.$!/-;@]all ?(.*)"))
+@lynx_client.on(events.NewMessage(pattern=r"^[.$!/;@]all ?(.*)"))
 async def mentionall(event):
     chat_id = event.chat_id
     if event.is_private:
@@ -72,7 +72,7 @@ async def mentionall(event):
         pass
 
 
-@lynx_client.on(events.NewMessage(pattern=r"^[.$!/-;@]cancel$"))
+@lynx_client.on(events.NewMessage(pattern=r"^[.$!/;@]cancel$"))
 async def cancel_spam(event):
     if not event.chat_id in spam_chats:
         return await event.respond("There is no proccess on going...")
@@ -90,10 +90,10 @@ __help__ = """
  • /all <sometext> : mention all member
  • /cancel : canceled ur mention
 
-Variable Pattern : $ ! / - ; . @
+Variable Pattern : $  !  /  ;  .  @
 	
- *Example:*
-$all !all -all ;all .all @all
+*Example:*
+$all  !all  /all  ;all  .all  @all
  """
 
 __mod_name__ = "Mentions"
