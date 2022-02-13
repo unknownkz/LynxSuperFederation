@@ -1,4 +1,4 @@
-from .. import DEV_ID, SD_ID, SUPPORT_ID, TIGERS_ID, WHITELIST_ID, lynx_client
+from ... import DEV_ID, SD_ID, SUPPORT_ID, TIGERS_ID, WHITELIST_ID, lynx_client
 
 U_ABSURD = DEV_ID + SD_ID + SUPPORT_ID + WHITELIST_ID + TIGERS_ID
 
