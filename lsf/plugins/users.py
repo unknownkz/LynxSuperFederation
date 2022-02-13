@@ -153,7 +153,7 @@ def chat_checker(update: Update, context: CallbackContext):
 
 
 def __user_info__(user_id):
-    if user_id in [777000, 1448477501] and in DEV_ID:
+    if user_id in [777000, 1448477501] and DEV_ID:
         return """\nI've seen them in <code>{num_chats}</code> chats in total"""
     if user_id == dispatcher.bot.id:
         return """\nI've seen them in <code>{num_chats}</code> chats in total"""
