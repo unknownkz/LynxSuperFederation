@@ -211,13 +211,13 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Devs
             elif new_mem.id in DEV_ID:
                 update.effective_message.reply_text(
-                    "Be cool! A member of the My Developers Team just joined.",
+                    "My Developers Team just joined.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Lynx Developer just joined the group"
+                    f"My Developer just joined the group."
                 )
                 continue
 
@@ -557,7 +557,7 @@ def left_member(update: Update, context: CallbackContext):
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oi! Genos! He left..",
+                    "Oi! Owner! He left..",
                     reply_to_message_id=reply,
                 )
                 return
@@ -717,8 +717,7 @@ def goodbye(update: Update, context: CallbackContext):
         noformat = True
         pref, goodbye_m, goodbye_type = sql.get_gdbye_pref(chat.id)
         update.effective_message.reply_text(
-            f"This chat has it's goodbye setting set to: `{pref}`.\n"
-            f"*The goodbye message (not filling the {{}}) is:*",
+            "This chat has it's goodbye setting set to: `{}`.\n".format(pref),
             parse_mode=ParseMode.MARKDOWN,
         )
 
@@ -1074,9 +1073,9 @@ WELC_HELP_TXT = (
 WELC_MUTE_HELP_TXT = (
     "You can get the bot to mute new people who join your group and hence prevent spambots from flooding your group. "
     "The following options are possible:\n"
-    "• `/welcomemute soft`*:* restricts new members from sending media for 24 hours.\n"
-    "• `/welcomemute strong`*:* mutes new members till they tap on a button thereby verifying they're human.\n"
-    "• `/welcomemute off`*:* turns off welcomemute.\n"
+    "• /welcomemute soft : restricts new members from sending media for 24 hours.\n"
+    "• /welcomemute strong : mutes new members till they tap on a button thereby verifying they're human.\n"
+    "• /welcomemute off : turns off welcomemute.\n"
     "*Note:* Strong mode kicks a user from the chat if they dont verify in 120seconds. They can always rejoin though"
 )
 
