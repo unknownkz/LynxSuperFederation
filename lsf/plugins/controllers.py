@@ -1,7 +1,6 @@
 import lsf
 
 from contextlib import suppress
-from time import sleep
 
 from lsf import dispatcher, ALLOW_CHATS
 from lsf.handlers.valid import dev_plus
@@ -53,4 +52,4 @@ dispatcher.add_handler(ALLOWGROUPS_HANDLER)
 dispatcher.add_handler(LEAVE_HANDLER)
 
 __mod_name__ = "Controllers"
-__handlers__ = [LEAVE_HANDLER, GITPULL_HANDLER, REBOOTING_HANDLER, ALLOWGROUPS_HANDLER]
+__handlers__ = [LEAVE_HANDLER, ALLOWGROUPS_HANDLER]
