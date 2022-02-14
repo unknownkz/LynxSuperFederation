@@ -17,7 +17,7 @@ from ...handlers.extraction import (
     extract_user,
     extract_user_and_text,
 )
-from ...handlers.filters import CustomFilters
+from ...handlers.filters import CustomFilters, has_text
 from ...handlers.misc import split_message
 from ...handlers.string_handling import split_quotes
 from .log_channel import loggable
