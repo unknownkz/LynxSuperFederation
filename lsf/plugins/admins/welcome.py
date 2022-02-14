@@ -230,7 +230,7 @@ def new_member(update: Update, context: CallbackContext):
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Lynx Sudo Developer just joined the group"
+                    f"Lynx Team Developer just joined the group"
                 )
                 continue
 
@@ -243,7 +243,7 @@ def new_member(update: Update, context: CallbackContext):
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Lynx Support Developer just joined the group"
+                    f"Lynx Team Support just joined the group"
                 )
                 continue
 
@@ -274,7 +274,7 @@ def new_member(update: Update, context: CallbackContext):
                         parse_mode=ParseMode.HTML,
                     )
                 update.effective_message.reply_text(
-                    "Thanks for adding me.\nFor more info please press /start",
+                    "Thanks for adding me.\nFor more information click /settings",
                     reply_to_message_id=reply,
                 )
                 continue
