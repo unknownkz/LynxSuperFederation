@@ -3,23 +3,23 @@ import re
 from typing import Optional
 
 import telegram
-from .... import SD_ID, SUPPORT_ID, dispatcher
+from ... import SD_ID, SUPPORT_ID, dispatcher
 from ..disable import DisableAbleCommandHandler
-from ....handlers.valid import (
+from ...handlers.valid import (
     bot_admin,
     can_restrict,
     is_user_admin,
     user_admin,
     user_admin_no_reply,
 )
-from ....handlers.extraction import (
+from ...handlers.extraction import (
     extract_text,
     extract_user,
     extract_user_and_text,
 )
-from ....handlers.filters import CustomFilters
-from ....handlers.misc import split_message
-from ....handlers.string_handling import split_quotes
+from ...handlers.filters import CustomFilters
+from ...handlers.misc import split_message
+from ...handlers.string_handling import split_quotes
 from .log_channel import loggable
 from lsf.database import warns_sql as sql
 from telegram import (
@@ -43,7 +43,7 @@ from telegram.ext import (
     run_async,
 )
 from telegram.utils.helpers import mention_html
-from lsf.database.approve_sql import is_approved
+from ...database.approve_sql import is_approved
 
 WARN_HANDLER_GROUP = 9
 CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"
