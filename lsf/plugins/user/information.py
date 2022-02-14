@@ -286,7 +286,7 @@ def info(update: Update, context: CallbackContext):
                     text += _stext.format("Admin")
     if user_id not in [bot.id, 777000, 1448477501]:
         userhp = hpmanager(user)
-        text += f"\n\n <b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+        text += f"\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     disaster_level_present = False
 
@@ -325,7 +325,7 @@ def info(update: Update, context: CallbackContext):
         except TypeError:
             mod_info = mod.__user_info__(user.id, chat.id).strip()
         if mod_info:
-            text += "\n" + mod_info
+            text += "\n\n" + mod_info
 
     if INFOPIC:
         try:
@@ -558,7 +558,7 @@ Examples:
  • /ginfo : get information about a Group. 
  
 `What is that health thingy?`
- Come and see [HP System explained](https://t.me/LSF_UPDATES)
+ Come and see [HP System explained](https://t.me/LynxUpdates)
 """
 __mod_name__ = "Information"
 __command_list__ = ["setbio", "bio", "setme", "me", "info"]
