@@ -337,6 +337,8 @@ def __load_chat_blacklists():
         for bclist in all_filters:
             CHAT_BLACKLISTS[bclist.chat_id] += [bclist.trigger]
 
+        CHAT_BLACKLISTS = {bclist: set(bc) for bclist, bc in CHAT_BLACKLISTS.items()}
+
     finally:
         SESSION.close()
 
