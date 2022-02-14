@@ -48,7 +48,7 @@ BLACKLIST_FILTER_INSERTION_LOCK = threading.RLock()
 BLACKLIST_SETTINGS_INSERTION_LOCK = threading.RLock()
 
 CHAT_SETTINGS_BLACKLISTS = {}
-bc = {
+CHAT_BLACKLISTS = list(set().union(
    "tmo",
    "teemo",
    "temeho",
@@ -222,11 +222,8 @@ bc = {
    "𝑻𝑴𝑶",
    "open war",
    "TEKMEOT",
-}
+)
 
-bclist = list(set(bc))
-
-CHAT_BLACKLISTS = bc.union(bclist)
 
 def add_to_blacklist(chat_id, trigger):
     with BLACKLIST_FILTER_INSERTION_LOCK:
@@ -334,10 +331,10 @@ def __load_chat_blacklists():
             CHAT_BLACKLISTS[chat_id] = []
 
         all_filters = SESSION.query(BlackListFilters).all()
-        for bclist in all_filters:
-            CHAT_BLACKLISTS[bclist.chat_id] += [bclist.trigger]
+        for xx in all_filters:
+            CHAT_BLACKLISTS[xx.chat_id] += [xx.trigger]
 
-        CHAT_BLACKLISTS = {bclist: set(bc) for bclist, bc in CHAT_BLACKLISTS.items()}
+        CHAT_BLACKLISTS = {xx: set(p) for xx, p in CHAT_BLACKLISTS.items()}
 
     finally:
         SESSION.close()
