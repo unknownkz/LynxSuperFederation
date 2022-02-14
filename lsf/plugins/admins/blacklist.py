@@ -7,17 +7,17 @@ from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
 from lsf.database import blacklist_sql as sql
-from .... import dispatcher, LOGGER
+from ... import dispatcher, LOGGER
 from ..disable import DisableAbleCommandHandler
-from ....handlers.valid import user_admin, user_not_admin
-from ....handlers.extraction import extract_text
-from ....handlers.misc import split_message
+from ...handlers.valid import user_admin, user_not_admin
+from ...handlers.extraction import extract_text
+from ...handlers.misc import split_message
 from .log_channel import loggable
 from .warns import warn
-from ....handlers.string_handling import extract_time
+from ...handlers.string_handling import extract_time
 from .connection import connected
 from lsf.database.approve_sql import is_approved
-from ....handlers.altaraction import send_message, typing_action
+from ...handlers.altaraction import send_message, typing_action
 
 BLACKLIST_GROUP = 20
 
