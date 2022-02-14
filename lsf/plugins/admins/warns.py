@@ -12,12 +12,14 @@ from ...handlers.valid import (
     user_admin,
     user_admin_no_reply,
 )
+
 from ...handlers.extraction import (
     extract_text,
     extract_user,
     extract_user_and_text,
 )
-from ...handlers.filters import CustomFilters, has_text
+
+from ...utils.customfilters import CustomFilters
 from ...handlers.misc import split_message
 from ...handlers.string_handling import split_quotes
 from .log_channel import loggable
@@ -32,6 +34,7 @@ from telegram import (
     Update,
     User,
 )
+
 from telegram.error import BadRequest
 from telegram.ext import (
     CallbackContext,
@@ -42,10 +45,12 @@ from telegram.ext import (
     MessageHandler,
     run_async,
 )
+
 from telegram.utils.helpers import mention_html
 from ...database.approve_sql import is_approved
 
-WARN_HANDLER_GROUP = 9
+
+WARN_HANDLER_GROUP = 20
 CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"
 
 
