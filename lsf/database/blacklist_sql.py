@@ -222,7 +222,7 @@ CHAT_BLACKLISTS = list(set().union(
    "𝑻𝑴𝑶",
    "open war",
    "TEKMEOT",
-)
+))
 
 
 def add_to_blacklist(chat_id, trigger):
