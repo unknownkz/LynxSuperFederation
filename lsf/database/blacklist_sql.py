@@ -48,7 +48,7 @@ BLACKLIST_FILTER_INSERTION_LOCK = threading.RLock()
 BLACKLIST_SETTINGS_INSERTION_LOCK = threading.RLock()
 
 CHAT_SETTINGS_BLACKLISTS = {}
-CHAT_BLACKLISTS = list(
+CHAT_BLACKLISTS = tuple((
    "tmo",
    "teemo",
    "temeho",
@@ -222,7 +222,7 @@ CHAT_BLACKLISTS = list(
    "𝑻𝑴𝑶",
    "open war",
    "TEKMEOT",
-)
+))
 
 
 def add_to_blacklist(chat_id, trigger):
