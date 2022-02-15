@@ -5,13 +5,8 @@ from pathlib import Path
 from pymongo import MongoClient
 from telethon import events
 
-from . import MONGO_DB_URI, lynx_client
+from . import lynx_client
 from .configuration import MYPLUGIN
-
-client = MongoClient()
-client = MongoClient(MONGO_DB_URI)
-db = client["LSF"]
-gbanned = db.gban
 
 
 def register(**args):
@@ -123,7 +118,7 @@ def BtCommand(**args):
                     print("i don't work in small chats")
                     return
 
-            users = gbanned.find({})
+            users = lynx_client.find({})
             for c in users:
                 if check.sender_id == c["user"]:
                     return
