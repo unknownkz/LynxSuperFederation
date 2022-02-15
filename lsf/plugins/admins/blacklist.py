@@ -478,7 +478,15 @@ __mod_name__ = "BlackList"
 __help__ = """
 *Blacklist Text* (Only Admins)
 
+ • /blacklist : see the blacklist in your group
+ • /addblacklist <some text or TMO DI BIO> : add blacklist to your group
+ • /unblacklist : remove blacklist to your group
 
+ • /blacklistmode <delete> : blacklist to delete messages
 
+*Variabel Mode*
+ off/del/warn/ban/kick/mute/tban/tmute
 
+*Example:*
+ • /blacklistmode kick : kick out the blacklisted member
 """
