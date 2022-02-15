@@ -8,10 +8,7 @@
 [![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=active+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
 [![DeepSource](https://deepsource.io/gh/unknownkz/LynxSuperFederation.svg/?label=resolved+issues&show_trend=true&token=jJHV3d_TGMfLOAjkgXBBDv08)](https://deepsource.io/gh/unknownkz/LynxSuperFederation/?ref=repository-badge)
 ---
-### Deployment
-* [![Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://github.com/Unknownkz/BuildPackages)
 
----
 ## License
 
 * [The MIT License](https://opensource.org/licenses/MIT) 2022 Unknown
