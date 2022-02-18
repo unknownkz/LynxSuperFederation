@@ -176,7 +176,7 @@ def video(update: Update, context: CallbackContext):
 
             if fsize > 50:
                 kenzo.edit_text(
-                    f"❌ Videos can currently send audio files of up to {fsize} MB in size."
+                    f"❌ Videos can currently send files of up to {fsize} MB in size."
                 )
                 is_downloading = False
                 return
