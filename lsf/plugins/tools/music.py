@@ -73,11 +73,12 @@ def music(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = round(infoo["filesize"] / 50)
+            fsize = round(infoo["filesize"])
+            sizes = fsize[50]
 
-            if duration > 120 and fsize > 50:
+            if duration > 120 and sizes > 50:
                 kenzo.edit_text(
-                    "❌ Music longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, fsize),
+                    "❌ Music longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, sizes),
                 )
                 is_downloading = False
                 return
@@ -98,6 +99,7 @@ def music(update: Update, context: CallbackContext):
         duration=int(ytdl_data["duration"]),
         title=str(ytdl_data["title"]),
         performer=str(ytdl_data["uploader"]),
+        file_id=into(ytdl_data["filesize"]),
         thumb=sedlyf,
         caption=capy,
         parse_mode=ParseMode.MARKDOWN,
@@ -157,11 +159,12 @@ def video(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = round(infoo["filesize"] / 50)
+            fsize = round(infoo["filesize"])
+            sizes = fsize[50]
 
-            if duration > 120 and fsize > 50:
+            if duration > 120 and sizes > 50:
                 kenzo.edit_text(
-                    "❌ Videos longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, fsize),
+                    "❌ Videos longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, sizes),
                 )
                 is_downloading = False
                 return
@@ -181,6 +184,7 @@ def video(update: Update, context: CallbackContext):
         chat.id,
         video=open(file_stark, "rb"),
         duration=int(ytdl_data["duration"]),
+        file_id=int(ytdl_data["filesize"]),
         # file_name=str(ytdl_data["title"]),
         thumb=sedlyf,
         caption=capy,
