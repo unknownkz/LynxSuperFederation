@@ -75,24 +75,16 @@ def music(update: Update, context: CallbackContext):
             duration = round(infoo["duration"] / 120)
             fsize = round(infoo["filesize"] / 50)
 
-            if duration > 120:
+            if duration > 120 and fsize > 50:
                 kenzo.edit_text(
-                    f"❌ Music longer than 120 minute(s) aren't allowed, the provided video is {duration} minute(s)"
+                    "❌ Music longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, fsize),
                 )
                 is_downloading = False
                 return
-
-            if fsize > 50:
-                kenzo.edit_text(
-                    f"❌ Music can currently send audio files of up to {fsize} MB in size."
-                )
-                is_downloading = False
-                return
-
             ytdl_data = ytdl.extract_info(url, download=True)
 
     except Exception as e:
-        kenzo.edit_text(f"`Failed To Download` \n`Error :` `{str(e)}`")
+        kenzo.edit_text(f"Failed To Download\n Error : {str(e)}")
         is_downloading = False
         return
     c_time = time.time()
@@ -167,24 +159,16 @@ def video(update: Update, context: CallbackContext):
             duration = round(infoo["duration"] / 120)
             fsize = round(infoo["filesize"] / 50)
 
-            if duration > 120:
+            if duration > 120 and fsize > 50:
                 kenzo.edit_text(
-                    f"❌ Videos longer than 120 minute(s) aren't allowed, the provided video is {duration} minute(s)"
+                    "❌ Videos longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, fsize),
                 )
                 is_downloading = False
                 return
-
-            if fsize > 50:
-                kenzo.edit_text(
-                    f"❌ Videos can currently send files of up to {fsize} MB in size."
-                )
-                is_downloading = False
-                return
-
             ytdl_data = ytdl.extract_info(url, download=True)
 
     except Exception as e:
-        kenzo.edit_text(f"`Failed To Download` \n`Error :` `{str(e)}`")
+        kenzo.edit_text(f"Failed To Download\nError : {str(e)}")
         is_downloading = False
         return
 
