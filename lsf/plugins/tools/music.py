@@ -99,7 +99,7 @@ def music(update: Update, context: CallbackContext):
         duration=int(ytdl_data["duration"]),
         title=str(ytdl_data["title"]),
         performer=str(ytdl_data["uploader"]),
-        file_id=into(ytdl_data["filesize"]),
+        file_id=int(ytdl_data["filesize"]),
         thumb=sedlyf,
         caption=capy,
         parse_mode=ParseMode.MARKDOWN,
