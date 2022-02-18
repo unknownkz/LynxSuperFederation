@@ -72,9 +72,9 @@ def music(update: Update, context: CallbackContext):
         is_downloading = True
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
-            duration = round(infoo["duration"] / 60)
+            duration = round(infoo["duration"] / 120)
 
-            if duration > 10:
+            if duration > 120:
                 kenzo.edit_text(
                     f"❌ Videos longer than 10 minute(s) aren't allowed, the provided video is {duration} minute(s)"
                 )
@@ -126,7 +126,7 @@ def video(update: Update, context: CallbackContext):
 
     kenzo = bot.send_message(
         message.chat.id,
-        textwrap.dedent(f"`Getting {urlissed} From Youtube Servers. Please Wait.`"),
+        textwrap.dedent(f"Getting {urlissed} From Youtube Servers."),
     )
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
@@ -155,11 +155,11 @@ def video(update: Update, context: CallbackContext):
         is_downloading = True
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
-            duration = round(infoo["duration"] / 60)
+            duration = round(infoo["duration"] / 120)
 
-            if duration > 10:
+            if duration > 120:
                 kenzo.edit_text(
-                    f"❌ Videos longer than 10 minute(s) aren't allowed, the provided video is {duration} minute(s)"
+                    f"❌ Videos longer than 120 minute(s) aren't allowed, the provided video is {duration} minute(s)"
                 )
                 is_downloading = False
                 return
