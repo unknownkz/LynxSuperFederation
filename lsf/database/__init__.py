@@ -7,8 +7,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from lsf import DATABASE_URL
 from lsf import LOGGER as LSF_LOGS
 
-if DATABASE_URL and DATABASE_URL.startswith("mongodb://"):
-    DATABASE_URL = DATABASE_URL.replace("mongodb://", "mongodb+srv://", 1)
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 
 def start() -> scoped_session:
