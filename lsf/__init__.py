@@ -97,7 +97,6 @@ if ENV:
     SESSION_STRING = os.environ.get("SESSION_STRING")
     STRING_SESSION = os.environ.get("STRING_SESSION")
     DATABASE_URL = os.environ.get("DATABASE_URL")
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
     ARQ_API_URL = os.environ.get("ARQ_API_URL")
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY")
 
@@ -181,7 +180,7 @@ else:
     UPSTREAM_REPO_URL = Unknown.UPSTREAM_REPO
 
     DB_URI = Unknown.SQLALCHEMY_DATABASE_URI
-    MONGO_DB_URI = Unknown.MONGO_DB_URI
+    DATABASE_URL = Unknown.DATABASE_URL
 
     DONATION_LINK = Unknown.DONATION_LINK
     LOAD = Unknown.LOAD
@@ -207,8 +206,6 @@ else:
     INFOPIC = Unknown.INFOPIC
     TGB_USERNAME = Unknown.TGB_USERNAME
     STRING_SESSION = Unknown.STRING_SESSION
-    LASTFM_API_KEY = Unknown.LASTFM_API_KEY
-    CF_API_KEY = Unknown.CF_API_KEY
     try:
         BLACKLIST_CHAT = {int(x) for x in Unknown.BLACKLIST_CHAT or []}
     except ValueError:
