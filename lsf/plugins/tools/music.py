@@ -76,7 +76,7 @@ def music(update: Update, context: CallbackContext):
             fsize = infoo["filesize"]
             sizes = fsize[0]
 
-            if duration > 120 and sizes > 50:
+            if duration > 120 or sizes > 50:
                 kenzo.edit_text(
                     "❌ Music longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, sizes),
                 )
@@ -161,7 +161,7 @@ def video(update: Update, context: CallbackContext):
             fsize = infoo["filesize"]
             sizes = fsize[0]
 
-            if duration > 120 and sizes > 50:
+            if duration > 120 or sizes > 50:
                 kenzo.edit_text(
                     "❌ Videos longer than {} minute(s) and {} MB in size aren't allowed.".format(duration, sizes),
                 )
