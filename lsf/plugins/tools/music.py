@@ -73,7 +73,7 @@ def music(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = round(infoo["filesize"])
+            fsize = infoo["filesize"])
             sizes = fsize[0]
 
             if duration > 120 and sizes > 50:
@@ -158,7 +158,7 @@ def video(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = round(infoo["filesize"])
+            fsize = infoo["filesize"])
             sizes = fsize[0]
 
             if duration > 120 and sizes > 50:
