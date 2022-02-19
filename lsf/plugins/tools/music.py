@@ -73,17 +73,10 @@ def music(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = infoo["filesize"]
 
             if duration > 120:
                 kenzo.edit_text(
                     "❌ Music longer than {} minute(s) aren't allowed.".format(duration),
-                )
-                return
-
-            if fsize[0]:
-                kenzo.edit_text(
-                    "❌ Music size than {} MB aren't allowed.".format(fsize),
                 )
                 is_downloading = False
                 return
@@ -163,17 +156,10 @@ def video(update: Update, context: CallbackContext):
         with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
-            fsize = infoo["filesize"]
 
-            if duration > 120 or sizes > 50:
+            if duration > 120:
                 kenzo.edit_text(
                     "❌ Videos longer than {} minute(s) aren't allowed.".format(duration),
-                )
-                return
-
-            if fsize[0]:
-                kenzo.edit_text(
-                    "❌ Videos size than {} MB aren't allowed.".format(fsize),
                 )
                 is_downloading = False
                 return
