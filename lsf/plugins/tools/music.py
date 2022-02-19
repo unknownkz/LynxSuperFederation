@@ -74,7 +74,7 @@ def music(update: Update, context: CallbackContext):
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
             fsize = round(infoo["filesize"])
-            sizes = fsize[50]
+            sizes = fsize[0]
 
             if duration > 120 and sizes > 50:
                 kenzo.edit_text(
@@ -99,7 +99,6 @@ def music(update: Update, context: CallbackContext):
         duration=int(ytdl_data["duration"]),
         title=str(ytdl_data["title"]),
         performer=str(ytdl_data["uploader"]),
-        file_id=int(ytdl_data["filesize"]),
         thumb=sedlyf,
         caption=capy,
         parse_mode=ParseMode.MARKDOWN,
@@ -160,7 +159,7 @@ def video(update: Update, context: CallbackContext):
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 120)
             fsize = round(infoo["filesize"])
-            sizes = fsize[50]
+            sizes = fsize[0]
 
             if duration > 120 and sizes > 50:
                 kenzo.edit_text(
@@ -184,7 +183,6 @@ def video(update: Update, context: CallbackContext):
         chat.id,
         video=open(file_stark, "rb"),
         duration=int(ytdl_data["duration"]),
-        file_id=int(ytdl_data["filesize"]),
         # file_name=str(ytdl_data["title"]),
         thumb=sedlyf,
         caption=capy,
