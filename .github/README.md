@@ -12,3 +12,5 @@
 ## License
 
 * [The MIT License](https://opensource.org/licenses/MIT) 2022 Unknown
+<a href="//www.dmca.com/Protection/Status.aspx?ID=398302a3-462a-4cb8-b716-c2248887becc" title="DMCA.com Protection Status" class="dmca-badge">
+<img src ="https://images.dmca.com/Badges/dmca_protected_27_120.png?ID=398302a3-462a-4cb8-b716-c2248887becc"  alt="DMCA.com Protection Status" /></a> 
