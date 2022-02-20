@@ -5,7 +5,7 @@ from ... import dispatcher, SD_ID
 from ...handlers.extraction import extract_user
 from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
 from ...database import agreement_sql as sql
-from ...handlers.validation import user_admin
+from ...handlers.valid import user_admin
 from .log_channel import loggable
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, Update
 from telegram.utils.helpers import mention_html
