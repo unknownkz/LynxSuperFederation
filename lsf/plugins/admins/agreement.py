@@ -211,7 +211,7 @@ AGREE = DisableAbleCommandHandler("agree", agree, run_async=True)
 DISAGREE = DisableAbleCommandHandler("unagree", disagree, run_async=True)
 AGREED = DisableAbleCommandHandler("agreed", agreed, run_async=True)
 AGREE_CHECK = DisableAbleCommandHandler("agreecheck", agreecheck, run_async=True)
-UNAPPROVEALL = DisableAbleCommandHandler("unagreealll", unagreeall, run_async=True)
+UNAPPROVEALL = DisableAbleCommandHandler("unagreeall", unagreeall, run_async=True)
 UNAPPROVEALL_BTN = CallbackQueryHandler(unagreeall_btn, pattern=r"unagreeall_.*", run_async=True)
 
 dispatcher.add_handler(AGREE)
