@@ -90,8 +90,8 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
 
 @CgbanBang(pattern=r"^[.$!/;@]gitpush$")
 async def upstream(event):
-	await event.get_reply_message("is building a packages..")
-    os.chdir("/app")
+    await event.get_reply_message("is building a packages..")
+
     try:
         txt = (
             "Sorry, an error has occured."
