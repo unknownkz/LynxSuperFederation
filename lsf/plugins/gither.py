@@ -1,7 +1,8 @@
 import os
 import heroku3
 import asyncio
-import sys.executable as execute
+
+from sys import executable as execute
 
 from git import Repo as Repository
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
