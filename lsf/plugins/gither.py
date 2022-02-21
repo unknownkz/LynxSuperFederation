@@ -7,7 +7,7 @@ from sys import executable as execute
 from git import Repo as Repository
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from ..events import register as CgbanBang
+from ..events import register
 from .. import HEROKU_API_KEY, HEROKU_APP_NAME
 
 
@@ -89,7 +89,7 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
         pass        
 
 
-@CgbanBang(pattern=r"^[.$!/;@]gitpush$")
+@register(pattern=r"^[.$!/;@]gitpush$")
 async def upstream(event):
     await event.get_reply_message("is building a packages..")
 
