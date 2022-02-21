@@ -55,11 +55,11 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
     )
 
     if herogay_app is None:
-        await event.edit(
+        await Quick.edit(
             f"Failling!!"
         )
         return repo.__del__()
-    await event.edit(
+    await Quick.edit(
         "Rebooting..."
     )
     herogay_git_url = herogay_app.git_url.replace(
@@ -77,7 +77,7 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
         return repository.__del__()
     build_status = herogay_app.builds(order_by="created_at", sort="desc")[0]
     if build_status.status == "failed":
-        return await event.get_reply_message(
+        return await Quick.get_reply_message(
             "Build failed."
         )
     try:
@@ -120,4 +120,4 @@ async def upstream(event):
     upstream_remote = repository.remote("upstream")
     upstream_remote.fetch(active_branch)
     await event.edit("Bootloader...")
-    await bootloader(event, repository, upstream_remote, active_branch, txt)
+    await bootloader(Quick, repository, upstream_remote, active_branch, txt)
