@@ -7,7 +7,7 @@ from git import Repo as Repository
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
 from ..event import register as CgbanBang
-from .. import HEROKU_API_KEY
+from .. import HEROKU_API_KEY, HEROKU_APP_NAME
 
 
 # rqrmnt = os.path.join(
@@ -49,7 +49,20 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
     herogay_applications = herogay.apps()
     upstream_remote.fetch(active_branch)
     repository.git.reset("--hard", "FETCH_HEAD")
-    herogay_git_url = heroku_app.git_url.replace(
+    herogay_app = next(
+        (app for app in herogay_applications if app.name == HEROKU_APP_NAME),
+        None,
+    )
+
+    if herogay_app is None:
+        await event.edit(
+            f"Failling!!"
+        )
+        return repo.__del__()
+    await event.edit(
+        "Rebooting..."
+    )
+    herogay_git_url = herogay_app.git_url.replace(
         "https://", f"https://api:{HEROKU_API_KEY}@"
     )
     if "herogay" in repository.remotes:
@@ -62,7 +75,7 @@ async def bootloader(Quick, repository, upstream_remote, active_branch, txt):
     except Exception as error:
         await Quick.edit(f"{txt}\n**Error :**\n`{error}`")
         return repository.__del__()
-    build_status = heroku_app.builds(order_by="created_at", sort="desc")[0]
+    build_status = herogay_app.builds(order_by="created_at", sort="desc")[0]
     if build_status.status == "failed":
         return await event.get_reply_message(
             "Build failed."
