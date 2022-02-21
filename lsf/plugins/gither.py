@@ -7,7 +7,7 @@ from sys import executable as execute
 from git import Repo as Repository
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from ..event import register as CgbanBang
+from ..events import register as CgbanBang
 from .. import HEROKU_API_KEY, HEROKU_APP_NAME
 
 
