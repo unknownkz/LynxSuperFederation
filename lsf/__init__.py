@@ -237,6 +237,12 @@ xx = Client(
     workers=min(64, os.cpu_count() + 16),
 )
 
+# delete these var to add some security
+del SESSION_STRING
+del STRING_SESSION
+del TGB_TOKEN
+del API_ID
+del API_HASH
 
 SD_ID.add(OWNER_ID)
 DEV_ID.add(OWNER_ID)
