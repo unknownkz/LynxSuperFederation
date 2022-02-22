@@ -71,8 +71,8 @@ def callbackquery(**args):
     return decorator
 
 
-def BtCommand(**args):
-    pattern = args.get("pattern")
+def tgb_command(**args):
+    pattern = args.get("pattern", None)
     r_pattern = r"^[.$!/;@]"
 
     if pattern is not None and not pattern.startswith("(?i)"):
@@ -139,7 +139,7 @@ def BtCommand(**args):
     return decorator
 
 
-def UserCommand(**args):
+def user_command(**args):
     pattern = args.get("pattern")
     disable_edited = args.get("disable_edited", False)
     ignore_unsafe = args.get("ignore_unsafe", False)
