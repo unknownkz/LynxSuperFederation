@@ -1,0 +1,110 @@
+Welcome to git (version 2.35.1)
+
+$ cat .gitignore
+
+# Distribution (Packages)
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# LOGS and Stuff
+*.log
+log.txt
+updates.txt
+
+# Pip Logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Session Files
+*.session
+
+# Byte Compile / Optimized
+*$py.class
+*.py[cod]
+__pycache__/
+
+# C-Extensions
+*.so
+
+# Coverage / Cache / Reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# VSCODE / PyDev
+*.pyc
+.idea/
+.project
+.pydevproject
+.directory
+.vscode
+
+# ENV
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# PyENV
+.python-version
+
+# Jupyter
+.ipynb_checkpoints
+
+# PyBuilder
+target/
+
+# asu
+lsf/__pycache__/
+lsf/plugins/__pycache__/
+lsf/plugins/admins/__pycache__/
+lsf/plugins/tools/__pycache__/
+lsf/plugins/user/__pycache__/
+lsf/database/__pycache__/
+lsf/database/handlers/__pycache__/
+lsf/database/handlers/telethon/__pycache__/
+lsf/utils/__pycache__/

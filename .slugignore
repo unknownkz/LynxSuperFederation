@@ -1,0 +1,15 @@
+Welcome to git (version 2.35.1)
+
+$ cat .slugignore
+
+.github/README.md
+dev-req.txt
+.deepsource.toml
+srcs
+startapp
+LICENSE
+setup.py
+.editorconfig
+.deepsource.toml
+dev-req-setup.txt
+dev-req-setup.cfg
