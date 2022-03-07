@@ -7,20 +7,20 @@ from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
 from lsf.database import blacklist_sql as sql
+
 from ... import dispatcher, LOGGER
-from ..disable import DisableAbleCommandHandler
-from ...handlers.valid import user_admin, user_not_admin
-from ...handlers.extraction import extract_text
-from ...handlers.misc import split_message
-from .log_channel import loggable
-from .warns import warn
-from ...handlers.string_handling import extract_time
-from .connection import connected
 from ...database.agreement_sql import is_agreed
 from ...handlers.altaraction import send_message, commands_functions
+from ...handlers.extraction import extract_text
+from ...handlers.misc import split_message
+from ...handlers.string_handling import extract_time
+from ...handlers.valid import user_admin, user_not_admin
+from ..disable import DisableAbleCommandHandler
+from .connection import connected
+from .log_channel import loggable
+from .warns import warn
 
 BLACKLIST_GROUP = 20
-
 
 
 @user_admin
@@ -56,9 +56,7 @@ def blacklist(update, context):
 
     split_text = split_message(filter_list)
     for text in split_text:
-        if filter_list == "Current blacklisted words in <b>{}</b>:\n".format(
-            html.escape(chat_name)
-        ):
+        if filter_list == "Current blacklisted words in <b>{}</b>:\n".format(html.escape(chat_name)):
             send_message(
                 update.effective_message,
                 "No blacklisted words in <b>{}</b>!".format(html.escape(chat_name)),
@@ -66,7 +64,6 @@ def blacklist(update, context):
             )
             return
         send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
-
 
 
 @user_admin
@@ -90,9 +87,7 @@ def add_blacklist(update, context):
 
     if len(words) > 1:
         text = words[1]
-        to_blacklist = list(
-            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
-        )
+        to_blacklist = list({trigger.strip() for trigger in text.split("\n") if trigger.strip()})
         for trigger in to_blacklist:
             sql.add_to_blacklist(chat_id, trigger.lower())
 
@@ -121,7 +116,6 @@ def add_blacklist(update, context):
         )
 
 
-
 @user_admin
 @commands_functions
 def unblacklist(update, context):
@@ -143,9 +137,7 @@ def unblacklist(update, context):
 
     if len(words) > 1:
         text = words[1]
-        to_unblacklist = list(
-            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
-        )
+        to_unblacklist = list({trigger.strip() for trigger in text.split("\n") if trigger.strip()})
         successful = 0
         for trigger in to_unblacklist:
             success = sql.rm_from_blacklist(chat_id, trigger.lower())
@@ -162,16 +154,12 @@ def unblacklist(update, context):
                     parse_mode=ParseMode.HTML,
                 )
             else:
-                send_message(
-                    update.effective_message, "This is not a blacklist trigger!"
-                )
+                send_message(update.effective_message, "This is not a blacklist trigger!")
 
         elif successful == len(to_unblacklist):
             send_message(
                 update.effective_message,
-                "Removed <code>{}</code> from blacklist in <b>{}</b>!".format(
-                    successful, html.escape(chat_name)
-                ),
+                "Removed <code>{}</code> from blacklist in <b>{}</b>!".format(successful, html.escape(chat_name)),
                 parse_mode=ParseMode.HTML,
             )
 
@@ -186,9 +174,7 @@ def unblacklist(update, context):
             send_message(
                 update.effective_message,
                 "Removed <code>{}</code> from blacklist. {} did not exist, "
-                "so were not removed.".format(
-                    successful, len(to_unblacklist) - successful
-                ),
+                "so were not removed.".format(successful, len(to_unblacklist) - successful),
                 parse_mode=ParseMode.HTML,
             )
     else:
@@ -196,7 +182,6 @@ def unblacklist(update, context):
             update.effective_message,
             "Tell me which words you would like to remove from blacklist!",
         )
-
 
 
 @loggable
@@ -279,9 +264,7 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
             )
             return ""
         if conn:
-            text = "Changed blacklist mode: `{}` in *{}*!".format(
-                settypeblacklist, chat_name
-            )
+            text = "Changed blacklist mode: `{}` in *{}*!".format(settypeblacklist, chat_name)
         else:
             text = "Changed blacklist mode: `{}`!".format(settypeblacklist)
         send_message(update.effective_message, text, parse_mode="markdown")
@@ -313,9 +296,7 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
         elif getmode == 7:
             settypeblacklist = "temporarily mute for {}".format(getvalue)
         if conn:
-            text = "Current blacklistmode: *{}* in *{}*.".format(
-                settypeblacklist, chat_name
-            )
+            text = "Current blacklistmode: *{}* in *{}*.".format(settypeblacklist, chat_name)
         else:
             text = "Current blacklistmode: *{}*.".format(settypeblacklist)
         send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
@@ -327,7 +308,6 @@ def findall(p, s):
     while i != -1:
         yield i
         i = s.find(p, i + 1)
-
 
 
 @user_not_admin
@@ -448,15 +428,14 @@ def __stats__():
     )
 
 
-BLACKLIST_HANDLER = DisableAbleCommandHandler(
-    "blacklist", blacklist, pass_args=True, admin_ok=True, run_async=True
-)
+BLACKLIST_HANDLER = DisableAbleCommandHandler("blacklist", blacklist, pass_args=True, admin_ok=True, run_async=True)
 ADD_BLACKLIST_HANDLER = CommandHandler("addblacklist", add_blacklist, run_async=True)
 UNBLACKLIST_HANDLER = CommandHandler("unblacklist", unblacklist, run_async=True)
 BLACKLISTMODE_HANDLER = CommandHandler("blacklistmode", blacklist_mode, pass_args=True, run_async=True)
 BLACKLIST_DEL_HANDLER = MessageHandler(
     (Filters.text | Filters.command | Filters.sticker | Filters.photo) & Filters.chat_type.groups,
-    del_blacklist, run_async=True
+    del_blacklist,
+    run_async=True,
 )
 
 dispatcher.add_handler(BLACKLIST_HANDLER)
@@ -470,7 +449,8 @@ __handlers__ = [
     ADD_BLACKLIST_HANDLER,
     UNBLACKLIST_HANDLER,
     BLACKLISTMODE_HANDLER,
-    BLACKLIST_DEL_HANDLER, BLACKLIST_GROUP,
+    BLACKLIST_DEL_HANDLER,
+    BLACKLIST_GROUP,
 ]
 
 __mod_name__ = "BlackList"

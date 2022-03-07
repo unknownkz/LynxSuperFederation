@@ -1,18 +1,17 @@
-import random
 import html
-import humanize
-
+import random
 from datetime import datetime
 
-from ... import dispatcher
-
-from ...database import disable_sql, afk_sql as sql
-from ..commander import Lynxcmd, Lynxmsg
-from ..users import get_user_id
+import humanize
 from telegram import MessageEntity, Update, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters
 
+from ... import dispatcher
+from ...database import disable_sql
+from ...database import afk_sql as sql
+from ..commander import Lynxcmd, Lynxmsg
+from ..users import get_user_id
 
 AFK_GROUP = 20
 AFK_REPLY_GROUP = 20
@@ -41,7 +40,8 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} is now away! {}".format(fname, reason),
+        update.effective_message.reply_text(
+            "{} is now away! {}".format(fname, reason),
         )
     except BadRequest:
         pass
@@ -74,12 +74,9 @@ def no_longer_afk(update: Update, context: CallbackContext):
                 "Where is {}?\nIn the chat!",
             ]
             chosen_option = random.choice(options)
-            update.effective_message.reply_text(
-                 chosen_option.format(firstname)
-            )
+            update.effective_message.reply_text(chosen_option.format(firstname))
         except:
             return
-
 
 
 def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
@@ -158,7 +155,6 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-
 __help__ = """
 *Away From Keyboard*
 
@@ -168,4 +164,3 @@ When marked as AFK, any mentions will be replied to with a message to say you're
 """
 
 __mod_name__ = "AFK"
-

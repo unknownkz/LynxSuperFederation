@@ -6,25 +6,14 @@ from cachetools import TTLCache
 from telegram import Chat, ChatMember, ParseMode, Update
 from telegram.ext import CallbackContext
 
-from .. import (
-    DEL_CMDS,
-    DEV_ID,
-    SD_ID,
-    SUPPORT_CHAT,
-    SUPPORT_ID,
-    TIGERS_ID,
-    WHITELIST_ID,
-    dispatcher,
-)
+from .. import DEL_CMDS, DEV_ID, SD_ID, SUPPORT_CHAT, SUPPORT_ID, TIGERS_ID, WHITELIST_ID, dispatcher
 
 ADMIN_CACHE = TTLCache(maxsize=512, ttl=60 * 10, timer=perf_counter)
 THREAD_LOCK = RLock()
 
 
 def is_whitelist_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    return any(
-        user_id in user for user in [SUPPORT_ID, SD_ID, WHITELIST_ID, TIGERS_ID, DEV_ID]
-    )
+    return any(user_id in user for user in [SUPPORT_ID, SD_ID, WHITELIST_ID, TIGERS_ID, DEV_ID])
 
 
 def is_support_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
@@ -120,8 +109,7 @@ def dev_plus(func):
                 pass
         else:
             update.effective_message.reply_text(
-                "This is a developer restricted command."
-                " You do not have permissions to run this."
+                "This is a developer restricted command." " You do not have permissions to run this."
             )
 
     return is_dev_plus_func
@@ -144,9 +132,7 @@ def sudo_plus(func):
             except:
                 pass
         else:
-            update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?"
-            )
+            update.effective_message.reply_text("Who dis non-admin telling me what to do? You want a punch?")
 
     return is_sudo_plus_func
 
@@ -171,9 +157,7 @@ def support_plus(func):
 
 def whitelist_plus(func):
     @wraps(func)
-    def is_whitelist_plus_func(
-        update: Update, context: CallbackContext, *args, **kwargs
-    ):
+    def is_whitelist_plus_func(update: Update, context: CallbackContext, *args, **kwargs):
         bot = context.bot
         user = update.effective_user
         chat = update.effective_chat
@@ -181,9 +165,7 @@ def whitelist_plus(func):
         if user and is_whitelist_plus(chat, user.id):
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(
-                f"You don't have access to use this.\nVisit @{SUPPORT_CHAT}"
-            )
+            update.effective_message.reply_text(f"You don't have access to use this.\nVisit @{SUPPORT_CHAT}")
 
     return is_whitelist_plus_func
 
@@ -205,18 +187,14 @@ def user_admin(func):
             except:
                 pass
         else:
-            update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?"
-            )
+            update.effective_message.reply_text("Who dis non-admin telling me what to do? You want a punch?")
 
     return is_admin
 
 
 def user_admin_no_reply(func):
     @wraps(func)
-    def is_not_admin_no_reply(
-        update: Update, context: CallbackContext, *args, **kwargs
-    ):
+    def is_not_admin_no_reply(update: Update, context: CallbackContext, *args, **kwargs):
         bot = context.bot
         user = update.effective_user
         chat = update.effective_chat
@@ -300,11 +278,11 @@ def can_pin(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_pin = (
-                "I can't pin messages here!\nMake sure I'm admin and can pin messages."
-            )
+            cant_pin = "I can't pin messages here!\nMake sure I'm admin and can pin messages."
         else:
-            cant_pin = f"I can't pin messages in <b>{update_chat_title}</b>!\nMake sure I'm admin and can pin messages there."
+            cant_pin = (
+                f"I can't pin messages in <b>{update_chat_title}</b>!\nMake sure I'm admin and can pin messages there."
+            )
 
         if chat.get_member(bot.id).can_pin_messages:
             return func(update, context, *args, **kwargs)
@@ -356,9 +334,7 @@ def user_can_changeinfo(func):
         if chat.get_member(bot.id).can_change_info:
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(
-                cant_changeInfo, parse_mode=ParseMode.HTML
-            )
+            update.effective_message.reply_text(cant_changeInfo, parse_mode=ParseMode.HTML)
 
     return changeinfo_rights
 
@@ -379,9 +355,7 @@ def can_restrict(func):
         if chat.get_member(bot.id).can_restrict_members:
             return func(update, context, *args, **kwargs)
         else:
-            update.effective_message.reply_text(
-                cant_restrict, parse_mode=ParseMode.HTML
-            )
+            update.effective_message.reply_text(cant_restrict, parse_mode=ParseMode.HTML)
 
     return restrict_rights
 
@@ -421,9 +395,7 @@ def connection_status(func):
             return func(update, context, *args, **kwargs)
         else:
             if update.effective_message.chat.type == "private":
-                update.effective_message.reply_text(
-                    "Send /connect in a group that you and I have in common first."
-                )
+                update.effective_message.reply_text("Send /connect in a group that you and I have in common first.")
                 return connected_status
 
             return func(update, context, *args, **kwargs)

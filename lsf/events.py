@@ -1,5 +1,7 @@
 from telethon import events
+
 from . import lynx_client
+
 
 def register(**args):
     """Registers a new message."""

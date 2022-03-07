@@ -52,10 +52,7 @@ def disagree(chat_id, user_id):
 def list_agreed(chat_id):
     try:
         return (
-            SESSION.query(Agreedals)
-            .filter(Agreedals.chat_id == str(chat_id))
-            .order_by(Agreedals.user_id.asc())
-            .all()
+            SESSION.query(Agreedals).filter(Agreedals.chat_id == str(chat_id)).order_by(Agreedals.user_id.asc()).all()
         )
     finally:
         SESSION.close()

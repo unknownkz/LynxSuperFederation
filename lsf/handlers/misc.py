@@ -24,9 +24,7 @@ def paginate_plugins(page_n: int, plugins_dict: Dict, prefix, chat=None) -> List
             [
                 EqInlineKeyboardButton(
                     x.__mod_name__,
-                    callback_data="{}_plugins({})".format(
-                        prefix, x.__mod_name__.lower()
-                    ),
+                    callback_data="{}_plugins({})".format(prefix, x.__mod_name__.lower()),
                 )
                 for x in plugins_dict.values()
             ]
@@ -36,9 +34,7 @@ def paginate_plugins(page_n: int, plugins_dict: Dict, prefix, chat=None) -> List
             [
                 EqInlineKeyboardButton(
                     x.__mod_name__,
-                    callback_data="{}_plugins({},{})".format(
-                        prefix, chat, x.__mod_name__.lower()
-                    ),
+                    callback_data="{}_plugins({},{})".format(prefix, chat, x.__mod_name__.lower()),
                 )
                 for x in plugins_dict.values()
             ]
@@ -60,13 +56,9 @@ def paginate_plugins(page_n: int, plugins_dict: Dict, prefix, chat=None) -> List
     if len(pairs) > 10:
         pairs = pairs[plug_page * 10 : 10 * (plug_page + 1)] + [
             (
-                EqInlineKeyboardButton(
-                    "⮜", callback_data="{}_prev({})".format(prefix, plug_page)
-                ),
+                EqInlineKeyboardButton("⮜", callback_data="{}_prev({})".format(prefix, plug_page)),
                 EqInlineKeyboardButton("Back", callback_data="lynx_info_plugins"),
-                EqInlineKeyboardButton(
-                    "⮞", callback_data="{}_next({})".format(prefix, plug_page)
-                ),
+                EqInlineKeyboardButton("⮞", callback_data="{}_next({})".format(prefix, plug_page)),
             )
         ]
 

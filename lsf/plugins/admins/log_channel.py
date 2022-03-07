@@ -14,8 +14,8 @@ if is_plugins_loaded(FILENAME):
     from telegram.utils.helpers import escape_markdown
 
     from lsf import EVENT_LOGS, LOGGER, dispatcher
-    from lsf.handlers.valid import user_admin
     from lsf.database import logsch_sql as sql
+    from lsf.handlers.valid import user_admin
 
     def loggable(func):
         @wraps(func)
@@ -39,7 +39,9 @@ if is_plugins_loaded(FILENAME):
                 result += f"\n<b>Event Stamp</b>: <code>{datetime.utcnow().strftime(datetime_fmt)}</code>"
 
                 if message.chat.type == chat.SUPERGROUP and message.chat.username:
-                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    result += (
+                        f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    )
                 log_chat = sql.get_chat_log_channel(chat.id)
                 if log_chat:
                     send_log(context, log_chat, chat.id, result)
@@ -57,12 +59,12 @@ if is_plugins_loaded(FILENAME):
 
             if result:
                 datetime_fmt = "%H:%M - %d-%m-%Y"
-                result += "\n<b>Event Stamp</b>: <code>{}</code>".format(
-                    datetime.utcnow().strftime(datetime_fmt)
-                )
+                result += "\n<b>Event Stamp</b>: <code>{}</code>".format(datetime.utcnow().strftime(datetime_fmt))
 
                 if message.chat.type == chat.SUPERGROUP and message.chat.username:
-                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    result += (
+                        f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    )
                 log_chat = str(EVENT_LOGS)
                 if log_chat:
                     send_log(context, log_chat, chat.id, result)
@@ -71,9 +73,7 @@ if is_plugins_loaded(FILENAME):
 
         return glog_action
 
-    def send_log(
-        context: CallbackContext, log_chat_id: str, orig_chat_id: str, result: str
-    ):
+    def send_log(context: CallbackContext, log_chat_id: str, orig_chat_id: str, result: str):
         bot = context.bot
         try:
             bot.send_message(
@@ -84,9 +84,7 @@ if is_plugins_loaded(FILENAME):
             )
         except BadRequest as excp:
             if excp.message == "Chat not found":
-                bot.send_message(
-                    orig_chat_id, "This log channel has been deleted - unsetting."
-                )
+                bot.send_message(orig_chat_id, "This log channel has been deleted - unsetting.")
                 sql.stop_chat_logging(orig_chat_id)
             else:
                 LOGGER.warning(excp.message)
@@ -95,8 +93,7 @@ if is_plugins_loaded(FILENAME):
 
                 bot.send_message(
                     log_chat_id,
-                    result
-                    + "\n\nFormatting has been disabled due to an unexpected error.",
+                    result + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
     @user_admin
@@ -123,9 +120,7 @@ if is_plugins_loaded(FILENAME):
         message = update.effective_message
         chat = update.effective_chat
         if chat.type == chat.CHANNEL:
-            message.reply_text(
-                "Now, forward the /setlog to the group you want to tie this channel to!"
-            )
+            message.reply_text("Now, forward the /setlog to the group you want to tie this channel to!")
 
         elif message.forward_from_chat:
             sql.set_chat_log_channel(chat.id, message.forward_from_chat.id)
@@ -135,9 +130,7 @@ if is_plugins_loaded(FILENAME):
                 if excp.message == "Message to delete not found":
                     pass
                 else:
-                    LOGGER.exception(
-                        "Error deleting message in log channel. Should work anyway though."
-                    )
+                    LOGGER.exception("Error deleting message in log channel. Should work anyway though.")
 
             try:
                 bot.send_message(
@@ -145,10 +138,7 @@ if is_plugins_loaded(FILENAME):
                     f"This channel has been set as the log channel for {chat.title or chat.first_name}.",
                 )
             except Unauthorized as excp:
-                if (
-                    excp.message
-                    == "Forbidden: Lynx is not a member of the channel chat"
-                ):
+                if excp.message == "Forbidden: Lynx is not a member of the channel chat":
                     bot.send_message(chat.id, "Successfully set log channel!")
                 else:
                     LOGGER.exception("ERROR in setting the log channel.")
@@ -171,9 +161,7 @@ if is_plugins_loaded(FILENAME):
 
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:
-            bot.send_message(
-                log_channel, f"Channel has been unlinked from {chat.title}"
-            )
+            bot.send_message(log_channel, f"Channel has been unlinked from {chat.title}")
             message.reply_text("Log channel has been un-set.")
 
         else:

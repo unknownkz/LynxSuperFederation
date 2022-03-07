@@ -51,11 +51,6 @@ def clear_purgefrom(chat_id, message_from):
 
 def show_purgefrom(chat_id):
     try:
-        return (
-            SESSION.query(Purges)
-            .filter(Purges.chat_id == str(chat_id))
-            .order_by(Purges.message_from.asc())
-            .all()
-        )
+        return SESSION.query(Purges).filter(Purges.chat_id == str(chat_id)).order_by(Purges.message_from.asc()).all()
     finally:
         SESSION.close()

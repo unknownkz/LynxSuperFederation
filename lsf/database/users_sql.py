@@ -1,16 +1,8 @@
 import threading
 
-from sqlalchemy import (
-    BigInteger,
-    Column,
-    ForeignKey,
-    String,
-    UnicodeText,
-    UniqueConstraint,
-    func,
-)
-from .. import dispatcher
+from sqlalchemy import BigInteger, Column, ForeignKey, String, UnicodeText, UniqueConstraint, func
 
+from .. import dispatcher
 from . import BASE, SESSION
 
 
@@ -113,11 +105,7 @@ def update_user(user_id, username, chat_id=None, chat_name=None):
 
 def get_userid_by_name(username):
     try:
-        return (
-            SESSION.query(Users)
-            .filter(func.lower(Users.username) == username.lower())
-            .all()
-        )
+        return SESSION.query(Users).filter(func.lower(Users.username) == username.lower()).all()
     finally:
         SESSION.close()
 
@@ -152,18 +140,14 @@ def get_all_users():
 
 def get_user_num_chats(user_id):
     try:
-        return (
-            SESSION.query(ChatMembers).filter(ChatMembers.user == int(user_id)).count()
-        )
+        return SESSION.query(ChatMembers).filter(ChatMembers.user == int(user_id)).count()
     finally:
         SESSION.close()
 
 
 def get_user_com_chats(user_id):
     try:
-        chat_members = (
-            SESSION.query(ChatMembers).filter(ChatMembers.user == int(user_id)).all()
-        )
+        chat_members = SESSION.query(ChatMembers).filter(ChatMembers.user == int(user_id)).all()
         return [i.chat for i in chat_members]
     finally:
         SESSION.close()
@@ -190,11 +174,7 @@ def migrate_chat(old_chat_id, new_chat_id):
             chat.chat_id = str(new_chat_id)
         SESSION.commit()
 
-        chat_members = (
-            SESSION.query(ChatMembers)
-            .filter(ChatMembers.chat == str(old_chat_id))
-            .all()
-        )
+        chat_members = SESSION.query(ChatMembers).filter(ChatMembers.chat == str(old_chat_id)).all()
         for member in chat_members:
             member.chat = str(new_chat_id)
         SESSION.commit()

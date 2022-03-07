@@ -1,33 +1,24 @@
 import html
-import re
 import os
-import requests
+import re
 
-from telegram.messageentity import MessageEntity
+import requests
 from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update
+from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.ext.dispatcher import run_async
-from telegram.error import BadRequest
+from telegram.messageentity import MessageEntity
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from lsf import (
-    DEV_ID,
-    OWNER_ID,
-    TGB_TOKEN,
-    SD_ID,
-    SUPPORT_ID,
-    INFOPIC,
-    dispatcher,
-)
-
-from lsf.__help__ import STATS, USER_INFO
 import lsf.database.uinfo_sql as sql
-from lsf.plugins.disable import DisableAbleCommandHandler
-from lsf.database.gban_sql import is_user_gbanned
+from lsf import DEV_ID, OWNER_ID, TGB_TOKEN, SD_ID, SUPPORT_ID, INFOPIC, dispatcher
+from lsf.__help__ import STATS, USER_INFO
 from lsf.database.afk_sql import is_afk, check_afk_status
+from lsf.database.gban_sql import is_user_gbanned
 from lsf.database.users_sql import get_user_num_chats
-from lsf.handlers.valid import sudo_plus, user_admin, support_plus
 from lsf.handlers.extraction import extract_user
+from lsf.handlers.valid import sudo_plus, user_admin, support_plus
+from lsf.plugins.disable import DisableAbleCommandHandler
 
 
 def no_by_per(totalhp, percentage):
@@ -144,14 +135,10 @@ def get_id(update: Update, context: CallbackContext):
     else:
 
         if chat.type == "private":
-            msg.reply_text(
-                f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
-            )
+            msg.reply_text(f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML)
 
         else:
-            msg.reply_text(
-                f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
-            )
+            msg.reply_text(f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML)
 
 
 @user_admin
@@ -258,9 +245,7 @@ def info(update: Update, context: CallbackContext):
     rep = message.reply_text("<code>Searching Information...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f" <b>User Information:</b>\n"
-        f" ID: <code>{user.id}</code>\n"
-        f" First Name: {html.escape(user.first_name)}"
+        f" <b>User Information:</b>\n" f" ID: <code>{user.id}</code>\n" f" First Name: {html.escape(user.first_name)}"
     )
 
     if user.last_name:
@@ -377,9 +362,7 @@ def about_me(update: Update, context: CallbackContext):
         )
     elif message.reply_to_message:
         username = message.reply_to_message.from_user.first_name
-        update.effective_message.reply_text(
-            f"{username} hasn't set an info message about themselves yet!"
-        )
+        update.effective_message.reply_text(f"{username} hasn't set an info message about themselves yet!")
     else:
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
@@ -409,18 +392,15 @@ def set_about_me(update: Update, context: CallbackContext):
                 message.reply_text("Information updated!")
         else:
             message.reply_text(
-                "The info needs to be under {} characters! You have {}.".format(
-                    MAX_MESSAGE_LENGTH // 4, len(info[1])
-                )
+                "The info needs to be under {} characters! You have {}.".format(MAX_MESSAGE_LENGTH // 4, len(info[1]))
             )
 
 
 @support_plus
 def stats(update: Update, context: CallbackContext):
     first_name = update.effective_user.first_name
-    stats = (
-        f"<b>Current stats of {escape_markdown(context.bot.first_name)}:</b>\n"
-        + "\n".join([mod.__stats__() for mod in STATS])
+    stats = f"<b>Current stats of {escape_markdown(context.bot.first_name)}:</b>\n" + "\n".join(
+        [mod.__stats__() for mod in STATS]
     )
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
     update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
@@ -449,9 +429,7 @@ def about_bio(update: Update, context: CallbackContext):
             f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio"
         )
     else:
-        update.effective_message.reply_text(
-            "You haven't had a bio set about yourself yet!"
-        )
+        update.effective_message.reply_text("You haven't had a bio set about yourself yet!")
 
 
 def set_about_bio(update: Update, context: CallbackContext):
@@ -464,9 +442,7 @@ def set_about_bio(update: Update, context: CallbackContext):
         user_id = repl_message.from_user.id
 
         if user_id == message.from_user.id:
-            message.reply_text(
-                "Ha, you can't set your own bio! You're at the mercy of others here..."
-            )
+            message.reply_text("Ha, you can't set your own bio! You're at the mercy of others here...")
             return
 
         if user_id in [777000, 1448477501] and sender_id not in DEV_ID:
@@ -474,22 +450,16 @@ def set_about_bio(update: Update, context: CallbackContext):
             return
 
         if user_id == bot.id and sender_id not in DEV_ID:
-            message.reply_text(
-                "Yeahh.. I only trust Heroes Association to set my bio."
-            )
+            message.reply_text("Yeahh.. I only trust Heroes Association to set my bio.")
             return
 
         text = message.text
-        bio = text.split(
-            None, 1
-        )  # use python's maxsplit to only remove the cmd, hence keeping newlines.
+        bio = text.split(None, 1)  # use python's maxsplit to only remove the cmd, hence keeping newlines.
 
         if len(bio) == 2:
             if len(bio[1]) < MAX_MESSAGE_LENGTH // 4:
                 sql.set_user_bio(user_id, bio[1])
-                message.reply_text(
-                    "Updated {}'s bio!".format(repl_message.from_user.first_name)
-                )
+                message.reply_text("Updated {}'s bio!".format(repl_message.from_user.first_name))
             else:
                 message.reply_text(
                     "Bio needs to be under {} characters! You tried to set {}.".format(

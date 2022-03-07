@@ -1,26 +1,14 @@
 import html
 import os
 
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    ParseMode,
-    Update,
-    message,
-)
-
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, message
 from telegram.error import BadRequest
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    Filters,
-    run_async,
-)
-
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
+
 from ... import SD_ID, dispatcher
-from ..disable import DisableAbleCommandHandler
+from ...handlers.altaraction import send_message, commands_functions
+from ...handlers.extraction import extract_user, extract_user_and_text
 from ...handlers.valid import (
     bot_admin,
     can_pin,
@@ -30,14 +18,8 @@ from ...handlers.valid import (
     user_can_changeinfo,
     ADMIN_CACHE,
 )
-
-from ...handlers.extraction import (
-    extract_user,
-    extract_user_and_text,
-)
-
+from ..disable import DisableAbleCommandHandler
 from .log_channel import loggable
-from ...handlers.altaraction import send_message, commands_functions
 
 
 @connection_status
@@ -55,19 +37,14 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     promoter = chat.get_member(user.id)
 
-    if (
-        not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in SD_ID
-    ):
+    if not (promoter.can_promote_members or promoter.status == "creator") and user.id not in SD_ID:
         message.reply_text("You don't have the necessary rights to do that!")
         return
 
     user_id = extract_user(message, args)
 
     if not user_id:
-        message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
-        )
+        message.reply_text("You don't seem to be referring to a user or the ID specified is incorrect..")
         return
 
     try:
@@ -138,19 +115,14 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 
     promoter = chat.get_member(user.id)
 
-    if (
-        not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in SD_ID
-    ):
+    if not (promoter.can_promote_members or promoter.status == "creator") and user.id not in SD_ID:
         message.reply_text("You don't have the necessary rights to do that!")
         return
 
     user_id = extract_user(message, args)
 
     if not user_id:
-        message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
-        )
+        message.reply_text("You don't seem to be referring to a user or the ID specified is incorrect..")
         return
 
     try:
@@ -308,27 +280,19 @@ def set_title(update: Update, context: CallbackContext):
         return
 
     if not user_id:
-        message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
-        )
+        message.reply_text("You don't seem to be referring to a user or the ID specified is incorrect..")
         return
 
     if user_member.status == "creator":
-        message.reply_text(
-            "This person owner the chat, how can i set custom title for him?"
-        )
+        message.reply_text("This person owner the chat, how can i set custom title for him?")
         return
 
     if user_member.status != "administrator":
-        message.reply_text(
-            "Can't set title for non-admins!\nPromote them first to set custom title!"
-        )
+        message.reply_text("Can't set title for non-admins!\nPromote them first to set custom title!")
         return
 
     if user_id == bot.id:
-        message.reply_text(
-            "I can't set my own title myself! Get the one who made me admin to do it for me."
-        )
+        message.reply_text("I can't set my own title myself! Get the one who made me admin to do it for me.")
         return
 
     if not title:
@@ -336,9 +300,7 @@ def set_title(update: Update, context: CallbackContext):
         return
 
     if len(title) > 16:
-        message.reply_text(
-            "The title length is longer than 16 characters.\nTruncating it to 16 characters."
-        )
+        message.reply_text("The title length is longer than 16 characters.\nTruncating it to 16 characters.")
 
     try:
         bot.setChatAdministratorCustomTitle(chat.id, user_id, title)
@@ -443,9 +405,7 @@ def set_sticker(update: Update, context: CallbackContext):
 
     if msg.reply_to_message:
         if not msg.reply_to_message.sticker:
-            return msg.reply_text(
-                "You need to reply to some sticker to set chat sticker set!"
-            )
+            return msg.reply_text("You need to reply to some sticker to set chat sticker set!")
         stkr = msg.reply_to_message.sticker.set_name
         try:
             context.bot.set_chat_sticker_set(chat.id, stkr)
@@ -485,8 +445,7 @@ def set_desc(update, context):
 
 def __chat_settings__(chat_id, user_id):
     return "You are *admin*: `{}`".format(
-        dispatcher.bot.get_chat_member(chat_id, user_id).status
-        in ("administrator", "creator")
+        dispatcher.bot.get_chat_member(chat_id, user_id).status in ("administrator", "creator")
     )
 
 
@@ -568,13 +527,9 @@ def invite(update: Update, context: CallbackContext):
             invitelink = bot.exportChatInviteLink(chat.id)
             update.effective_message.reply_text(invitelink)
         else:
-            update.effective_message.reply_text(
-                "I don't have access to the invite link, try changing my permissions!"
-            )
+            update.effective_message.reply_text("I don't have access to the invite link, try changing my permissions!")
     else:
-        update.effective_message.reply_text(
-            "I can only give you invite links for supergroups and channels, sorry!"
-        )
+        update.effective_message.reply_text("I can only give you invite links for supergroups and channels, sorry!")
 
 
 @connection_status
@@ -593,13 +548,9 @@ def adminlist(update, context):
     chat_name = update.effective_message.chat.title
 
     try:
-        msg = update.effective_message.reply_text(
-            "Fetching group admins...", parse_mode=ParseMode.HTML
-        )
+        msg = update.effective_message.reply_text("Fetching group admins...", parse_mode=ParseMode.HTML)
     except BadRequest:
-        msg = update.effective_message.reply_text(
-            "Fetching group admins...", quote=False, parse_mode=ParseMode.HTML
-        )
+        msg = update.effective_message.reply_text("Fetching group admins...", quote=False, parse_mode=ParseMode.HTML)
 
     administrators = bot.getChatAdministrators(chat_id)
     text = "Admins in <b>{}</b>:".format(html.escape(update.effective_chat.title))
@@ -614,11 +565,7 @@ def adminlist(update, context):
         if user.first_name == "":
             name = "☠ Deleted Account"
         else:
-            name = "{}".format(
-                mention_html(
-                    user.id, html.escape(user.first_name + " " + (user.last_name or ""))
-                )
-            )
+            name = "{}".format(mention_html(user.id, html.escape(user.first_name + " " + (user.last_name or ""))))
 
         if user.is_bot:
             bot_admin_list.append(name)
@@ -647,11 +594,7 @@ def adminlist(update, context):
         if user.first_name == "":
             name = "👻 Deleted Account"
         else:
-            name = "{}".format(
-                mention_html(
-                    user.id, html.escape(user.first_name + " " + (user.last_name or ""))
-                )
-            )
+            name = "{}".format(mention_html(user.id, html.escape(user.first_name + " " + (user.last_name or ""))))
         # if user.username:
         #    name = escape_markdown("@" + user.username)
         if status == "administrator":
@@ -748,19 +691,14 @@ def unpinallbtn(update: Update, context: CallbackContext):
     )
     return log_message
 
+
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist, run_async=True)
 
-PIN_HANDLER = CommandHandler(
-    "pin", pin, filters=Filters.chat_type.groups, run_async=True
-)
+PIN_HANDLER = CommandHandler("pin", pin, filters=Filters.chat_type.groups, run_async=True)
 
-UNPIN_HANDLER = CommandHandler(
-    "unpin", unpin, filters=Filters.chat_type.groups, run_async=True
-)
+UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.chat_type.groups, run_async=True)
 
-UNPINALL_HANDLER = CommandHandler(
-    "unpinall", unpinall, filters=Filters.chat_type.groups, run_async=True
-)
+UNPINALL_HANDLER = CommandHandler("unpinall", unpinall, filters=Filters.chat_type.groups, run_async=True)
 
 UNPINALL_BTN_HANDLER = CallbackQueryHandler(unpinallbtn, pattern=r"unpinallbtn_")
 
@@ -768,36 +706,22 @@ UNPINALL_BTN_HANDLER = CallbackQueryHandler(unpinallbtn, pattern=r"unpinallbtn_"
 INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, run_async=True)
 
 PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, run_async=True)
-FULL_PROMOTE_HANDLER = DisableAbleCommandHandler(
-    "fullpromote", fullpromote, run_async=True
-)
+FULL_PROMOTE_HANDLER = DisableAbleCommandHandler("fullpromote", fullpromote, run_async=True)
 
 DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, run_async=True)
-ADMIN_REFRESH_HANDLER = CommandHandler(
-    "admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True
-)
+ADMIN_REFRESH_HANDLER = CommandHandler("admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True)
 
-CHAT_PIC_HANDLER = CommandHandler(
-    "setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True
-)
+CHAT_PIC_HANDLER = CommandHandler("setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True)
 
-DEL_CHAT_PIC_HANDLER = CommandHandler(
-    "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True
-)
+DEL_CHAT_PIC_HANDLER = CommandHandler("delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True)
 
-SETCHAT_TITLE_HANDLER = CommandHandler(
-    "setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True
-)
+SETCHAT_TITLE_HANDLER = CommandHandler("setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True)
 
-SETSTICKET_HANDLER = CommandHandler(
-    "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True
-)
+SETSTICKET_HANDLER = CommandHandler("setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True)
 
-SETDESC_HANDLER = CommandHandler(
-    "setdescription", set_desc, filters=Filters.chat_type.groups, run_async=True
-)
+SETDESC_HANDLER = CommandHandler("setdescription", set_desc, filters=Filters.chat_type.groups, run_async=True)
 
 dispatcher.add_handler(ADMINLIST_HANDLER)
 dispatcher.add_handler(PIN_HANDLER)

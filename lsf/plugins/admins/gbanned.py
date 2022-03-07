@@ -1,21 +1,13 @@
 import html
 import time
-
 from datetime import datetime
 from io import BytesIO
 
 from telegram import ParseMode, Update
 from telegram.error import BadRequest, TelegramError, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-)
+from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
-from lsf.database import gban_sql as sql
-from lsf.database.users_sql import get_user_com_chats
 from lsf import (
     DEV_ID,
     EVENT_LOGS,
@@ -30,16 +22,11 @@ from lsf import (
     sw,
     dispatcher,
 )
-from lsf.handlers.valid import (
-    is_user_admin,
-    support_plus,
-    user_admin,
-)
-from lsf.handlers.extraction import (
-    extract_user,
-    extract_user_and_text,
-)
+from lsf.database import gban_sql as sql
+from lsf.database.users_sql import get_user_com_chats
+from lsf.handlers.extraction import extract_user, extract_user_and_text
 from lsf.handlers.misc import send_to_list
+from lsf.handlers.valid import is_user_admin, support_plus, user_admin
 
 GBAN_ENFORCE_GROUP = 20
 
@@ -188,7 +175,9 @@ def gban(update: Update, context: CallbackContext):
 
     if reason:
         if chat.type == chat.SUPERGROUP and chat.username:
-            log_message += f'\n<b>Reason:</b> <a href="https://telegram.me/{chat.username}/{message.message_id}">{reason}</a>'
+            log_message += (
+                f'\n<b>Reason:</b> <a href="https://telegram.me/{chat.username}/{message.message_id}">{reason}</a>'
+            )
         else:
             log_message += f"\n<b>Reason:</b> <code>{reason}</code>"
 
@@ -198,8 +187,7 @@ def gban(update: Update, context: CallbackContext):
         except BadRequest as excp:
             log = bot.send_message(
                 EVENT_LOGS,
-                log_message
-                + "\n\nFormatting has been disabled due to an unexpected error.",
+                log_message + "\n\nFormatting has been disabled due to an unexpected error.",
             )
 
     else:
@@ -329,8 +317,7 @@ def ungban(update: Update, context: CallbackContext):
         except BadRequest as excp:
             log = bot.send_message(
                 EVENT_LOGS,
-                log_message
-                + "\n\nFormatting has been disabled due to an unexpected error.",
+                log_message + "\n\nFormatting has been disabled due to an unexpected error.",
             )
     else:
         send_to_list(bot, SD_ID and SUPPORT_ID, log_message, html=True)
@@ -490,8 +477,7 @@ def gbanstat(update: Update, context: CallbackContext):
         if args[0].lower() in ["on", "yes"]:
             sql.enable_gbans(update.effective_chat.id)
             update.effective_message.reply_text(
-                "Antispam is now enabled ✅ "
-                "I am now protecting your group from potential remote threats!",
+                "Antispam is now enabled ✅ " "I am now protecting your group from potential remote threats!",
             )
         elif args[0].lower() in ["off", "no"]:
             sql.disable_gbans(update.effective_chat.id)
@@ -563,12 +549,8 @@ Constantly help banning spammers off from your group automatically So, you wont 
 GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
 UNGBAN_HANDLER = CommandHandler("ungban", ungban, run_async=True)
 GBAN_LIST = CommandHandler("gbanlist", gbanlist, run_async=True)
-GBAN_STATUS = CommandHandler(
-    "antispam", gbanstat, filters=Filters.chat_type.groups, run_async=True
-)
-GBAN_ENFORCER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, enforce_gban, run_async=True
-)
+GBAN_STATUS = CommandHandler("antispam", gbanstat, filters=Filters.chat_type.groups, run_async=True)
+GBAN_ENFORCER = MessageHandler(Filters.all & Filters.chat_type.groups, enforce_gban, run_async=True)
 
 dispatcher.add_handler(GBAN_HANDLER)
 dispatcher.add_handler(UNGBAN_HANDLER)

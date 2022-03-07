@@ -1,9 +1,9 @@
 import threading
-
 from datetime import datetime
 
-from . import BASE, SESSION
 from sqlalchemy import Boolean, Column, BigInteger, UnicodeText, DateTime
+
+from . import BASE, SESSION
 
 
 class AFK(BASE):
@@ -87,11 +87,7 @@ def __load_afk_users():
     global AFK_USERS
     try:
         all_afk = SESSION.query(AFK).all()
-        AFK_USERS = {
-            user.user_id: {"reason": user.reason, "time": user.time}
-            for user in all_afk
-            if user.is_afk
-        }
+        AFK_USERS = {user.user_id: {"reason": user.reason, "time": user.time} for user in all_afk if user.is_afk}
     finally:
         SESSION.close()
 

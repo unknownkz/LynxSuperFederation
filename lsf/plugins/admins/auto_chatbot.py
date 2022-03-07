@@ -1,12 +1,12 @@
-import json
-import re
-import os
 import html
-import requests
-
+import json
+import os
+import re
 from time import sleep
-from telegram import ParseMode
+
+import requests
 from telegram import (
+    ParseMode,
     CallbackQuery,
     Chat,
     MessageEntity,
@@ -17,7 +17,7 @@ from telegram import (
     Bot,
     User,
 )
-
+from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
@@ -26,14 +26,13 @@ from telegram.ext import (
     Filters,
     MessageHandler,
 )
-
-from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.utils.helpers import mention_html, mention_markdown, escape_markdown
 
-from lsf.database import auto_chatbot_sql as sql
-from lsf.utils.customfilters import CustomFilters
-from lsf.handlers.valid import user_admin, user_admin_no_reply, dev_plus
 from lsf import dispatcher, updater, SUPPORT_CHAT
+from lsf.database import auto_chatbot_sql as sql
+from lsf.handlers.valid import user_admin, user_admin_no_reply, dev_plus
+from lsf.utils.customfilters import CustomFilters
+
 from .log_channel import gloggable
 
 
@@ -56,9 +55,7 @@ def lynxrm(update: Update, context: CallbackContext) -> str:
             )
         else:
             update.effective_message.edit_text(
-                "Lynx Chat-Bot disable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
+                "Lynx Chat-Bot disable by {}.".format(mention_html(user.id, user.first_name)),
                 parse_mode=ParseMode.HTML,
             )
 
@@ -84,9 +81,7 @@ def lynxadd(update: Update, context: CallbackContext) -> str:
             )
         else:
             update.effective_message.edit_text(
-                "Lynx Chat-Bot Enable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
+                "Lynx Chat-Bot Enable by {}.".format(mention_html(user.id, user.first_name)),
                 parse_mode=ParseMode.HTML,
             )
 
@@ -137,8 +132,7 @@ def chatbot(update: Update, context: CallbackContext):
         Message = message.text
         bot.send_chat_action(chat_id, action="typing")
         lynxurl = requests.get(
-            "https://www.kukiapi.xyz/api/apikey=KUKIg76Fg4EIo/Natsunagi/@xelyourslurred/message="
-            + Message
+            "https://www.kukiapi.xyz/api/apikey=KUKIg76Fg4EIo/Natsunagi/@xelyourslurred/message=" + Message
         )
         Lynx = json.loads(lynxurl.text)
         lynx = Lynx["reply"]
@@ -178,14 +172,11 @@ CHATBOTK_HANDLER = CommandHandler("chatbot", lynx, run_async=True)
 ADD_CHAT_HANDLER = CallbackQueryHandler(lynxadd, pattern=r"add_chat", run_async=True)
 RM_CHAT_HANDLER = CallbackQueryHandler(lynxrm, pattern=r"rm_chat", run_async=True)
 CHATBOT_HANDLER = MessageHandler(
-    Filters.text
-    & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
+    Filters.text & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
     chatbot,
     run_async=True,
 )
-LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "listchatbot", listchatbot, filters=CustomFilters.dev_filter, run_async=True
-)
+LIST_ALL_CHATS_HANDLER = CommandHandler("listchatbot", listchatbot, filters=CustomFilters.dev_filter, run_async=True)
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)
 dispatcher.add_handler(CHATBOTK_HANDLER)

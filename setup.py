@@ -7,7 +7,6 @@ from pathlib import Path
 from shlex import split
 from subprocess import run
 
-
 RST = "\x1b[0m"
 BOLD = "\x1b[1m"
 GREEN = "\x1b[32m"
@@ -76,7 +75,13 @@ parser.add_argument("-d", "--dev", help="run in development mode", action="store
 parser.add_argument("-w", "--watch", help="run and watch in development mode", action="store_true")
 parser.add_argument("-l", "--lint", help="run linting and format code", action="store_true")
 parser.add_argument("-c", "--clean", help="remove python caches", action="store_true")
-parser.add_argument("-h", "--help", help="show this help information", default=argparse.SUPPRESS, action="help")
+parser.add_argument(
+    "-h",
+    "--help",
+    help="show this help information",
+    default=argparse.SUPPRESS,
+    action="help",
+)
 
 
 def main() -> None:

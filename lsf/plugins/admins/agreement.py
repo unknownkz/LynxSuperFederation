@@ -1,15 +1,16 @@
 import html
 
-from ..disable import DisableAbleCommandHandler
-from ... import dispatcher, SD_ID
-from ...handlers.extraction import extract_user
-from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
-from ...database import agreement_sql as sql
-from ...handlers.valid import user_admin
-from .log_channel import loggable
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, Update
-from telegram.utils.helpers import mention_html
 from telegram.error import BadRequest
+from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
+from telegram.utils.helpers import mention_html
+
+from ... import dispatcher, SD_ID
+from ...database import agreement_sql as sql
+from ...handlers.extraction import extract_user
+from ...handlers.valid import user_admin
+from ..disable import DisableAbleCommandHandler
+from .log_channel import loggable
 
 
 @loggable
@@ -133,7 +134,6 @@ def agreecheck(update, context):
         )
 
 
-
 def unagreeall(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
@@ -147,12 +147,14 @@ def unagreeall(update: Update, context: CallbackContext):
             [
                 [
                     InlineKeyboardButton(
-                        text="Un-Agree all users", callback_data="unagreeall_user",
+                        text="Un-Agree all users",
+                        callback_data="unagreeall_user",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        text="Cancel", callback_data="unagreeall_cancel",
+                        text="Cancel",
+                        callback_data="unagreeall_cancel",
                     ),
                 ],
             ],
@@ -162,7 +164,6 @@ def unagreeall(update: Update, context: CallbackContext):
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
-
 
 
 def unagreeall_btn(update: Update, context: CallbackContext):

@@ -2,13 +2,13 @@ import io
 import os
 import textwrap
 import traceback
-
 from contextlib import redirect_stdout
-from .. import LOGGER, dispatcher
-from ..handlers.valid import dev_plus
+
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
 
+from .. import LOGGER, dispatcher
+from ..handlers.valid import dev_plus
 
 namespaces = {}
 

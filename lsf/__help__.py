@@ -1,19 +1,18 @@
 import os
+from importlib import import_module as lynx_plugins
+from os import walk
+from os.path import isfile
+from re import match as amply
 
-from . import dispatcher, ALLOW_EXCL, LOGGER
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-from .handlers.misc import paginate_plugins
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext
-from telegram.utils.helpers import escape_markdown
-from .handlers.valid import is_user_admin
 from telegram.ext.dispatcher import DispatcherHandlerStop
+from telegram.utils.helpers import escape_markdown
 
-from re import match as amply
-from os.path import isfile
-from os import walk, path
-from importlib import import_module as lynx_plugins
-
+from . import dispatcher, ALLOW_EXCL, LOGGER
+from .handlers.misc import paginate_plugins
+from .handlers.valid import is_user_admin
 
 HELP_STRINGS = """Hey there! I'm *{}* 😼.
 
@@ -50,7 +49,7 @@ for root, dirs, files in walk(path):
 mod_name = [
     name[:-3].replace("/", ".").replace("\\", ".")
     for name in list_of_files
-    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("__help__.py")
 ]
 
 
@@ -63,7 +62,7 @@ for root, dirs, files in walk(path):
 admin_mod_name = [
     name[:-3].replace("/", ".").replace("\\", ".")
     for name in admin_list_of_files
-    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("__help__.py")
 ]
 
 for plugins_names in admin_mod_name:
@@ -72,9 +71,7 @@ for plugins_names in admin_mod_name:
         admin_imported_plugins.__mod_name__ = admin_imported_plugins.__name__
 
     if admin_imported_plugins.__mod_name__.lower() not in ADMIN_IMPORTED:
-        ADMIN_IMPORTED[
-            admin_imported_plugins.__mod_name__.lower()
-        ] = admin_imported_plugins
+        ADMIN_IMPORTED[admin_imported_plugins.__mod_name__.lower()] = admin_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -91,7 +88,7 @@ for root, dirs, files in walk(path):
 user_mod_name = [
     name[:-3].replace("/", ".").replace("\\", ".")
     for name in user_list_of_files
-    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("__help__.py")
 ]
 
 for u_plugins_names in user_mod_name:
@@ -100,9 +97,7 @@ for u_plugins_names in user_mod_name:
         user_imported_plugins.__mod_name__ = user_imported_plugins.__name__
 
     if user_imported_plugins.__mod_name__.lower() not in USER_IMPORTED:
-        USER_IMPORTED[
-            user_imported_plugins.__mod_name__.lower()
-        ] = user_imported_plugins
+        USER_IMPORTED[user_imported_plugins.__mod_name__.lower()] = user_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -119,7 +114,7 @@ for root, dirs, files in walk(path):
 tools_mod_name = [
     name[:-3].replace("/", ".").replace("\\", ".")
     for name in tools_list_of_files
-    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py")
+    if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("__help__.py")
 ]
 
 for t_plugins_name in tools_mod_name:
@@ -128,9 +123,7 @@ for t_plugins_name in tools_mod_name:
         tools_imported_plugins.__mod_name__ = tools_imported_plugins.__name__
 
     if tools_imported_plugins.__mod_name__.lower() not in TOOLS_IMPORTED:
-        TOOLS_IMPORTED[
-            tools_imported_plugins.__mod_name__.lower()
-        ] = tools_imported_plugins
+        TOOLS_IMPORTED[tools_imported_plugins.__mod_name__.lower()] = tools_imported_plugins
     else:
         raise Exception("Can't have two plugins with the same name! Please change one")
 
@@ -232,18 +225,13 @@ def admin_help_button(update, context):
         if mod_match:
             plugins = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* plugins:\n".format(
-                    ADMIN[plugins].__mod_name__
-                )
-                + ADMIN[plugins].__help__
+                "Here is the help for the *{}* plugins:\n".format(ADMIN[plugins].__mod_name__) + ADMIN[plugins].__help__
             )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=False,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Back", callback_data="admin_back")]]
-                ),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="admin_back")]]),
             )
 
         elif prev_match:
@@ -251,9 +239,7 @@ def admin_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(curr_page - 1, ADMIN, "admin")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(curr_page - 1, ADMIN, "admin")),
             )
 
         elif next_match:
@@ -261,9 +247,7 @@ def admin_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(next_page + 1, ADMIN, "admin")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(next_page + 1, ADMIN, "admin")),
             )
 
         elif back_match:
@@ -297,18 +281,13 @@ def user_help_button(update, context):
         if mod_match:
             plugins = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* plugins:\n".format(
-                    USER[plugins].__mod_name__
-                )
-                + USER[plugins].__help__
+                "Here is the help for the *{}* plugins:\n".format(USER[plugins].__mod_name__) + USER[plugins].__help__
             )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=False,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Back", callback_data="user_back")]]
-                ),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="user_back")]]),
             )
 
         elif prev_match:
@@ -316,9 +295,7 @@ def user_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(curr_page - 1, USER, "user")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(curr_page - 1, USER, "user")),
             )
 
         elif next_match:
@@ -326,9 +303,7 @@ def user_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(next_page + 1, USER, "user")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(next_page + 1, USER, "user")),
             )
 
         elif back_match:
@@ -362,18 +337,13 @@ def tools_help_button(update, context):
         if mod_match:
             plugins = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* plugins:\n".format(
-                    TOOLS[plugins].__mod_name__
-                )
-                + TOOLS[plugins].__help__
+                "Here is the help for the *{}* plugins:\n".format(TOOLS[plugins].__mod_name__) + TOOLS[plugins].__help__
             )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=False,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Back", callback_data="tools_back")]]
-                ),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="tools_back")]]),
             )
 
         elif prev_match:
@@ -381,9 +351,7 @@ def tools_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(curr_page - 1, TOOLS, "tools")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(curr_page - 1, TOOLS, "tools")),
             )
 
         elif next_match:
@@ -391,9 +359,7 @@ def tools_help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(next_page + 1, TOOLS, "tools")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(next_page + 1, TOOLS, "tools")),
             )
 
         elif back_match:
@@ -426,18 +392,14 @@ def help_button(update, context):
         if mod_match:
             plugins = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* plugins:\n".format(
-                    HELPABLE[plugins].__mod_name__
-                )
+                "Here is the help for the *{}* plugins:\n".format(HELPABLE[plugins].__mod_name__)
                 + HELPABLE[plugins].__help__
             )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=False,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
-                ),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="help_back")]]),
             )
 
         elif prev_match:
@@ -445,9 +407,7 @@ def help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(curr_page - 1, HELPABLE, "help")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(curr_page - 1, HELPABLE, "help")),
             )
 
         elif next_match:
@@ -455,18 +415,14 @@ def help_button(update, context):
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(next_page + 1, HELPABLE, "help")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(next_page + 1, HELPABLE, "help")),
             )
 
         elif back_match:
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, HELPABLE, "help")
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, HELPABLE, "help")),
             )
 
         # ensure no spinny white circle
@@ -497,9 +453,7 @@ def get_help(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Help",
-                                url="t.me/{}?start=ghelp_{}".format(
-                                    context.bot.username, plugins
-                                ),
+                                url="t.me/{}?start=ghelp_{}".format(context.bot.username, plugins),
                             )
                         ]
                     ]
@@ -524,22 +478,17 @@ def get_help(update: Update, context: CallbackContext):
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         plugins = args[1].lower()
         text = (
-            "Here is the available help for the *{}* plugins:\n".format(
-                HELPABLE[plugins].__mod_name__
-            )
+            "Here is the available help for the *{}* plugins:\n".format(HELPABLE[plugins].__mod_name__)
             + HELPABLE[plugins].__help__
         )
         send_help(
             chat.id,
             text,
-            InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
-            ),
+            InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="help_back")]]),
         )
 
     else:
         send_help(chat.id, HELP_STRINGS)
-
 
 
 # CMD Function Starting From Here
@@ -547,8 +496,7 @@ def send_settings(chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
             settings = "\n\n".join(
-                "*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id))
-                for mod in USER_SETTINGS.values()
+                "*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id)) for mod in USER_SETTINGS.values()
             )
             dispatcher.bot.send_message(
                 user_id,
@@ -568,12 +516,8 @@ def send_settings(chat_id, user_id, user=False):
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Which plugins would you like to check {}'s settings for?".format(
-                    chat_name
-                ),
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, CHAT_SETTINGS, "stngs", chat=chat_id)
-                ),
+                text="Which plugins would you like to check {}'s settings for?".format(chat_name),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, CHAT_SETTINGS, "stngs", chat=chat_id)),
             )
         else:
             dispatcher.bot.send_message(
@@ -623,9 +567,7 @@ def settings_button(update: Update, context: CallbackContext):
                 "Hi there! There are quite a few settings for {} - go ahead and pick what "
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(
-                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id
-                    )
+                    paginate_plugins(curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)
                 ),
             )
 
@@ -637,9 +579,7 @@ def settings_button(update: Update, context: CallbackContext):
                 "Hi there! There are quite a few settings for {} - go ahead and pick what "
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(
-                        next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id
-                    )
+                    paginate_plugins(next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id)
                 ),
             )
 
@@ -650,9 +590,7 @@ def settings_button(update: Update, context: CallbackContext):
                 text="Hi there! There are quite a few settings for {} - go ahead and pick what "
                 "you're interested in.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_plugins(0, CHAT_SETTINGS, "stngs", chat=chat_id)
-                ),
+                reply_markup=InlineKeyboardMarkup(paginate_plugins(0, CHAT_SETTINGS, "stngs", chat=chat_id)),
             )
 
         # ensure no spinny white circle
@@ -685,9 +623,7 @@ def get_settings(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Settings",
-                                url="t.me/{}?start=stngs_{}".format(
-                                    context.bot.username, chat.id
-                                ),
+                                url="t.me/{}?start=stngs_{}".format(context.bot.username, chat.id),
                             )
                         ]
                     ]

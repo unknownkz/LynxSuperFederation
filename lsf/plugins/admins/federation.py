@@ -7,47 +7,20 @@ import time
 import uuid
 from io import BytesIO
 
-from ...database import federation_sql as sql
-from ... import (
-    EVENT_LOGS,
-    LOGGER,
-    SUPPORT_CHAT,
-    OWNER_ID,
-    SD_ID,
-    TIGERS_ID,
-    WHITELIST_ID,
-    dispatcher,
-)
-
-from ..disable import DisableAbleCommandHandler
-from lsf.handlers.altaraction import send_message
-from lsf.handlers.valid import is_user_admin
-from lsf.handlers.extraction import (
-    extract_unt_fedban,
-    extract_user,
-    extract_user_fban,
-    extract_user_and_text,
-)
-
-from lsf.handlers.string_handling import markdown_parser
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    MessageEntity,
-    ParseMode,
-    Update,
-)
-
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, MessageEntity, ParseMode, Update
 from telegram.error import BadRequest, TelegramError, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    run_async,
-)
-
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, run_async
 # 84CC9F
 from telegram.utils.helpers import mention_html, mention_markdown
+
+from lsf.handlers.altaraction import send_message
+from lsf.handlers.extraction import extract_unt_fedban, extract_user, extract_user_fban, extract_user_and_text
+from lsf.handlers.string_handling import markdown_parser
+from lsf.handlers.valid import is_user_admin
+
+from ... import EVENT_LOGS, LOGGER, SUPPORT_CHAT, OWNER_ID, SD_ID, TIGERS_ID, WHITELIST_ID, dispatcher
+from ...database import federation_sql as sql
+from ..disable import DisableAbleCommandHandler
 
 # Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo and AyraHikari too
 # Federation by MrYacha 2018-2019
@@ -252,8 +225,8 @@ def join_fed(update: Update, context: CallbackContext):
     fed_id = sql.get_fed_id(chat.id)
 
     if user.id in SD_ID:
-    	pass
-    	
+        pass
+
     else:
         for admin in administrators:
             status = admin.status
@@ -587,8 +560,6 @@ def fed_ban(update: Update, context: CallbackContext):
 
     info = sql.get_fed_info(fed_id)
     getfednotif = sql.user_feds_report(info["owner"])
-
-
 
     if is_user_fed_admin(fed_id, user.id) is False:
         update.effective_message.reply_text("Only federation admins can do this!")
@@ -1461,14 +1432,12 @@ def fed_ban_list(update: Update, context: CallbackContext):
             backups = "id,firstname,lastname,username,reason\n"
             for users in getfban:
                 getuserinfo = sql.get_all_fban_users_target(fed_id, users)
-                backups += (
-                    "{user_id},{first_name},{last_name},{user_name},{reason}".format(
-                        user_id=users,
-                        first_name=getuserinfo["first_name"],
-                        last_name=getuserinfo["last_name"],
-                        user_name=getuserinfo["user_name"],
-                        reason=getuserinfo["reason"],
-                    )
+                backups += "{user_id},{first_name},{last_name},{user_name},{reason}".format(
+                    user_id=users,
+                    first_name=getuserinfo["first_name"],
+                    last_name=getuserinfo["last_name"],
+                    user_name=getuserinfo["user_name"],
+                    reason=getuserinfo["reason"],
                 )
                 backups += "\n"
             with BytesIO(str.encode(backups)) as output:
@@ -2263,9 +2232,7 @@ def get_myfedsubs(update: Update, context: CallbackContext):
     )
     for x in getmy:
         listfed += "- `{}`\n".format(x)
-    listfed += (
-        "\nTo get fed info `/fedinfo <fedid>`. To unsubscribe `/unsubfed <fedid>`."
-    )
+    listfed += "\nTo get fed info `/fedinfo <fedid>`. To unsubscribe `/unsubfed <fedid>`."
     send_message(update.effective_message, listfed, parse_mode="markdown")
 
 
@@ -2470,18 +2437,14 @@ FED_USERBAN_HANDLER = CommandHandler("fbanlist", fed_ban_list, run_async=True)
 FED_NOTIF_HANDLER = CommandHandler("fednotif", fed_notif, run_async=True)
 FED_CHATLIST_HANDLER = CommandHandler("fedchats", fed_chats, run_async=True)
 FED_IMPORTBAN_HANDLER = CommandHandler("importfbans", fed_import_bans, run_async=True)
-FEDSTAT_USER = DisableAbleCommandHandler(
-    ["fedstat", "fbanstat"], fed_stat_user, run_async=True
-)
+FEDSTAT_USER = DisableAbleCommandHandler(["fedstat", "fbanstat"], fed_stat_user, run_async=True)
 SET_FED_LOG = CommandHandler("setfedlog", set_fed_log, run_async=True)
 UNSET_FED_LOG = CommandHandler("unsetfedlog", unset_fed_log, run_async=True)
 SUBS_FED = CommandHandler("subfed", subs_feds, run_async=True)
 UNSUBS_FED = CommandHandler("unsubfed", unsubs_feds, run_async=True)
 MY_SUB_FED = CommandHandler("fedsubs", get_myfedsubs, run_async=True)
 MY_FEDS_LIST = CommandHandler("myfeds", get_myfeds_list, run_async=True)
-DELETEBTN_FED_HANDLER = CallbackQueryHandler(
-    del_fed_button, pattern=r"rmfed_", run_async=True
-)
+DELETEBTN_FED_HANDLER = CallbackQueryHandler(del_fed_button, pattern=r"rmfed_", run_async=True)
 FED_OWNER_HELP_HANDLER = CommandHandler("fedownerhelp", fed_owner_help, run_async=True)
 FED_ADMIN_HELP_HANDLER = CommandHandler("fedadminhelp", fed_admin_help, run_async=True)
 FED_USER_HELP_HANDLER = CommandHandler("feduserhelp", fed_user_help, run_async=True)

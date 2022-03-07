@@ -3,19 +3,12 @@ from time import sleep
 
 from telegram import TelegramError, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    run_async,
-)
+from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, run_async
 
-from ..database import users_sql as sql
 from .. import LOGGER, dispatcher
-from ..handlers.valid import dev_plus, sudo_plus
+from ..database import users_sql as sql
 from ..database.users_sql import get_all_users
-
+from ..handlers.valid import dev_plus, sudo_plus
 
 USERS_GROUP = 20
 CHAT_GROUP = 20
@@ -127,9 +120,7 @@ def chats(update: Update, context: CallbackContext):
             curr_chat = context.bot.getChat(chat.chat_id)
             bot_member = curr_chat.get_member(context.bot.id)
             chat_members = curr_chat.get_member_count(context.bot.id)
-            chatfile += "{}. {} | {} | {}\n".format(
-                P, chat.chat_name, chat.chat_id, chat_members
-            )
+            chatfile += "{}. {} | {} | {}\n".format(P, chat.chat_name, chat.chat_id, chat_members)
             P = P + 1
         except:
             pass
@@ -171,15 +162,9 @@ def __migrate__(old_chat_id, new_chat_id):
 
 # __help__ = ""  # no help string
 
-BROADCAST_HANDLER = CommandHandler(
-    ["broadcastall", "broadcastusers", "broadcastgroups"], broadcast
-)
-USER_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, log_user, run_async=True
-)
-CHAT_CHECKER_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, chat_checker, run_async=True
-)
+BROADCAST_HANDLER = CommandHandler(["broadcastall", "broadcastusers", "broadcastgroups"], broadcast)
+USER_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, log_user, run_async=True)
+CHAT_CHECKER_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, chat_checker, run_async=True)
 CHATLIST_HANDLER = CommandHandler("groups", chats, run_async=True)
 
 dispatcher.add_handler(USER_HANDLER, USERS_GROUP)

@@ -1,16 +1,13 @@
 # @unknownkz
 
-from .disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-
-from telegram.ext import (
-    CommandHandler,
-    MessageHandler,
-    CallbackQueryHandler,
-    InlineQueryHandler,
-)
-from telegram.ext.filters import BaseFilter
-from .. import dispatcher as d, LOGGER
 from typing import Optional, Union, List
+
+from telegram.ext import CommandHandler, MessageHandler, CallbackQueryHandler, InlineQueryHandler
+from telegram.ext.filters import BaseFilter
+
+from .. import dispatcher as d
+from .. import LOGGER
+from .disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 
 
 class LynxHandler:
@@ -53,9 +50,7 @@ class LynxHandler:
                         ),
                         group,
                     )
-                LOGGER.debug(
-                    f"[LynxCMD] Loaded handler {command} for function {func.__name__} in group {group}"
-                )
+                LOGGER.debug(f"[LynxCMD] Loaded handler {command} for function {func.__name__} in group {group}")
             except TypeError:
                 if can_disable:
                     self._dispatcher.add_handler(
@@ -80,9 +75,7 @@ class LynxHandler:
                             pass_chat_data=pass_chat_data,
                         )
                     )
-                LOGGER.debug(
-                    f"[LynxCMD] Loaded handler {command} for function {func.__name__}"
-                )
+                LOGGER.debug(f"[LynxCMD] Loaded handler {command} for function {func.__name__}")
 
             return func
 
@@ -100,32 +93,20 @@ class LynxHandler:
             try:
                 if can_disable:
                     self._dispatcher.add_handler(
-                        DisableAbleMessageHandler(
-                            pattern, func, friendly=friendly, run_async=run_async
-                        ),
+                        DisableAbleMessageHandler(pattern, func, friendly=friendly, run_async=run_async),
                         group,
                     )
                 else:
-                    self._dispatcher.add_handler(
-                        MessageHandler(pattern, func, run_async=run_async), group
-                    )
-                LOGGER.debug(
-                    f"[LynxMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
-                )
+                    self._dispatcher.add_handler(MessageHandler(pattern, func, run_async=run_async), group)
+                LOGGER.debug(f"[LynxMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}")
             except TypeError:
                 if can_disable:
                     self._dispatcher.add_handler(
-                        DisableAbleMessageHandler(
-                            pattern, func, friendly=friendly, run_async=run_async
-                        )
+                        DisableAbleMessageHandler(pattern, func, friendly=friendly, run_async=run_async)
                     )
                 else:
-                    self._dispatcher.add_handler(
-                        MessageHandler(pattern, func, run_async=run_async)
-                    )
-                LOGGER.debug(
-                    f"[LynxMSG] Loaded filter pattern {pattern} for function {func.__name__}"
-                )
+                    self._dispatcher.add_handler(MessageHandler(pattern, func, run_async=run_async))
+                LOGGER.debug(f"[LynxMSG] Loaded filter pattern {pattern} for function {func.__name__}")
 
             return func
 
@@ -133,11 +114,7 @@ class LynxHandler:
 
     def callbackquery(self, pattern: str = None, run_async: bool = True):
         def _callbackquery(func):
-            self._dispatcher.add_handler(
-                CallbackQueryHandler(
-                    pattern=pattern, callback=func, run_async=run_async
-                )
-            )
+            self._dispatcher.add_handler(CallbackQueryHandler(pattern=pattern, callback=func, run_async=run_async))
             LOGGER.debug(
                 f"[LynxCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )

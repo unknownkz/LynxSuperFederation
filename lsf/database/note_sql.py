@@ -86,22 +86,14 @@ def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=No
 
 def get_note(chat_id, note_name):
     try:
-        return (
-            SESSION.query(Notes)
-            .filter(func.lower(Notes.name) == note_name, Notes.chat_id == str(chat_id))
-            .first()
-        )
+        return SESSION.query(Notes).filter(func.lower(Notes.name) == note_name, Notes.chat_id == str(chat_id)).first()
     finally:
         SESSION.close()
 
 
 def rm_note(chat_id, note_name):
     with NOTES_INSERTION_LOCK:
-        note = (
-            SESSION.query(Notes)
-            .filter(func.lower(Notes.name) == note_name, Notes.chat_id == str(chat_id))
-            .first()
-        )
+        note = SESSION.query(Notes).filter(func.lower(Notes.name) == note_name, Notes.chat_id == str(chat_id)).first()
         if note:
             with BUTTONS_INSERTION_LOCK:
                 buttons = (
@@ -126,12 +118,7 @@ def rm_note(chat_id, note_name):
 
 def get_all_chat_notes(chat_id):
     try:
-        return (
-            SESSION.query(Notes)
-            .filter(Notes.chat_id == str(chat_id))
-            .order_by(Notes.name.asc())
-            .all()
-        )
+        return SESSION.query(Notes).filter(Notes.chat_id == str(chat_id)).order_by(Notes.name.asc()).all()
     finally:
         SESSION.close()
 
@@ -171,16 +158,12 @@ def num_chats():
 
 def migrate_chat(old_chat_id, new_chat_id):
     with NOTES_INSERTION_LOCK:
-        chat_notes = (
-            SESSION.query(Notes).filter(Notes.chat_id == str(old_chat_id)).all()
-        )
+        chat_notes = SESSION.query(Notes).filter(Notes.chat_id == str(old_chat_id)).all()
         for note in chat_notes:
             note.chat_id = str(new_chat_id)
 
         with BUTTONS_INSERTION_LOCK:
-            chat_buttons = (
-                SESSION.query(Buttons).filter(Buttons.chat_id == str(old_chat_id)).all()
-            )
+            chat_buttons = SESSION.query(Buttons).filter(Buttons.chat_id == str(old_chat_id)).all()
             for btn in chat_buttons:
                 btn.chat_id = str(new_chat_id)
 

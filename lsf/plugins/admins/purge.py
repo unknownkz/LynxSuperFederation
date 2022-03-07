@@ -1,20 +1,13 @@
 import time
-from telethon import events
+
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, run_async, Filters
-
-from lsf import lynx_client, dispatcher, DEV_ID
-from lsf.handlers.valid import (
-    can_delete,
-    user_admin,
-    
-)
-from lsf.handlers.telethon.impossible import (
-    can_delete_messages,
-    user_is_admin,   
-)
+from telethon import events
 
 import lsf.database.purges_sql as sql
+from lsf import lynx_client, dispatcher, DEV_ID
+from lsf.handlers.telethon.impossible import can_delete_messages, user_is_admin
+from lsf.handlers.valid import can_delete, user_admin
 
 
 async def purge_messages(event):
@@ -22,9 +15,13 @@ async def purge_messages(event):
     if event.from_id is None:
         return
 
-    if not await user_is_admin(
-        user_id=event.sender_id, message=event,
-    ) and event.from_id not in DEV_ID:
+    if (
+        not await user_is_admin(
+            user_id=event.sender_id,
+            message=event,
+        )
+        and event.from_id not in DEV_ID
+    ):
         await event.reply("Only Admins are allowed to use this command")
         return
 
@@ -66,9 +63,13 @@ async def delete_messages(event):
     if event.from_id is None:
         return
 
-    if not await user_is_admin(
-        user_id=event.sender_id, message=event,
-    ) and event.from_id not in DEV_ID:
+    if (
+        not await user_is_admin(
+            user_id=event.sender_id,
+            message=event,
+        )
+        and event.from_id not in DEV_ID
+    ):
         await event.reply("Only Admins are allowed to use this command")
         return
 
@@ -104,7 +105,9 @@ def purgefrom(update: Update, context: CallbackContext):
                 return
 
             sql.purgefrom(msg.chat_id, message_from)
-            msg.reply_to_message.reply_text("Message marked for deletion. Reply to another message with purgeto to delete all messages in between.")
+            msg.reply_to_message.reply_text(
+                "Message marked for deletion. Reply to another message with purgeto to delete all messages in between."
+            )
 
         else:
             msg.reply_text("Reply to a message to let me know what to delete.")
@@ -118,9 +121,13 @@ async def purgeto_messages(event):
     if event.from_id is None:
         return
 
-    if not await user_is_admin(
-        user_id=event.sender_id, message=event,
-    ) and event.from_id not in DEV_ID:
+    if (
+        not await user_is_admin(
+            user_id=event.sender_id,
+            message=event,
+        )
+        and event.from_id not in DEV_ID
+    ):
         await event.reply("Only Admins are allowed to use this command")
         return
 

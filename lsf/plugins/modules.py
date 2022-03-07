@@ -1,6 +1,9 @@
 import collections
-
 from importlib import import_module as lynx_plugins
+
+from telegram import ParseMode, Update
+from telegram.ext import CallbackContext, CommandHandler, run_async
+
 from .. import dispatcher, lynx_client
 from ..__help__ import (
     CHAT_SETTINGS,
@@ -14,17 +17,13 @@ from ..__help__ import (
     USER_SETTINGS,
 )
 from ..handlers.valid import dev_plus, sudo_plus
-from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
 
 
 @dev_plus
 def load(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text.split(" ", 1)[1]
-    load_messasge = message.reply_text(
-        f"Attempting to load plugins : <b>{text}</b>", parse_mode=ParseMode.HTML
-    )
+    load_messasge = message.reply_text(f"Attempting to load plugins : <b>{text}</b>", parse_mode=ParseMode.HTML)
 
     try:
         imported_plugins = lynx_plugins("lsf.plugins." + text)
@@ -92,9 +91,7 @@ def load(update: Update, context: CallbackContext):
 def unload(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text.split(" ", 1)[1]
-    unload_messasge = message.reply_text(
-        f"Attempting to unload plugins : <b>{text}</b>", parse_mode=ParseMode.HTML
-    )
+    unload_messasge = message.reply_text(f"Attempting to unload plugins : <b>{text}</b>", parse_mode=ParseMode.HTML)
 
     try:
         imported_plugins = lynx_plugins("lsf.plugins." + text)
@@ -153,9 +150,7 @@ def unload(update: Update, context: CallbackContext):
     if hasattr(imported_plugins, "__user_settings__"):
         USER_SETTINGS.pop(imported_plugins.__mod_name__.lower())
 
-    unload_messasge.edit_text(
-        f"Successfully unloaded plugins : <b>{text}</b>", parse_mode=ParseMode.HTML
-    )
+    unload_messasge.edit_text(f"Successfully unloaded plugins : <b>{text}</b>", parse_mode=ParseMode.HTML)
 
 
 @sudo_plus

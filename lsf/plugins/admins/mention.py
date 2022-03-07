@@ -1,17 +1,15 @@
-import os
-import logging
 import asyncio
+import logging
+import os
 
 from telethon import Button, TelegramClient, events
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
-from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.errors import UserNotParticipantError
+from telethon.tl.functions.channels import GetParticipantRequest
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
-
-from ..disable import DisableAbleCommandHandler
 from ... import lynx_client
 from ...handlers.altaraction import commands_functions
-
+from ..disable import DisableAbleCommandHandler
 
 spam_chats = []
 
@@ -29,9 +27,7 @@ async def all(event):
     except UserNotParticipantError:
         is_admin = False
     else:
-        if isinstance(
-            partici_.participant, (ChannelParticipantAdmin, ChannelParticipantCreator)
-        ):
+        if isinstance(partici_.participant, (ChannelParticipantAdmin, ChannelParticipantCreator)):
             is_admin = True
     if not is_admin:
         return await event.respond("Only admins can mention all!")
@@ -49,9 +45,7 @@ async def all(event):
                 "I can't mention members for older messages! (messages which are sent before I'm added to group)"
             )
     else:
-        return await event.respond(
-            "Reply to a message or give me some text to mention others!"
-        )
+        return await event.respond("Reply to a message or give me some text to mention others!")
 
     Spam = spam_chats.append(chat_id)
     usrnum = 0

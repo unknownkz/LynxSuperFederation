@@ -1,8 +1,8 @@
 import requests
-
-from ..commander import Lynxcmd
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
+
+from ..commander import Lynxcmd
 
 
 @Lynxcmd("github", pass_args=True)
@@ -49,9 +49,7 @@ def github(update: Update, context: CallbackContext):
         except Exception as e:
             print(str(e))
             pass
-    message.reply_photo(
-        photo=avatar_url, caption=caption, parse_mode=ParseMode.MARKDOWN
-    )
+    message.reply_photo(photo=avatar_url, caption=caption, parse_mode=ParseMode.MARKDOWN)
 
 
 __mod_name__ = "Github"

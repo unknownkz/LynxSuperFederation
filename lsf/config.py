@@ -14,16 +14,19 @@ class Unknown(object):
     # Required
     API_ID = 123456  # integer value, dont use ""
     API_HASH = ""
-    TGB_ID = "" # ID ur bot, Go to BotFather and see Token Bot. 6362626
+    TGB_ID = ""  # ID ur bot, Go to BotFather and see Token Bot. 6362626
     TGB_TOKEN = "TGB_TOKEN"  # This var used to be BOT TOKEN, adjust accordingly.
-    TGB_USERNAME = "LynxSFRobot" # Username Bot, don't use @
-    SESSION_STRING = "" # PyrogramSession
-    STRING_SESSION = "" # TelethonSession
-    OWNER_USERNAME = "xelyourslurred" # ur Username
+    TGB_USERNAME = "LynxSFRobot"  # Username Bot, don't use @
+    SESSION_STRING = ""  # PyrogramSession
+    STRING_SESSION = ""  # TelethonSession
+    OWNER_USERNAME = "xelyourslurred"  # ur Username
 
     # Required ID
     OWNER_ID = 1448477501  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    DEV_ID = 1448477501, 1345272778 # ur id or another id, some like sudo but this is dev
+    DEV_ID = (
+        1448477501,
+        1345272778,
+    )  # ur id or another id, some like sudo but this is dev
     TIGERS_ID = 137282738, 73727266
     WHITELIST_ID = 208373728, 25262636
     SUPPORT_ID = 182737822, 16263633
@@ -31,23 +34,18 @@ class Unknown(object):
 
     # Log Chat
     SUPPORT_CHAT = "LSF_SupportGroup"  # Your own group for support, do not add the @
-    JOIN_LOGGER = (
-        -1001756059757
-    )  # Prints any new group the bot is added to, prints just the name and ID.
+    JOIN_LOGGER = -1001756059757  # Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = (
         -1001756059757
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
-    ERROR_LOGS = (
-        -1001756059757
-    )  # Prints any new group the bot is added to, prints just the name and ID.
-
+    ERROR_LOGS = -1001756059757  # Prints any new group the bot is added to, prints just the name and ID.
 
     # ARQ
-    ARQ_API_KEY = "" # Go to @ARQRobot or https://t.me/ARQRobot and /get_key
-    ARQ_API_URL = "http://thearq.tech/" # See @ARQUpdates
+    ARQ_API_KEY = ""  # Go to @ARQRobot or https://t.me/ARQRobot and /get_key
+    ARQ_API_URL = "http://thearq.tech/"  # See @ARQUpdates
 
     # Repository
-    UPSTREAM_REPO = "LynxSuperFederation" # Don't change
+    UPSTREAM_REPO = "LynxSuperFederation"  # Don't change
 
     # Heroku
     HEROKU_APP_NAME = ""
@@ -68,18 +66,18 @@ class Unknown(object):
     PORT = 5000
     DEL_CMDS = True  # Delete commands that users dont have access to, like delete /ban if a non admin uses it.
     STRICT_GBAN = True
-    SERVER_IP = "" # Local host (0.0.0.0)
-    WORKERS = (
-        16  # Number of subthreads to use. Set as number of threads your processor uses
-    )
+    SERVER_IP = ""  # Local host (0.0.0.0)
+    WORKERS = 16  # Number of subthreads to use. Set as number of threads your processor uses
 
     INFOPIC = True
     TEMP_DOWNLOAD_DIRECTORY = "./"
-    BAN_STICKER = ""  # banhammer marie sticker id, the bot will send this sticker before banning or kicking a user in chat.
+    BAN_STICKER = (
+        ""  # banhammer marie sticker id, the bot will send this sticker before banning or kicking a user in chat.
+    )
     ALLOW_EXCL = True  # Allow ! commands as well as / (Leave this to true so that blacklist can work)
     ALLOW_CHATS = True
     BLACKLIST_CHAT = []  # List of groups that you want blacklisted.
-    WELCOME_DELAY_KICK_SEC = "120" # Welcome Delay Kick Seconds
+    WELCOME_DELAY_KICK_SEC = "120"  # Welcome Delay Kick Seconds
 
 
 class Production(Unknown):

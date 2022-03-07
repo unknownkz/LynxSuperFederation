@@ -84,11 +84,7 @@ def extract_user_and_text(message: Message, args: List[str]) -> (Optional[int], 
 
 
 def extract_text(message) -> str:
-    return (
-        message.text
-        or message.caption
-        or (message.sticker.emoji if message.sticker else None)
-    )
+    return message.text or message.caption or (message.sticker.emoji if message.sticker else None)
 
 
 def extract_unt_fedban(message: Message, args: List[str]) -> (Optional[int], Optional[str]):
@@ -138,9 +134,7 @@ def extract_unt_fedban(message: Message, args: List[str]) -> (Optional[int], Opt
     try:
         message.bot.get_chat(user_id)
     except BadRequest as excp:
-        if excp.message in ("User_id_invalid", "Chat not found") and not isinstance(
-            user_id, int
-        ):
+        if excp.message in ("User_id_invalid", "Chat not found") and not isinstance(user_id, int):
             message.reply_text(
                 "I don't seem to have interacted with this user before "
                 "please forward a message from them to give me control! "

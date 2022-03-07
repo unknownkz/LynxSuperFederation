@@ -5,35 +5,26 @@ License under (GNU General Public License)
 """
 
 from typing import Union
+
 from future.utils import string_types
+from telegram import Chat, ParseMode, Update
+from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, RegexHandler
+from telegram.utils.helpers import escape_markdown
 
 from .. import dispatcher
 from ..handlers.altaraction import send_message, commands_functions
 from ..handlers.handlers import CMD_STARTERS
 from ..handlers.misc import is_plugins_loaded
-from telegram import Chat, ParseMode, Update
-from telegram.ext import (
-    CallbackContext,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    RegexHandler,
-)
-from telegram.utils.helpers import escape_markdown
-
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 
 if is_plugins_loaded(FILENAME):
 
-    from ..handlers.valid import (
-        connection_status,
-        is_user_admin,
-        user_admin,
-    )
-    from ..database import disable_sql as sql
     from telegram.ext.dispatcher import run_async
+
+    from ..database import disable_sql as sql
+    from ..handlers.valid import connection_status, is_user_admin, user_admin
 
     DISABLE_CMDS = []
     DISABLE_OTHER = []
@@ -58,16 +49,13 @@ if is_plugins_loaded(FILENAME):
 
                 if message.text and len(message.text) > 1:
                     fst_word = message.text.split(None, 1)[0]
-                    if len(fst_word) > 1 and any(
-                        fst_word.startswith(start) for start in CMD_STARTERS
-                    ):
+                    if len(fst_word) > 1 and any(fst_word.startswith(start) for start in CMD_STARTERS):
                         args = message.text.split()[1:]
                         command = fst_word[1:].split("@")
                         command.append(message.bot.username)
 
                         if not (
-                            command[0].lower() in self.command
-                            and command[1].lower() == message.bot.username.lower()
+                            command[0].lower() in self.command and command[1].lower() == message.bot.username.lower()
                         ):
                             return None
 
@@ -78,9 +66,7 @@ if is_plugins_loaded(FILENAME):
                             # disabled, admincmd, user admin
                             if sql.is_command_disabled(chat.id, command[0].lower()):
                                 # check if command was disabled
-                                is_disabled = command[
-                                    0
-                                ] in ADMIN_CMDS and is_user_admin(chat, user.id)
+                                is_disabled = command[0] in ADMIN_CMDS and is_user_admin(chat, user.id)
                                 if not is_disabled:
                                     return None
                                 else:
@@ -89,7 +75,6 @@ if is_plugins_loaded(FILENAME):
                             return args, filter_result
                         else:
                             return False
-
 
     class DisableAbleMessageHandler(MessageHandler):
         def __init__(self, pattern, callback, friendly="", **kwargs):
@@ -100,10 +85,7 @@ if is_plugins_loaded(FILENAME):
         def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
                 chat = update.effective_chat
-                return self.filters(update) and not sql.is_command_disabled(
-                    chat.id, self.friendly
-                )
-
+                return self.filters(update) and not sql.is_command_disabled(chat.id, self.friendly)
 
     @run_async
     @user_admin
@@ -135,21 +117,15 @@ if is_plugins_loaded(FILENAME):
 
             if sql.enable_command(chat.id, enable_cmd):
                 if conn:
-                    text = "Enabled the use of `{}` command in *{}*!".format(
-                        enable_cmd, chat_name
-                    )
+                    text = "Enabled the use of `{}` command in *{}*!".format(enable_cmd, chat_name)
                 else:
                     text = "Enabled the use of `{}` command!".format(enable_cmd)
-                send_message(
-                    update.effective_message, text, parse_mode=ParseMode.MARKDOWN
-                )
+                send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
             else:
                 send_message(update.effective_message, "Is that even disabled?")
 
         else:
             send_message(update.effective_message, "What should I enable?")
-
-
 
     @run_async
     @user_admin
@@ -181,20 +157,15 @@ if is_plugins_loaded(FILENAME):
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chat.id, disable_cmd)
                 if conn:
-                    text = "Disabled the use of `{}` command in *{}*!".format(
-                        disable_cmd, chat_name
-                    )
+                    text = "Disabled the use of `{}` command in *{}*!".format(disable_cmd, chat_name)
                 else:
                     text = "Disabled the use of `{}` command!".format(disable_cmd)
-                send_message(
-                    update.effective_message, text, parse_mode=ParseMode.MARKDOWN
-                )
+                send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
             else:
                 send_message(update.effective_message, "This command can't be disabled")
 
         else:
             send_message(update.effective_message, "What should I disable?")
-
 
     @run_async
     @user_admin
@@ -222,7 +193,6 @@ if is_plugins_loaded(FILENAME):
             result += "Commands:-› `{}`\n".format(escape_markdown(cmd))
         return "The following commands are currently restricted:\n{}".format(result)
 
-
     @run_async
     @commands_functions
     def commands(update, context):
@@ -249,9 +219,7 @@ if is_plugins_loaded(FILENAME):
             sql.disable_command(chat_id, disable_cmd)
 
     def __stats__():
-        return "❌ {} disabled items, across {} chats.".format(
-            sql.num_disabled(), sql.num_chats()
-        )
+        return "❌ {} disabled items, across {} chats.".format(sql.num_disabled(), sql.num_chats())
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
@@ -276,11 +244,10 @@ It'll also allow you to autodelete them, stopping people from bluetexting.
  • /listcmds: List all possible disablable commands
     """
 
-    DISABLE_HANDLER = CommandHandler("disable", disable, pass_args=True
-    )  # , filters=Filters.group)
-    ENABLE_HANDLER = CommandHandler("enable", enable, pass_args=True
-    )  # , filters=Filters.group)
-    COMMANDS_HANDLER = CommandHandler(["cmds", "disabled"], commands
+    DISABLE_HANDLER = CommandHandler("disable", disable, pass_args=True)  # , filters=Filters.group)
+    ENABLE_HANDLER = CommandHandler("enable", enable, pass_args=True)  # , filters=Filters.group)
+    COMMANDS_HANDLER = CommandHandler(
+        ["cmds", "disabled"], commands
     )  # , filters=Filters.group), filters=Filters.group)
     TOGGLE_HANDLER = CommandHandler("listcmds", list_cmds)
 

@@ -145,9 +145,7 @@ def __load_gbanned_userid_list():
 def __load_gban_stat_list():
     global GBANSTAT_LIST
     try:
-        GBANSTAT_LIST = {
-            x.chat_id for x in SESSION.query(GbanSettings).all() if not x.setting
-        }
+        GBANSTAT_LIST = {x.chat_id for x in SESSION.query(GbanSettings).all() if not x.setting}
     finally:
         SESSION.close()
 

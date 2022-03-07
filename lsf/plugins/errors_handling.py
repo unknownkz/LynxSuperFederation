@@ -1,15 +1,17 @@
-import traceback
-import json
-import requests
 import html
+import io
+import json
 import random
 import sys
+import traceback
+
 import pretty_errors
-import io
+import requests
+from requests.structures import CaseInsensitiveDict
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext, CommandHandler
+
 from lsf import dispatcher, DEV_ID, OWNER_ID, API_HASH, API_ID
-from requests.structures import CaseInsensitiveDict
 
 pretty_errors.mono()
 
@@ -98,9 +100,7 @@ def error_callback(update: Update, context: CallbackContext):
     key = result["id"]
     e = html.escape(f"{context.error}")
     e = (
-        e.replace(context.bot.token, "$TGB_TOKEN")
-        .replace(str(API_ID), "$API_ID")
-        .replace(API_HASH, "$API_HASH")
+        e.replace(context.bot.token, "$TGB_TOKEN").replace(str(API_ID), "$API_ID").replace(API_HASH, "$API_HASH")
     )  # .replace(SPAMWATCH_API, "$SPAMWATCH_API")
     if not key:
         with open("error.txt", "w+") as f:
@@ -126,9 +126,7 @@ def error_callback(update: Update, context: CallbackContext):
 def list_errors(update: Update, context: CallbackContext):
     if update.effective_user.id not in DEV_ID:
         return
-    e = {
-        k: v for k, v in sorted(errors.items(), key=lambda item: item[1], reverse=True)
-    }
+    e = {k: v for k, v in sorted(errors.items(), key=lambda item: item[1], reverse=True)}
     msg = "<b>Errors List:</b>\n"
     for x, value in e.items():
         msg += f"• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n"

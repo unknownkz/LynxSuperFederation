@@ -1,18 +1,17 @@
 import io
-from ...events import register
-from ... import lynx_client as tgb
-from telethon import types
-from telethon import events
+
+from telethon import types, events
 from telethon.tl import functions
 from telethon.tl.types import *
+
+from ... import lynx_client as tgb
+from ...events import register
 
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
-            (
-                await tgb(functions.channels.GetParticipantRequest(chat, user))
-            ).participant,
+            (await tgb(functions.channels.GetParticipantRequest(chat, user))).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     if isinstance(chat, types.InputPeerUser):
@@ -25,9 +24,7 @@ async def _(event):
         return
     if event.is_group:
         if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-            await event.reply(
-                "🚨 Need Admin Power..\nYou can't use this command..\But you can use in MY PM"
-            )
+            await event.reply("🚨 Need Admin Power..\nYou can't use this command..\But you can use in MY PM")
             return
 
     the_real_message = None

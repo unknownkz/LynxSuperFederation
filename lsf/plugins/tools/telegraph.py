@@ -1,10 +1,11 @@
 import os
-from lsf import lynx_client as tgb
-from telethon import events
-from PIL import Image
 from datetime import datetime
-from telegraph import Telegraph, upload_file, exceptions
 
+from PIL import Image
+from telegraph import Telegraph, upload_file, exceptions
+from telethon import events
+
+from lsf import lynx_client as tgb
 
 bee = "LynxSFederation"
 telegraph = Telegraph()
@@ -23,14 +24,10 @@ async def tgraph(event):
         r_message = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
         if input_str == "m":
-            downloaded_file_name = await tgb.download_media(
-                r_message, TMP_DOWNLOAD_DIRECTORY
-            )
+            downloaded_file_name = await tgb.download_media(r_message, TMP_DOWNLOAD_DIRECTORY)
             end = datetime.now()
             ms = (end - start).seconds
-            h = await event.reply(
-                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms)
-            )
+            h = await event.reply("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -44,9 +41,7 @@ async def tgraph(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await h.edit(
-                    "Uploaded to https://telegra.ph{} in {} seconds.".format(
-                        media_urls[0], (ms + ms_two)
-                    ),
+                    "Uploaded to https://telegra.ph{} in {} seconds.".format(media_urls[0], (ms + ms_two)),
                     link_preview=True,
                 )
         elif input_str == "t":
@@ -59,9 +54,7 @@ async def tgraph(event):
             if r_message.media:
                 if page_content != "":
                     title_of_page = page_content
-                downloaded_file_name = await tbot.download_media(
-                    r_message, TMP_DOWNLOAD_DIRECTORY
-                )
+                downloaded_file_name = await tbot.download_media(r_message, TMP_DOWNLOAD_DIRECTORY)
                 m_list = None
                 with open(downloaded_file_name, "rb") as fd:
                     m_list = fd.readlines()
@@ -73,9 +66,7 @@ async def tgraph(event):
             end = datetime.now()
             ms = (end - start).seconds
             await event.reply(
-                "Pasted to https://telegra.ph/{} in {} seconds.".format(
-                    response["path"], ms
-                ),
+                "Pasted to https://telegra.ph/{} in {} seconds.".format(response["path"], ms),
                 link_preview=True,
             )
     else:

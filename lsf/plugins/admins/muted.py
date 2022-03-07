@@ -1,24 +1,17 @@
 import html
 from typing import Optional
 
-from lsf import LOGGER, SUPPORT_ID, dispatcher
-from lsf.handlers.valid import (
-    bot_admin,
-    can_restrict,
-    connection_status,
-    is_user_admin,
-    user_admin,
-)
-from lsf.handlers.extraction import (
-    extract_user,
-    extract_user_and_text,
-)
-from lsf.handlers.string_handling import extract_time
-from .log_channel import loggable
 from telegram import Bot, Chat, ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
+
+from lsf import LOGGER, SUPPORT_ID, dispatcher
+from lsf.handlers.extraction import extract_user, extract_user_and_text
+from lsf.handlers.string_handling import extract_time
+from lsf.handlers.valid import bot_admin, can_restrict, connection_status, is_user_admin, user_admin
+
+from .log_channel import loggable
 
 
 def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
@@ -44,7 +37,6 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
         return reply
 
     return None
-
 
 
 @connection_status
@@ -92,7 +84,6 @@ def mute(update: Update, context: CallbackContext) -> str:
         message.reply_text("This user is already muted!")
 
     return ""
-
 
 
 @connection_status
@@ -150,12 +141,10 @@ def unmute(update: Update, context: CallbackContext) -> str:
             )
     else:
         message.reply_text(
-            "This user isn't even in the chat, unmuting them won't make them talk more than they "
-            "already do!",
+            "This user isn't even in the chat, unmuting them won't make them talk more than they " "already do!",
         )
 
     return ""
-
 
 
 @connection_status
@@ -209,7 +198,10 @@ def temp_mute(update: Update, context: CallbackContext) -> str:
         if member.can_send_messages is None or member.can_send_messages:
             chat_permissions = ChatPermissions(can_send_messages=False)
             bot.restrict_chat_member(
-                chat.id, user_id, chat_permissions, until_date=mutetime,
+                chat.id,
+                user_id,
+                chat_permissions,
+                until_date=mutetime,
             )
             bot.sendMessage(
                 chat.id,
@@ -237,6 +229,7 @@ def temp_mute(update: Update, context: CallbackContext) -> str:
             message.reply_text("Well damn, I can't mute that user.")
 
     return ""
+
 
 # Help moved to admins
 __help__ = """

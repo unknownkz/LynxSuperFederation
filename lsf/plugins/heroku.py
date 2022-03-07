@@ -8,7 +8,6 @@ import requests
 from .. import HEROKU_APP_NAME, HEROKU_API_KEY, OWNER_ID
 from ..events import register
 
-
 heroku_api = "https://api.heroku.com"
 Heroku = heroku3.from_key(HEROKU_API_KEY)
 
@@ -37,13 +36,9 @@ async def variable(var):
         try:
             variable = var.pattern_match.group(2).split()[0]
             if variable in heroku_var:
-                return await k.edit(
-                    "**Environments**:" f"\n\n`{variable} = {heroku_var[variable]}`\n"
-                )
+                return await k.edit("**Environments**:" f"\n\n`{variable} = {heroku_var[variable]}`\n")
             else:
-                return await k.edit(
-                    "**Environments**:" f"\n\n`Error:\n-> {variable} don't exists`"
-                )
+                return await k.edit("**Environments**:" f"\n\n`Error:\n-> {variable} don't exists`")
         except IndexError:
             configs = prettyjson(heroku_var.to_dict(), indent=2)
             with open("configs.json", "w") as fp:
@@ -80,13 +75,9 @@ async def variable(var):
                 return await s.edit(">`/set env <ENV> <VALUE>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await s.edit(
-                f"`Environments` **{variable}**\n`Successfully changed to`  ->  **{value}**"
-            )
+            await s.edit(f"`Environments` **{variable}**\n`Successfully changed to`  ->  **{value}**")
         else:
-            await s.edit(
-                f"`Environments` **{variable}**\n`Successfully added to`  ->  **{value}**"
-            )
+            await s.edit(f"`Environments` **{variable}**\n`Successfully added to`  ->  **{value}**")
         heroku_var[variable] = value
     elif exe == "del":
         m = await var.reply("`Getting information to deleting env var...`")

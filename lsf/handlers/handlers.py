@@ -1,7 +1,7 @@
-from lsf import ALLOW_EXCL
 from telegram import Update
 from telegram.ext import CommandHandler
 
+from lsf import ALLOW_EXCL
 
 if ALLOW_EXCL:
     CMD_STARTERS = ("/", "!", ".", "~")
@@ -26,19 +26,12 @@ class CustomCommandHandler(CommandHandler):
 
             if message.text and len(message.text) > 1:
                 fst_word = message.text.split(None, 1)[0]
-                if len(fst_word) > 1 and any(
-                    fst_word.startswith(start) for start in CMD_STARTERS
-                ):
+                if len(fst_word) > 1 and any(fst_word.startswith(start) for start in CMD_STARTERS):
                     args = message.text.split()[1:]
                     command = fst_word[1:].split("@")
-                    command.append(
-                        message.bot.username
-                    )  # in case the command was sent without a username
+                    command.append(message.bot.username)  # in case the command was sent without a username
 
-                    if not (
-                        command[0].lower() in self.command
-                        and command[1].lower() == message.bot.username.lower()
-                    ):
+                    if not (command[0].lower() in self.command and command[1].lower() == message.bot.username.lower()):
                         return None
 
                     filter_result = self.filters(update)

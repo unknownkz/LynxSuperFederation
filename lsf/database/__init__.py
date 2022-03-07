@@ -8,7 +8,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from .. import DATABASE_URL
 from .. import LOGGER as LSF_LOGS
 
-
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 

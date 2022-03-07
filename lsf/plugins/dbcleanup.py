@@ -1,16 +1,13 @@
 from time import sleep
 
-from ..database import gban_sql as gban_sql
-from ..database import users_sql as user_sql
-from .. import DEV_ID, dispatcher
-from ..handlers.valid import dev_plus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-)
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
+
+from .. import DEV_ID, dispatcher
+from ..database import gban_sql as gban_sql
+from ..database import users_sql as user_sql
+from ..handlers.valid import dev_plus
 
 
 def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = False):
@@ -105,7 +102,6 @@ def dbcleanup(update: Update, context: CallbackContext):
         reply,
         reply_markup=InlineKeyboardMarkup(buttons),
     )
-
 
 
 def callback_button(update: Update, context: CallbackContext):

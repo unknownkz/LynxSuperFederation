@@ -4,9 +4,9 @@ from .. import LOAD, LOGGER, NO_LOAD
 
 def __list_all_plugins():
     import glob
-    from os.path import basename, dirname, isfile
-    from os import walk
     import os
+    from os import walk
+    from os.path import basename, dirname, isfile
 
     path = r"./lsf/plugins/"
     list_of_files = []
@@ -18,16 +18,17 @@ def __list_all_plugins():
     all_plugins = [
         basename(name)[:-3]
         for name in list_of_files
-        if isfile(name) and name.endswith(".py") and not name.endswith("__init__.py") and not name.endswith("README.md") 
+        if isfile(name)
+        and name.endswith(".py")
+        and not name.endswith("__init__.py")
+        and not name.endswith("README.md")
+        and not name.endswith("__help__.py")
     ]
 
     if LOAD or NO_LOAD:
         to_load = LOAD
         if to_load:
-            if not all(
-                any(mod == plugins_name for plugins_name in all_plugins)
-                for mod in to_load
-            ):
+            if not all(any(mod == plugins_name for plugins_name in all_plugins) for mod in to_load):
                 LOGGER.error("[Alert] Invalid loadorder names. Quitting.")
                 exit(1)
 

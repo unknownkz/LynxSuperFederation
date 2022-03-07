@@ -1,6 +1,7 @@
-from lsf import DEV_ID, SD_ID, SUPPORT_ID
 from telegram import Message
 from telegram.ext import MessageFilter
+
+from lsf import DEV_ID, SD_ID, SUPPORT_ID
 
 
 class CustomFilters(object):
@@ -37,11 +38,7 @@ class CustomFilters(object):
     class _HasText(MessageFilter):
         def filter(self, message: Message):
             return bool(
-                message.text
-                or message.sticker
-                or message.photo
-                or message.document
-                or message.video,
+                message.text or message.sticker or message.photo or message.document or message.video,
             )
 
     has_text = _HasText()

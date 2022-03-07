@@ -4,24 +4,23 @@
 Credit: @Unknownkz | @notudope | @AnimeKaizoku
 """
 
-import heroku3
 import logging
 import sys
 import time
-import spamwatch
-
-from zoneinfo import ZoneInfo
 from inspect import getfullargspec
-from os import path, remove, cpu_count, environ as then
+from os import path, remove, cpu_count
+from os import environ as then
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
+import heroku3
+import spamwatch
+from aiohttp import ClientSession
+from pyrogram import Client
+from Python_ARQ import ARQ
+from telegram.ext import Defaults, Updater
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
-
-from telegram.ext import Defaults, Updater
-from aiohttp import ClientSession
-from Python_ARQ import ARQ
-from pyrogram import Client
 
 StartTime = time.time()
 
@@ -34,17 +33,13 @@ logging.basicConfig(
 LOGGER = logging.getLogger(__name__)
 
 if not sys.platform.startswith("linux") and not sys.build_platform.startswith("64"):
-    LOGGER.error(
-        "You have to use linux system first. Such as {} ! quitting.."
-    ).format(platform())
+    LOGGER.error("You have to use linux system first. Such as {} ! quitting..").format(platform())
     sys.exit(1)
 
 if sys.version_info.major < 3 or sys.version_info.minor < 10 or sys.version_info.micro < 2:
-    LOGGER.error(
-        "You have to use python version of at least {}.{}.{} ! quitting.."
-    ).format(sys.version_info.major(),
-             sys.version_info.minor(),
-             sys.version_info.micro())
+    LOGGER.error("You have to use python version of at least {}.{}.{} ! quitting..").format(
+        sys.version_info.major(), sys.version_info.minor(), sys.version_info.micro()
+    )
     sys.exit(1)
 
 ENV = bool(then.get("ENV", False))
@@ -55,9 +50,7 @@ if ENV:
     try:
         OWNER_ID = int(then.get("OWNER_ID"))
     except ValueError:
-        raise Exception(
-            "Your OWNER_ID env variable is not a valid integer, please check again."
-        )
+        raise Exception("Your OWNER_ID env variable is not a valid integer, please check again.")
 
     JOIN_LOGGER = then.get("JOIN_LOGGER")
     OWNER_USERNAME = then.get("OWNER_USERNAME")
@@ -120,9 +113,7 @@ if ENV:
     NO_LOAD = then.get("NO_LOAD", "").split()
 
     try:
-        BLACKLIST_CHAT = set(
-            int(x) for x in then.get("BLACKLIST_CHAT", "").split()
-        )
+        BLACKLIST_CHAT = set(int(x) for x in then.get("BLACKLIST_CHAT", "").split())
     except ValueError:
         raise Exception("Your BLACKLISTED Chats list does'nt contain valid integers.")
 
