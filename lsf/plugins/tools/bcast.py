@@ -28,7 +28,7 @@ def broadcasts(update: Update, context: CallbackContext):
         wx.reply_text("Only admins can do this.")
         return xx
     succ = 0
-    chats = sql.get_all_chats(chat_id)
+    chats = sql.get_all_chats()
     chats = chats.append(LIST_NOSPAM)
     np.array(chats.chat_id, dtype=str)
     to_send = wx.text.split(None, 1)
