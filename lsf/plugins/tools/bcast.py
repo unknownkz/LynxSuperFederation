@@ -8,7 +8,7 @@ from telegram.error import BadRequest, TelegramError, ChatMigrated
 from telegram.ext import CallbackContext, Filters, CommandHandler, run_async
 
 from ... import LOGGER
-from ...database import users_sql as sql
+from ...database import users_sql as sql, Chats
 from ...handlers.valid import is_user_admin
 from ...handlers.valid import bot_admin as absolute
 from ..commander import Lynxcmd
@@ -30,9 +30,9 @@ def broadcasts(update: Update, context: CallbackContext):
     succ = 0
     chats = sql.get_all_chats()
     chats = chats.append(LIST_NOSPAM)
-    np.array(chats.chat_id, dtype=str)
+    np.array(chats, dtype=str)
     to_send = wx.text.split(None, 1)
-    to_group = True if chat_id in chats == LIST_NOSPAM or Weird else False
+    to_group = True if Chats in chats == LIST_NOSPAM or Weird else False
     if len(to_send) >= 2:
         to_group = False
         failed = 0
