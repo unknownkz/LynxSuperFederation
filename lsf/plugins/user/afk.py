@@ -7,7 +7,7 @@ from datetime import datetime
 from ... import dispatcher
 
 from ...database import disable_sql, afk_sql as sql
-from ...handlers.decorators import Lynxcmd, Lynxmsg
+from ..commander import Lynxcmd, Lynxmsg
 from ..users import get_user_id
 from telegram import MessageEntity, Update, ParseMode
 from telegram.error import BadRequest
@@ -168,3 +168,4 @@ When marked as AFK, any mentions will be replied to with a message to say you're
 """
 
 __mod_name__ = "AFK"
+

@@ -43,7 +43,8 @@ pip-delete-this-directory.txt
 *$py.class
 *.py[cod]
 __pycache__/
-*__pycache__/
+*__pycache__
+/__pycache__
 
 # C-Extensions
 *.so
@@ -110,4 +111,4 @@ lsf/database/handlers/__pycache__/
 lsf/database/handlers/telethon/__pycache__/
 lsf/utils/__pycache__/
 scripts
-scripts/__pycache__
+scripts/__pycache__/

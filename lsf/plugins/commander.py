@@ -1,3 +1,7 @@
+# @unknownkz
+
+from .disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+
 from telegram.ext import (
     CommandHandler,
     MessageHandler,
@@ -5,7 +9,7 @@ from telegram.ext import (
     InlineQueryHandler,
 )
 from telegram.ext.filters import BaseFilter
-from lsf import dispatcher as d, LOGGER
+from .. import dispatcher as d, LOGGER
 from typing import Optional, Union, List
 
 

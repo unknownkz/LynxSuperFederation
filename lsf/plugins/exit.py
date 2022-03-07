@@ -3,7 +3,7 @@ from contextlib import suppress
 from telegram import Update
 from telegram.ext import CallbackContext
 from telegram.error import TelegramError, Unauthorized
-from ..handlers.decorators import Lynxcmd
+from .commander import Lynxcmd
 
 
 @Lynxcmd("exit", pass_args=True)

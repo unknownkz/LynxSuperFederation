@@ -4,7 +4,7 @@ from datetime import datetime as wkt
 
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
-from ...handlers.decorators import Lynxcmd
+from ..commander import Lynxcmd
 from ... import TimeZone
 
 

@@ -1,15 +1,13 @@
 # @unknownkz
-
 import numpy as np
 
-from base64 import b64decode
 from time import sleep
 from random import randrange
 
 from ... import LOGGER
 from ...database import users_sql as sql
 from ...handlers.valid import is_user_admin, bot_admin as absolute
-from ...handlers.decorators import Lynxcmd
+from ..commander import Lynxcmd
 from . import LIST_NOSPAM, Weird
 
 from telegram import Update, Message

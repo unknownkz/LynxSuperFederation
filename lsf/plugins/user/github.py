@@ -1,6 +1,6 @@
 import requests
 
-from ...handlers.decorators import Lynxcmd
+from ..commander import Lynxcmd
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
 
