@@ -108,3 +108,4 @@ lsf/database/__pycache__/
 lsf/database/handlers/__pycache__/
 lsf/database/handlers/telethon/__pycache__/
 lsf/utils/__pycache__/
+scripts
