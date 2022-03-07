@@ -1,5 +1,5 @@
 ## Lynx Super Federation
->[![Lynx](https://telegra.ph/file/2ae6c0755ba31a5f9446e.jpg)](https://t.me/LSF_SupportGroup)
+>[![Lynx](https://telegra.ph/file/312f76b67960f861cfe29.jpg)](https://t.me/LSF_SupportGroup)
 > Management Group
 >> Lynx was created to manage your groups on telegram and focuses on the Lynx Federation.
 >> I made this to root out telegram users 'global broadcast'(userbot), scam, nsfw and spamming etc. more info please see federation rules in our group.
@@ -13,6 +13,7 @@
 
 * [userbotindo](https://github.com/userbotindo) - Userbot Indonesia Community
 * [AnimeKaizoku](https://github.com/AnimeKaizoku) - Kaizoku
+* [KASTA](https://github.com/kastaid) - KASTA
 
 ## License
 

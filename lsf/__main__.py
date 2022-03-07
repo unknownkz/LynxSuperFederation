@@ -197,22 +197,26 @@ def start(update: Update, context: CallbackContext):
         cpu = cpu_percent()
         disk = disk_usage("/")
         uname = platform.uname()
-        bld = sys.build_platform()
+        cmpl = platform.python_compiler()
+        bld = platform.python_build()
+        nd = platform.node()
         app_time = get_readable_time((time.time() - StartTime))
         uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y/%m/%d %H:%M")
         status = "<b>=======[ System Info ]=======</b>\n\n"
         status += "<b>Lynx uptime:</b> <code>" + str(app_time) + "</code\n"
         status += "<b>System uptime:</b> <code>" + str(uptime) + "</code>\n"
         status += "<b>System:</b> <code>" + str(uname.system) + "</code>\n"
-        status += "<b>Build Platform:</b> <code>" + str(bld) + "</code>\n"
+        status += "<b>Node:</b> <code>" + str(nd) + "</code>\n"
         status += "<b>Release:</b> <code>" + str(uname.release) + "</code>\n"
         status += "<b>Version:</b> <code>" + str(uname.version) + "</code>\n"
         status += "<b>Machine:</b> <code>" + str(uname.machine) + "</code>\n"
-        status += "<b>Processor:</b> <code>" + str(uname.processor) + "</code>\n\n"
+        status += "<b>Processor:</b> <code>" + str(uname.processor) + "</code>\n\n--------------------"
         status += "<b>CPU usage:</b> <code>" + str(cpu) + " %</code>\n"
         status += "<b>Ram usage:</b> <code>" + str(mem[2]) + " %</code>\n"
-        status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n\n"
+        status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n\n--------------------"
         status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
+        status += "<b>Python compiler:</b> <code>" + str(cmpl) + "</code>\n"
+        status += "<b>Python build:</b> <code>" + str(bld) + "</code>\n"
         status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n\n"
         status += "For more usage information,\nplease press /settings or click the button below"
         keyboard = InlineKeyboardMarkup(
@@ -231,7 +235,7 @@ def start(update: Update, context: CallbackContext):
             ]
         )
         message.reply_photo(
-            photo="https://ibb.co/kGrMBxv",
+            photo="https://ibb.co/TB4F9KZ",
             quote=True or False,
             caption=(status),
             reply_markup=keyboard,
