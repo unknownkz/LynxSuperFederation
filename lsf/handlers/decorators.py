@@ -1,7 +1,3 @@
-from lsf.plugins.disable import (
-    DisableAbleCommandHandler,
-    DisableAbleMessageHandler,
-)
 from telegram.ext import (
     CommandHandler,
     MessageHandler,
