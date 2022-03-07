@@ -8,7 +8,7 @@ from typing import Union
 from future.utils import string_types
 
 from .. import dispatcher
-from ..handlers.decorators import send_message, commands_functions
+from ..handlers.altaraction import send_message, commands_functions
 from ..handlers.handlers import CMD_STARTERS
 from ..handlers.misc import is_plugins_loaded
 from telegram import Chat, ParseMode, Update

@@ -65,7 +65,7 @@ class CapitalisedHelpFormatter(argparse.HelpFormatter):
 
 parser = argparse.ArgumentParser(
     formatter_class=CapitalisedHelpFormatter,
-    prog=f"{GREEN}{python} -m run{RST}",
+    prog=f"{GREEN}{python} -m setup{RST}",
     usage="%(prog)s [options]",
     epilog="Source code https://github.com/unknownkz/LynxSuperFederation",
     add_help=False,
@@ -106,7 +106,7 @@ def main() -> None:
         clean()
         sys.exit(0)
     else:
-        print(f"{python} -m run --help")
+        print(f"{python} -m setup --help")
         sys.exit(0)
 
 
