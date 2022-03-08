@@ -3,7 +3,7 @@ from random import randrange
 from time import sleep
 
 from telegram import Update, ParseMode
-from telegram.error import BadRequest, TelegramError, ChatMigrated
+from telegram.error import TelegramError
 from telegram.ext import CallbackContext, Filters, CommandHandler
 
 from ... import LOGGER
@@ -39,31 +39,20 @@ def broadcasts(update: Update, context: CallbackContext):
                 )
                 sleep(randrange(2, 4))
                 succ += 1
-            except (ChatMigrated, BadRequest) as excp:
-                escp = get_exception(excp)
-                if escp == "An unknown error occurred":
-                    try:
-                        context.bot.sendMessage(
-                            int(xz.chat_id),
-                            sending[1],
-                            parse_mode=ParseMode.MARKDOWN,
-                            disable_web_page_preview=True,
-                        )
-                        sleep(randrange(2, 4))
-                    except TelegramError:
-                        failed += 1
-                        LOGGER.warning(
-                            "Couldn't send broadcast to %s, group name %s",
-                            str(xz.chat_id),
-                            str(xz.chat_name),
-                        )
-
-                update.effective_message.reply_photo(
-                    photo="https://ibb.co/vjtp4tW",
-                    caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
-                    parse_mode=ParseMode.HTML,
-                    disable_web_page_priview=False,
+            except TelegramError:
+                failed += 1
+                LOGGER.warning(
+                    "Couldn't send broadcast to %s, group name %s",
+                    str(xz.chat_id),
+                    str(xz.chat_name),
                 )
+
+        update.effective_message.reply_photo(
+            photo="https://ibb.co/vjtp4tW",
+            caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_priview=False,
+        )
 
 
 __mod_name__ = "Broadcast"

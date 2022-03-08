@@ -198,11 +198,11 @@ def start(update: Update, context: CallbackContext):
         uname = platform.uname()
         app_time = get_readable_time((time.time() - StartTime))
         uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y/%m/%d %H:%M")
-        status = "<b>=======[ System Info ]=======</b>\n\n"
+        status = "<b>=======[ L y n x System ]=======</b>\n\n"
         status += "<b>Lynx uptime:</b> <code>" + str(app_time) + "</code\n"
         status += "<b>System uptime:</b> <code>" + str(uptime) + "</code>\n"
         status += "<b>System:</b> <code>" + str(uname.system) + "</code>\n"
-        status += "<b>Node:</b> <code>" + node() + "</code>\n"
+        status += "<b>Network name:</b> <code>" + str(node()) + "</code>\n"
         status += "<b>Release:</b> <code>" + str(uname.release) + "</code>\n"
         status += "<b>Version:</b> <code>" + str(uname.version) + "</code>\n"
         status += "<b>Machine:</b> <code>" + str(uname.machine) + "</code>\n"
@@ -211,8 +211,8 @@ def start(update: Update, context: CallbackContext):
         status += "<b>Ram usage:</b> <code>" + str(mem[2]) + " %</code>\n"
         status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n\n--------------------"
         status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
-        status += "<b>Python compiler:</b> <code>" + python_compiler() + "</code>\n"
-        status += "<b>Python build:</b> <code>" + python_build() + "</code>\n"
+        status += "<b>Python compiler:</b> <code>" + str(python_compiler()) + "</code>\n"
+        status += "<b>Python build:</b> <code>" + str(python_build(buildno, builddate)) + "</code>\n"
         status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n\n"
         status += "For more usage information,\nplease press /settings or click the button below"
         keyboard = InlineKeyboardMarkup(
