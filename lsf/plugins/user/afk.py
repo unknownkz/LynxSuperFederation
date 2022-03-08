@@ -101,7 +101,7 @@ def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: 
             update.effective_message.reply_text(res, parse_mode=ParseMode.HTML)
 
 
-@Lynxmsg(Filters.all & Filters.chat_type.groups, group=AFK_REPLY_GROUP)
+@Lynxmsg(Filters.all & Filters.chat_type.groups & ~Filters.update.edited_message, group=AFK_REPLY_GROUP)
 def reply_afk(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
@@ -149,6 +149,11 @@ def reply_afk(update: Update, context: CallbackContext):
                 return
 
             check_afk(update, context, user_id, fst_name, userc_id)
+
+    elif message.reply_to_message:
+        user_id = message.reply_to_message.from_user.id
+        fst_name = message.reply_to_message.from_user.first_name
+        check_afk(update, context, user_id, fst_name, userc_id)
 
 
 __help__ = """
