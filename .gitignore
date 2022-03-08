@@ -107,3 +107,6 @@ Aptfile
 requirements.txt
 heroku.yml
 scripts
+Packages/
+PostgreSQL.xcodeproj/
+.DS_Store
