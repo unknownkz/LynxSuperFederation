@@ -58,12 +58,12 @@ def broadcasts(update: Update, context: CallbackContext):
                             str(xz.chat_name),
                         )
 
-        update.effective_message.reply_photo(
-            photo="https://ibb.co/vjtp4tW",
-            caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_priview=False,
-        )
+                update.effective_message.reply_photo(
+                    photo="https://ibb.co/vjtp4tW",
+                    caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+                    parse_mode=ParseMode.HTML,
+                    disable_web_page_priview=False,
+                )
 
 
 __mod_name__ = "Broadcast"
