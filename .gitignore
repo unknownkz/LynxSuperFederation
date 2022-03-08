@@ -100,22 +100,10 @@ __pypackages__/
 # PyBuilder
 target/
 
-# asu
-lsf/__pycache__/
-lsf/plugins/__pycache__/
-lsf/plugins/admins/__pycache__/
-lsf/plugins/tools/__pycache__/
-lsf/plugins/user/__pycache__/
-lsf/database/__pycache__/
-lsf/database/handlers/__pycache__/
-lsf/database/handlers/telethon/__pycache__/
-lsf/utils/__pycache__/
-scripts
-scripts/__pycache__/
-
-# ??
+# --- not essential ---
 app.json
 Procfile
 Aptfile
 requirements.txt
 heroku.yml
+scripts
