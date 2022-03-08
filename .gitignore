@@ -112,3 +112,10 @@ lsf/database/handlers/telethon/__pycache__/
 lsf/utils/__pycache__/
 scripts
 scripts/__pycache__/
+
+# ??
+app.json
+Procfile
+Aptfile
+requirements.txt
+heroku.yml
