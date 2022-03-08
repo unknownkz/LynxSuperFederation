@@ -13,7 +13,7 @@ from sys import argv
 from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
 from telegram import Message, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, __version__
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters, MessageHandler
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters, MessageHandler, run_async
 from telegram.utils.helpers import escape_markdown, mention_html
 
 from lsf import (
@@ -128,6 +128,7 @@ keybo += [
 ]
 
 
+@run_async
 @commands_functions
 def start(update: Update, context: CallbackContext):
     args = context.args
@@ -136,7 +137,12 @@ def start(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     first_name = update.effective_user.first_name
+    mem = virtual_memory()
+    cpu = cpu_percent()
+    disk = disk_usage("/")
+    uname = platform.uname()
     uptime = get_readable_time((time.time() - StartTime))
+    upstime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y/%m/%d %H:%M")
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
@@ -192,24 +198,18 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-        mem = virtual_memory()
-        cpu = cpu_percent()
-        disk = disk_usage("/")
-        uname = platform.uname()
-        app_time = get_readable_time((time.time() - StartTime))
-        uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y/%m/%d %H:%M")
         status = "<b>=======[ L y n x System ]=======</b>\n\n"
-        status += "<b>Lynx uptime:</b> <code>" + str(app_time) + "</code\n"
-        status += "<b>System uptime:</b> <code>" + str(uptime) + "</code>\n"
+        status += "<b>Lynx uptime:</b> <code>" + str(uptime) + "</code\n"
+        status += "<b>System uptime:</b> <code>" + str(upstime) + "</code>\n"
         status += "<b>System:</b> <code>" + str(uname.system) + "</code>\n"
         status += "<b>Network name:</b> <code>" + str(node()) + "</code>\n"
         status += "<b>Release:</b> <code>" + str(uname.release) + "</code>\n"
         status += "<b>Version:</b> <code>" + str(uname.version) + "</code>\n"
         status += "<b>Machine:</b> <code>" + str(uname.machine) + "</code>\n"
-        status += "<b>Processor:</b> <code>" + str(uname.processor) + "</code>\n\n--------------------"
+        status += "<b>Processor:</b> <code>" + str(uname.processor) + "</code>\n--------------------"
         status += "<b>CPU usage:</b> <code>" + str(cpu) + " %</code>\n"
         status += "<b>Ram usage:</b> <code>" + str(mem[2]) + " %</code>\n"
-        status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n\n--------------------"
+        status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n--------------------"
         status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
         status += "<b>Python compiler:</b> <code>" + str(python_compiler()) + "</code>\n"
         status += "<b>Python build:</b> <code>" + str(python_build(buildno, builddate)) + "</code>\n"
@@ -309,7 +309,7 @@ def main():
         except BadRequest as e:
             LOGGER.warning(e.message)
 
-    start_handler = CommandHandler("start", start, pass_args=True, run_async=True)
+    start_handler = CommandHandler("start", start, pass_args=True)
 
     help_handler = CommandHandler("help", get_help, run_async=True)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
