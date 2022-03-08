@@ -212,7 +212,7 @@ def start(update: Update, context: CallbackContext):
         status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n--------------------"
         status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
         status += "<b>Python compiler:</b> <code>" + str(python_compiler()) + "</code>\n"
-        status += "<b>Python build:</b> <code>" + str(python_build(buildno, builddate)) + "</code>\n"
+        status += "<b>Python build:</b> <code>" + str(python_build()) + "</code>\n"
         status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n\n"
         status += "For more usage information,\nplease press /settings or click the button below"
         keyboard = InlineKeyboardMarkup(

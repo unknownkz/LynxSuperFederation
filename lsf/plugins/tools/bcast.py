@@ -34,8 +34,6 @@ def broadcasts(update: Update, context: CallbackContext):
                 context.bot.sendMessage(
                     int(xz.chat_id),
                     sending[1],
-                    parse_mode=ParseMode.MARKDOWN,
-                    disable_web_page_preview=True,
                 )
                 sleep(randrange(2, 4))
                 succ += 1
@@ -49,9 +47,9 @@ def broadcasts(update: Update, context: CallbackContext):
 
         update.effective_message.reply_photo(
             photo="https://ibb.co/vjtp4tW",
+            quote=True or False,
             caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
             parse_mode=ParseMode.HTML,
-            disable_web_page_priview=False,
         )
 
 
