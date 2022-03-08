@@ -32,7 +32,7 @@ def broadcasts(update: Update, context: CallbackContext):
     chats = chats.append(LIST_NOSPAM)
     np.array(chats, dtype=str)
     to_send = wx.text.split(None, 1)
-    to_group = True if chats == LIST_NOSPAM == Weird else chats not in LIST_NOSPAM
+    to_group = True if chats == LIST_NOSPAM or  Weird else chats not in LIST_NOSPAM
     if len(to_send) >= 2:
         to_group = False
         failed = 0
