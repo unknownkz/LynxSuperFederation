@@ -1,6 +1,7 @@
 import html
 import random
 from datetime import datetime
+from time import sleep
 
 import humanize
 from telegram import MessageEntity, Update, ParseMode
@@ -23,28 +24,24 @@ def afk(update: Update, context: CallbackContext):
     user = update.effective_user.id
 
     if not user:  # ignore-Channels
+        update.effective_message.reply_text("Sorry, please use the main account.")
         return
 
-    if user in [777000, 1448477501]:
-        return
-
-    notice = " "
+    notice = ""
     if len(args) >= 2:
         reason = args[1]
         if len(reason) > 100:
             reason = reason[:100]
-            update.effective_message.reply_text("Your afk reason was shortened to 100 characters.")
+            notice = "\n\nYour afk reason was shortened to 100 characters."
     else:
-        reason = " "
+        reason = ""
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
-    try:
-        update.effective_message.reply_text(
-            "{} is now away! {}".format(fname, reason),
-        )
-    except BadRequest:
-        pass
+    psn = update.effective_message
+    sent_ = psn.reply_text("{} is now away! {}".format(fname, notice))
+    sleep(7)
+    sent_.delete()
 
 
 @Lynxmsg(Filters.all & Filters.chat_type.groups, group=AFK_GROUP)
@@ -74,8 +71,10 @@ def no_longer_afk(update: Update, context: CallbackContext):
                 "Where is {}?\nIn the chat!",
             ]
             chosen_option = random.choice(options)
-            update.effective_message.reply_text(chosen_option.format(firstname))
-        except:
+            alive = update.effective_message.reply_text(chosen_option.format(firstname))
+            sleep(12)
+            alive.delete()
+        except BaseException:
             return
 
 
@@ -130,29 +129,26 @@ def reply_afk(update: Update, context: CallbackContext):
                 chk_users.append(user_id)
 
             if ent.type != MessageEntity.MENTION:
+                user_id = get_user_id(message.text[ent.offset : ent.offset + ent.length])
+
+                if not user_id:
+                    return
+
+                if user_id in chk_users:
+                    return
+                chk_users.append(user_id)
+
+                try:
+                    chat = bot.get_chat(user_id)
+                except BadRequest:
+                    print(f"Error: Could not fetch userid {user_id} for AFK plugins")
+                    return
+
+                fst_name = chat.first_name
+            else:
                 return
 
-            user_id = get_user_id(message.text[ent.offset : ent.offset + ent.length])
-            if not user_id:
-                return
-
-            if user_id in chk_users:
-                return
-            chk_users.append(user_id)
-
-            try:
-                chat = bot.get_chat(user_id)
-            except BadRequest:
-                print(f"Error: Could not fetch userid {user_id} for AFK plugins")
-                return
-
-            fst_name = chat.first_name
             check_afk(update, context, user_id, fst_name, userc_id)
-
-    elif message.reply_to_message:
-        user_id = message.reply_to_message.from_user.id
-        fst_name = message.reply_to_message.from_user.first_name
-        check_afk(update, context, user_id, fst_name, userc_id)
 
 
 __help__ = """
