@@ -2,11 +2,11 @@
 from random import randrange
 from time import sleep
 
-from telegram import Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import Update, ParseMode, KeyboardButton, ReplyKeyboardMarkup
 from telegram.error import TelegramError
-from telegram.ext import CallbackContext, CallbackQueryHandler
+from telegram.ext import CallbackContext
 
-from ... import LOGGER, dispatcher
+from ... import LOGGER
 from ...database import users_sql as sql
 from ...handlers.valid import is_user_admin
 from ...handlers.valid import bot_admin as absolute
@@ -14,14 +14,11 @@ from ..commander import Lynxcmd
 
 CHAT_GROUP = 30
 
-keyb = [InlineKeyboardButton(text="Close 🗑️", callback_data="close_del")]
 
-
-def del_msg(update: Update, context: CallbackContext):
-    query = update.callback_query
-    message = update.effective_message
-    if query.data == "close_del":
-        query.message.delete()
+def del_msg_btn() -> ReplyKeyboardMarkup:
+    keyb = [KeyboardButton(text="Close 🗑️")]
+    reply_markup = ReplyKeyboardMarkup(keyb, one_time_keyboard=True)
+    return reply_markup
 
 
 @Lynxcmd("bcast", group=CHAT_GROUP)
@@ -58,14 +55,10 @@ def broadcasts(update: Update, context: CallbackContext):
         message.reply_photo(
             photo="https://ibb.co/vjtp4tW",
             quote=True or False,
-            reply_markup=InlineKeyboardMarkup(keyb),
             caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+            reply_markup=del_msg_btn(),
             parse_mode=ParseMode.HTML,
         )
-
-
-del_call_handler = CallbackQueryHandler(del_msg, pattern=r"close_del", run_async=True)
-dispatcher.add_handler(del_call_handler)
 
 
 __mod_name__ = "Broadcast"
