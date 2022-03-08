@@ -1,17 +1,23 @@
 import asyncio
 import math
 import os
+import subprocess
+from datetime import datetime as wkt
 
 import heroku3
 import requests
+from telegram import ParseMode
 
-from .. import HEROKU_APP_NAME, HEROKU_API_KEY, OWNER_ID
+from .. import HEROKU_APP_NAME, HEROKU_API_KEY, OWNER_ID, TimeZone, EVENT_LOGS
 from ..events import register
+from ..handlers.valid import dev_plus
+from .commander import Lynxcmd
 
 heroku_api = "https://api.heroku.com"
 Heroku = heroku3.from_key(HEROKU_API_KEY)
 
 
+@dev_plus
 @register(pattern=r"^[.$!/;@](set|see|del) env(?: |$)(.*)(?: |$)([\s\S]*)")
 async def variable(var):
     if var.fwd_from:
@@ -62,7 +68,7 @@ async def variable(var):
             os.remove("configs.json")
             return
     elif exe == "set":
-        s = await var.reply("`Setting information...`")
+        s = await var.reply("Setting information...")
         variable = var.pattern_match.group(2)
         if not variable:
             return await s.edit(">`.set env <ENV> <VALUE>`")
@@ -75,9 +81,9 @@ async def variable(var):
                 return await s.edit(">`/set env <ENV> <VALUE>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await s.edit(f"`Environments` **{variable}**\n`Successfully changed to`  ->  **{value}**")
+            await s.edit(f"Environments **{variable}**\n`Successfully changed to`  ->  **{value}**")
         else:
-            await s.edit(f"`Environments` **{variable}**\n`Successfully added to`  ->  **{value}**")
+            await s.edit(f"Environments **{variable}**\n`Successfully added to`  ->  **{value}**")
         heroku_var[variable] = value
     elif exe == "del":
         m = await var.reply("`Getting information to deleting env var...`")
@@ -93,6 +99,7 @@ async def variable(var):
             return await m.edit(f"`Environments` **{variable}** `is not exists`")
 
 
+@dev_plus
 @register(pattern=r"^[.$!/;@]usage(?: |$)")
 async def dyno_usage(view):
     if view.fwd_from:
@@ -159,6 +166,7 @@ async def dyno_usage(view):
     )
 
 
+@dev_plus
 @register(pattern=r"^[.$!/;@]logs$")
 async def _(view):
     if view.fwd_from:
@@ -202,3 +210,38 @@ def prettyjson(obj, indent=2, maxlinelength=80):
         indent=indent,
     )
     return indentitems(items, indent, level=0)
+
+
+@dev_plus
+@Lynxcmd("gitpull")
+def gitpull(update, context):
+    sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
+    subprocess.Popen("git pull", stdout=subprocess.PIPE, shell=True)
+
+    sent_msg_text = sent_msg.text + "\n\nChanges pulled... I guess..\nContinue to restart with /reboot "
+    sent_msg.edit_text(sent_msg_text)
+
+
+@dev_plus
+@Lynxcmd("reboot")
+def restart(update, context):
+    user = update.effective_message.from_user
+
+    update.effective_message.reply_text("Starting a new instance and shutting down this one")
+
+    if EVENT_LOGS:
+        ft = "Date : %d/%m/%Y\nTime : %H:%M WIB"
+        time_c = wkt.now(TimeZone).strftime(ft)
+        message = (
+            f"<b>Bot Restarted </b>"
+            f"<b>By :</b> <code>{html.escape(user.first_name)}</code>"
+            f"<b>\n\nCurrent Time</b>\n<code>{time_c}</code>"
+        )
+        context.bot.send_message(
+            chat_id=EVENT_LOGS,
+            text=message,
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
+
+    os.system("bash startapp")

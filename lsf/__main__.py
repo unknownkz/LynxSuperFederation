@@ -7,7 +7,7 @@ import platform
 import re
 import sys
 import time
-from platform import python_version
+from platform import node, python_version, python_build, python_compiler
 from sys import argv
 
 from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
@@ -16,9 +16,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from lsf.plugins import ALL_PLUGINS
-
-from . import (
+from lsf import (
     OWNER_ID,
     OWNER_USERNAME,
     dispatcher,
@@ -35,7 +33,7 @@ from . import (
     updater,
     xx,
 )
-from .__help__ import (
+from lsf.__help__ import (
     get_help,
     help_button,
     get_settings,
@@ -56,9 +54,10 @@ from .__help__ import (
     USER,
     TOOLS,
 )
-from .database import users_sql as safe
-from .handlers.altaraction import commands_functions
-from .handlers.valid import is_user_admin
+from lsf.database import users_sql as safe
+from lsf.handlers.altaraction import commands_functions
+from lsf.handlers.valid import is_user_admin
+from lsf.plugins import ALL_PLUGINS
 
 
 def get_readable_time(seconds: int) -> str:
@@ -197,16 +196,13 @@ def start(update: Update, context: CallbackContext):
         cpu = cpu_percent()
         disk = disk_usage("/")
         uname = platform.uname()
-        cmpl = platform.python_compiler()
-        bld = platform.python_build()
-        nd = platform.node()
         app_time = get_readable_time((time.time() - StartTime))
         uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y/%m/%d %H:%M")
         status = "<b>=======[ System Info ]=======</b>\n\n"
         status += "<b>Lynx uptime:</b> <code>" + str(app_time) + "</code\n"
         status += "<b>System uptime:</b> <code>" + str(uptime) + "</code>\n"
         status += "<b>System:</b> <code>" + str(uname.system) + "</code>\n"
-        status += "<b>Node:</b> <code>" + str(nd) + "</code>\n"
+        status += "<b>Node:</b> <code>" + node() + "</code>\n"
         status += "<b>Release:</b> <code>" + str(uname.release) + "</code>\n"
         status += "<b>Version:</b> <code>" + str(uname.version) + "</code>\n"
         status += "<b>Machine:</b> <code>" + str(uname.machine) + "</code>\n"
@@ -215,8 +211,8 @@ def start(update: Update, context: CallbackContext):
         status += "<b>Ram usage:</b> <code>" + str(mem[2]) + " %</code>\n"
         status += "<b>Storage usage:</b> <code>" + str(disk[3]) + " %</code>\n\n--------------------"
         status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
-        status += "<b>Python compiler:</b> <code>" + str(cmpl) + "</code>\n"
-        status += "<b>Python build:</b> <code>" + str(bld) + "</code>\n"
+        status += "<b>Python compiler:</b> <code>" + python_compiler() + "</code>\n"
+        status += "<b>Python build:</b> <code>" + python_build() + "</code>\n"
         status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n\n"
         status += "For more usage information,\nplease press /settings or click the button below"
         keyboard = InlineKeyboardMarkup(

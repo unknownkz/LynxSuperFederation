@@ -2,17 +2,15 @@
 from random import randrange
 from time import sleep
 
-import numpy as np
-from telegram import Update, Message
+from telegram import Update, ParseMode
 from telegram.error import BadRequest, TelegramError, ChatMigrated
-from telegram.ext import CallbackContext, Filters, CommandHandler, run_async
+from telegram.ext import CallbackContext, Filters, CommandHandler
 
 from ... import LOGGER
 from ...database import users_sql as sql
 from ...handlers.valid import is_user_admin
 from ...handlers.valid import bot_admin as absolute
 from ..commander import Lynxcmd
-from . import LIST_NOSPAM, Weird
 
 CHAT_GROUP = 30
 
@@ -25,45 +23,46 @@ def broadcasts(update: Update, context: CallbackContext):
     chat = update.effective_chat
     xx = is_user_admin(chat, user.id)
     if not xx:
-        wx.reply_text("Only admins can do this.")
-        return xx
-    succ = 0
-    chats = sql.get_all_chats()
-    chats = chats.append(LIST_NOSPAM)
-    np.array(chats, dtype=str)
-    to_send = wx.text.split(None, 1)
-    to_group = True if chats == LIST_NOSPAM or  Weird else chats not in LIST_NOSPAM
-    if len(to_send) >= 2:
-        to_group = False
-        failed = 0
-    if to_group = True:
-        for xz in chats not in LIST_NOSPAM not in Weird: # fagh database
+        wx.reply_text("Only admin can do live broadcast.")
+        return
+    sending = wx.text.split(None, 1)
+    if len(sending) >= 2:
+        chats = sql.get_all_chats() or []
+        succ = failed = 0
+        for xz in chats:
             try:
                 context.bot.sendMessage(
-                    xz.chat_id,
-                    to_send[1],
-                    parse_mode="MARKDOWN",
+                    int(xz.chat_id),
+                    sending[1],
+                    parse_mode=ParseMode.MARKDOWN,
                     disable_web_page_preview=True,
                 )
                 sleep(randrange(2, 4))
                 succ += 1
-            except (ChatMigrated, TelegramError, BadReauest) as excp:
-                failed += 1
+            except (ChatMigrated, BadRequest) as excp:
                 escp = get_exception(excp)
                 if escp == "An unknown error occurred":
                     try:
                         context.bot.sendMessage(
-                            xz.chat_id,
-                            to_send[1],
-                            parse_mode="MARKDOWN",
+                            int(xz.chat_id),
+                            sending[1],
+                            parse_mode=ParseMode.MARKDOWN,
                             disable_web_page_preview=True,
                         )
                         sleep(randrange(2, 4))
-                    except BadRequest as excp:
-                        LOGGER.exception("Error in : " + excp.chat)
+                    except TelegramError:
+                        failed += 1
+                        LOGGER.warning(
+                            "Couldn't send broadcast to %s, group name %s",
+                            str(xz.chat_id),
+                            str(xz.chat_name),
+                        )
 
-        update.effective_message.reply_text(
-            "Broadcast complete.\nFailed: {} groups.\nSuccess: {} groups.".format(failed, succ)
+        update.effective_message.reply_photo(
+            photo="https://ibb.co/vjtp4tW",
+            caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_priview=False,
         )
 
 
