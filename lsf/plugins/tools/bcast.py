@@ -33,7 +33,8 @@ def broadcasts(update: Update, context: CallbackContext):
                 ],
             ]
         )
-        wx.reply_photo(
+        phs = update.effective_message
+        phs.reply_photo(
             photo="https://ibb.co/9V51wSC",
             quote=True or False,
             caption="For more information, please click the button below.",
@@ -42,6 +43,7 @@ def broadcasts(update: Update, context: CallbackContext):
         )
         sleep(10)
         wx.delete()
+        phs.delete()
 
     sending = wx.text.split(None, 1) | wx.photo.split(None, 1) | wx.sticker.split(None, 1) | wx.audio.split(None, 1)
     if len(sending) >= 2:
@@ -80,7 +82,7 @@ def broadcasts(update: Update, context: CallbackContext):
         )
         sleep(10)
         mesg.delete()
-
+        wx.delete()
 
 __mod_name__ = "Broadcast"
 
