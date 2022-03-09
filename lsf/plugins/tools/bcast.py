@@ -4,7 +4,8 @@ from time import sleep
 
 from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
 from telegram.error import TelegramError
-from telegram.ext import CallbackContext
+from telegram.ext import CallbackContext, CallbackQueryHandler
+from telegram.ext.dispatcher import run_async
 
 from ... import LOGGER, dispatcher
 from ...database import users_sql as sql
@@ -23,25 +24,28 @@ keyboard1 = [
     ]
 ]
 
-# def key_build(*args, **kwargs, chat=None) -> List:
-#    if not chat:
-#        buttons = (
-#            [
-#                EqInlineKeyboardButton(
-#                    bcast,
-#                    callback_data="verify_ads",
-#                )
-#            ]
-#        )
-#    else:
-#        buttons = (
-#            [
-#                EqInlineKeyboardButton(
-#                    bcast
-#                    callback_data="verify_ads",
-#                )
-#            ]
-#        )
+"""def key_build(*args, **kwargs, chat=None) -> List:
+    if not chat:
+         buttons = (
+            [
+                EqInlineKeyboardButton(
+                    bcast,
+                    callback_data="verify_ads",
+                )
+            ]
+        )
+    else:
+        buttons = (
+            [
+                EqInlineKeyboardButton(
+                    bcast
+                    callback_data="verify_ads",
+                )
+            ]
+        )
+"""
+
+VERIFY_TEXT = "Click the button below if you want to use the broadcast feature."
 
 
 def verify_ads(chat_id, text, keyboard=None):
@@ -49,7 +53,7 @@ def verify_ads(chat_id, text, keyboard=None):
         keyboard = InlineKeyboardMarkup(keyboard1)
     dispatcher.bot.send_message(
         chat_id=chat_id,
-        text="Click the button below if you want to use the broadcast feature.",
+        text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=False,
         reply_markup=keyboard1,
@@ -71,12 +75,11 @@ def verify_admins_call(update: Update, context: CallbackContext):
             )
         else:
             update.effective_message.reply_text(
-                text="✅Succesfully\nNow send message to broadcast.",
+                text="✅Succesfully\nNow send message to broadcast.\n/bcadmin <text>",
                 reply_markup=ReplyKeyboardRemove(),
-                tparse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN,
                 timeout=30,
             )
-            return
 
     elif query.data == "verify_cancel":
         hxz = update.effective_message
@@ -87,20 +90,56 @@ def verify_admins_call(update: Update, context: CallbackContext):
         sleep(4)
         msg.delete()
 
+    args = context.args
+    if len(args) >= 2:
+        to_group = False
+    if args[0].lower() == "bcadmin":
+        to_group = True
+    else:
+        to_group = True
+        return
 
-@Lynxcmd("bcast", group=CHAT_GROUP)
+    sending = msg.text.split(None, 1)
+    if len(sending) >= 2:
+        chats = sql.get_all_chats() or []
+        succ = failed = 0
+
+    if to_group:
+        for xz in chats:
+            try:
+                context.bot.sendMessage(
+                    int(xz.chat_id),
+                    sending[1],
+                )
+                sleep(randrange(2, 4))
+                succ += 1
+            except TelegramError:
+                failed += 1
+                LOGGER.warning(
+                    "Couldn't send broadcast to %s, group name %s",
+                    str(xz.chat_id),
+                    str(xz.chat_name),
+                )
+
+        msg.reply_photo(
+            photo="https://ibb.co/vjtp4tW",
+            quote=True or False,
+            caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+            parse_mode=ParseMode.HTML,
+        )
+        sleep(4)
+        msg.delete()
+
+
+@Lynxcmd("bcast")
 @absolute
 def broadcasts(update: Update, context: CallbackContext):
     wx = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
-    contol = context.args
-    xx = is_user_admin(chat, user.id)
-    if len(contol) >= 1:
-        if contol[0].lower() == "bcast":
-            verify_ads(update.effective_chat.id)
-            return
+    verify_ads(update.effective_chat.id, VERIFY_TEXT)
 
+    """
     sending = wx.text.split(None, 1)
     if len(sending) >= 2:
         chats = sql.get_all_chats() or []
@@ -130,7 +169,12 @@ def broadcasts(update: Update, context: CallbackContext):
         )
         sleep(4)
         ujang.delete()
+    """
 
+
+bcast_callback_handler = CallbackQueryHandler(verify_admins_call, pattern=r"bcadmin", run_async=True)
+
+dispatcher.add_hadler(bcast_callback_handler)
 
 __mod_name__ = "Broadcast"
 
