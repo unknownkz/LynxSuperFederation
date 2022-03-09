@@ -56,7 +56,7 @@ def verify_ads(chat_id, text, keyboard=None):
         text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=False,
-        reply_markup=keyboard1,
+        reply_markup=keyboard,
     )
 
 
