@@ -45,7 +45,7 @@ def broadcasts(update: Update, context: CallbackContext):
         wx.delete()
         phs.delete()
 
-    sending = wx.text.split(None, 1) | wx.photo.split(None, 1) | wx.sticker.split(None, 1) | wx.audio.split(None, 1)
+    sending = wx.text.split(None, 1)
     if len(sending) >= 2:
         chats = sql.get_all_chats() or []
         succ = failed = 0
