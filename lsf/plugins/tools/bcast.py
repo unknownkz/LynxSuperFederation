@@ -21,7 +21,7 @@ def broadcasts(user_id: int, member: ChatMember, chat: Chat, update: Update, con
     active = member.status in ("administrator", "creator")
     txt = update.effective_message.text
     sending = txt.split(None, 1)
-    sent_to_group = True if sending[2] == active
+    sent_to_group = True if sending[0] == active or sending[2] not active else False
     if not active:
         keyboard = InlineKeyboardMarkup(
             [
