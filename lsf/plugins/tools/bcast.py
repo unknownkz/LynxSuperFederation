@@ -40,7 +40,6 @@ def broadcasts(update: Update, context: CallbackContext):
             parse_mode=ParseMode.MARKDOWN,
         )
         sleep(10)
-        wx.delete()
         phs.delete()
 
     sending = wx.text.split(None, 1)
