@@ -1,7 +1,7 @@
 # @unknownkz
 from random import randrange
 from time import sleep
-from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Chat, ChatMember, Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 
@@ -16,12 +16,13 @@ CHAT_GROUP = 30
 
 @Lynxcmd("bcast", group=CHAT_GROUP)
 @absolute
-def broadcasts(update: Update, context: CallbackContext):
-    user = update.effective_user
-    chat = update.effective_chat
-    xx = is_user_admin(chat, user.id)
-    if user.id not xx:
-        sent_to_group = False
+def broadcasts(user_id: int, member: ChatMember, chat: Chat, update: Update, context: CallbackContext):
+    member = chat.get_member(user_id)
+    active = member.status in ("administrator", "creator")
+    txt = update.effective_message.text
+    sending = txt.split(None, 1)
+    sent_to_group = True if user_id and sending[2] & sending[1] == active
+    if not active:
         keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -42,49 +43,41 @@ def broadcasts(update: Update, context: CallbackContext):
         sleep(15)
         phs.delete()
 
-        sending = update.effective_message.text.split(None, 1)
-        if len(sending) >= 2:
-            sent_to_group = False
-            if sending[0] = xx == "/bcast":
-                sent_to_group = True
-            else:
-                sent_to_group = True
-
-            chats = sql.get_all_chats() or []
-            succ = failed = 0
-            if sent_to_group:
-                for xz in chats:
-                    try:
-                        context.bot.sendMessage(
-                            int(xz.chat_id),
-                            sending[1],
-                        )
-                        sleep(randrange(2, 4))
-                        succ += 1
-                    except TelegramError:
-                        failed += 1
-                        LOGGER.warning(
-                            "Couldn't send broadcast to %s, group name %s",
-                            str(xz.chat_id),
-                            str(xz.chat_name),
-                        )
-
-                keyboard1 = InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(text="Lynx News", url="https://t.me/LynxUpdates"),
-                        ],
-                    ]
+    chats = sql.get_all_chats() or []
+    succ = failed = 0
+    if sent_to_group:
+        for xz in chats:
+            try:
+                context.bot.sendMessage(
+                    int(xz.chat_id),
+                    sending[1],
                 )
-                msg = update.effective_message.reply_photo(
-                    photo="https://ibb.co/vjtp4tW",
-                    quote=True or False,
-                    caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
-                    reply_markup=keyboard1,
-                    parse_mode=ParseMode.MARKDOWN,
+                sleep(randrange(2, 4))
+                succ += 1
+            except TelegramError:
+                failed += 1
+                LOGGER.warning(
+                    "Couldn't send broadcast to %s, group name %s",
+                    str(xz.chat_id),
+                    str(xz.chat_name),
                 )
-                sleep(20)
-                msg.delete()
+
+        keyboard1 = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(text="Lynx News", url="https://t.me/LynxUpdates"),
+                ],
+            ]
+        )
+        msg = update.effective_message.reply_photo(
+            photo="https://ibb.co/vjtp4tW",
+            quote=True or False,
+            caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
+            reply_markup=keyboard1,
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        sleep(20)
+        msg.delete()
 
 
 __mod_name__ = "Broadcast"
