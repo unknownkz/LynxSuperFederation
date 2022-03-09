@@ -33,8 +33,7 @@ def broadcasts(update: Update, context: CallbackContext):
                 ],
             ]
         )
-        phs = update.effective_message
-        phs.reply_photo(
+        phs = update.effective_message.reply_photo(
             photo="https://ibb.co/9V51wSC",
             quote=True or False,
             caption="For more information, please click the button below.",
@@ -65,7 +64,6 @@ def broadcasts(update: Update, context: CallbackContext):
                     str(xz.chat_name),
                 )
 
-        mesg = update.effective_message
         keyboard1 = InlineKeyboardMarkup(
             [
                 [
@@ -73,7 +71,7 @@ def broadcasts(update: Update, context: CallbackContext):
                 ],
             ]
         )
-        mesg.reply_photo(
+        mesg = update.effective_message.reply_photo(
             photo="https://ibb.co/vjtp4tW",
             quote=True or False,
             caption="Broadcast complete.\n❎ Failed: {} groups.\n✅ Success: {} groups.".format(failed, succ),
@@ -83,6 +81,7 @@ def broadcasts(update: Update, context: CallbackContext):
         sleep(10)
         mesg.delete()
         wx.delete()
+
 
 __mod_name__ = "Broadcast"
 
