@@ -26,7 +26,7 @@ def broadcasts(update: Update, context: CallbackContext):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="Help ❔", urrl="t.me/lynxsfrobot?start=help"),
+                    InlineKeyboardButton(text="Help ❔", url="t.me/lynxsfrobot?start=help"),
                 ],
                 [
                     InlineKeyboardButton(text="Lynx News", url="https://t.me/LynxUpdates"),
