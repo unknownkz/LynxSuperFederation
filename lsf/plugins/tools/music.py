@@ -3,7 +3,6 @@ import json
 import os
 import textwrap
 import time
-
 import wget
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext, run_async

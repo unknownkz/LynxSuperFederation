@@ -1,6 +1,5 @@
 import threading
 from typing import Union
-
 from sqlalchemy import BigInteger, Boolean, Column, String
 
 from . import BASE, SESSION

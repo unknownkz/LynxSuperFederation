@@ -1,5 +1,4 @@
 from typing import List, Optional
-
 from telegram import Message, MessageEntity
 from telegram.error import BadRequest
 

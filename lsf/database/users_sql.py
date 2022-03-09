@@ -1,5 +1,4 @@
 import threading
-
 from sqlalchemy import BigInteger, Column, ForeignKey, String, UnicodeText, UniqueConstraint, func
 
 from .. import dispatcher

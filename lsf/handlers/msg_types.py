@@ -1,5 +1,4 @@
 from enum import IntEnum, unique
-
 from telegram import Message
 
 from lsf.handlers.string_handling import button_markdown_parser

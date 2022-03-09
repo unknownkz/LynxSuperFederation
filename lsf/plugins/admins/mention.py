@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import os
-
 from telethon import Button, TelegramClient, events
 from telethon.errors import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest

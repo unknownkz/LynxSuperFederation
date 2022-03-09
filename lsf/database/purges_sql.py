@@ -1,5 +1,4 @@
 import threading
-
 from sqlalchemy import BigInteger, Column, String
 
 from . import BASE, SESSION

@@ -1,5 +1,4 @@
 import threading
-
 from handlers.msg_types import Types
 from sqlalchemy import Boolean, Column, String, UnicodeText, distinct, func
 from sqlalchemy.sql.sqltypes import BigInteger

@@ -1,5 +1,4 @@
 import threading
-
 from sqlalchemy import Boolean, Column, String
 
 from . import BASE, SESSION

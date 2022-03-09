@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-
 from PIL import Image
 from telegraph import Telegraph, upload_file, exceptions
 from telethon import events

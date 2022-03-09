@@ -1,6 +1,5 @@
 import collections
 from importlib import import_module as lynx_plugins
-
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
 

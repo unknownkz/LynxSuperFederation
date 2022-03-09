@@ -1,5 +1,4 @@
 import time
-
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, run_async, Filters
 from telethon import events

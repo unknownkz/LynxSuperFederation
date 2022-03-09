@@ -5,7 +5,6 @@ License under (GNU General Public License)
 """
 
 from typing import Union
-
 from future.utils import string_types
 from telegram import Chat, ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, RegexHandler

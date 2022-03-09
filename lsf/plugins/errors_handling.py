@@ -4,7 +4,6 @@ import json
 import random
 import sys
 import traceback
-
 import pretty_errors
 import requests
 from requests.structures import CaseInsensitiveDict

@@ -1,5 +1,4 @@
 import threading
-
 from sqlalchemy import Column, String, distinct, func
 
 from .. import CHANNELS

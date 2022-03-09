@@ -1,6 +1,5 @@
 import ast
 import threading
-
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 from sqlalchemy.sql.sqltypes import BigInteger
 from telegram.error import BadRequest, Unauthorized

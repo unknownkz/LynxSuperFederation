@@ -1,5 +1,4 @@
 import io
-
 from telethon import types, events
 from telethon.tl import functions
 from telethon.tl.types import *

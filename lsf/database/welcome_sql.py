@@ -1,7 +1,6 @@
 import random
 import threading
 from typing import Union
-
 from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText
 
 from lsf.database import BASE, SESSION

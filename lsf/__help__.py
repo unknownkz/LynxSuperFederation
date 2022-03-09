@@ -3,7 +3,6 @@ from importlib import import_module as lynx_plugins
 from os import walk
 from os.path import isfile
 from re import match as amply
-
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext

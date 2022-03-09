@@ -1,6 +1,5 @@
 import threading
 from datetime import datetime
-
 from sqlalchemy import Boolean, Column, BigInteger, UnicodeText, DateTime
 
 from . import BASE, SESSION

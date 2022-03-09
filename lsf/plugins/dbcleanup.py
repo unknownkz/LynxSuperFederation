@@ -1,5 +1,4 @@
 from time import sleep
-
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler

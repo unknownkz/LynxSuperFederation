@@ -1,5 +1,4 @@
 from functools import wraps
-
 from telegram import ChatAction, error
 
 

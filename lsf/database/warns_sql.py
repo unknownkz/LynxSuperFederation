@@ -1,5 +1,4 @@
 import threading
-
 from sqlalchemy import Boolean, Column, BigInteger, String, UnicodeText, distinct, func
 from sqlalchemy.dialects import postgresql
 

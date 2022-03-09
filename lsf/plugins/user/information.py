@@ -1,7 +1,6 @@
 import html
 import os
 import re
-
 import requests
 from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update
 from telegram.error import BadRequest

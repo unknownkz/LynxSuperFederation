@@ -1,5 +1,4 @@
 from contextlib import suppress
-
 from telegram import Update
 from telegram.error import TelegramError, Unauthorized
 from telegram.ext import CallbackContext

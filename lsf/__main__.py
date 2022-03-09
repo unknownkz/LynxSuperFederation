@@ -9,7 +9,6 @@ import sys
 import time
 from platform import node, python_version, python_build, python_compiler
 from sys import argv
-
 from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
 from telegram import Message, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, __version__
 from telegram.error import BadRequest, Unauthorized

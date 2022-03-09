@@ -1,8 +1,7 @@
 import html
 import re
-from typing import Optional
-
 import telegram
+from typing import Optional
 from telegram import CallbackQuery, Chat, InlineKeyboardButton, InlineKeyboardMarkup, Message, ParseMode, Update, User
 from telegram.error import BadRequest
 from telegram.ext import (

@@ -1,7 +1,6 @@
 # @unknownkz
 from random import randrange
 from time import sleep
-
 from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import TelegramError
 from telegram.ext import CallbackContext

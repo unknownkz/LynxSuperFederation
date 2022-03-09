@@ -1,9 +1,8 @@
 import html
 import random
+import humanize
 from datetime import datetime
 from time import sleep
-
-import humanize
 from telegram import MessageEntity, Update, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters

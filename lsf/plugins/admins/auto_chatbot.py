@@ -2,9 +2,8 @@ import html
 import json
 import os
 import re
-from time import sleep
-
 import requests
+from time import sleep
 from telegram import (
     ParseMode,
     CallbackQuery,

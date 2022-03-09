@@ -3,10 +3,9 @@ import html
 import math
 import os
 import subprocess
-from datetime import datetime as wkt
-
 import heroku3
 import requests
+from datetime import datetime as wkt
 from telegram import ParseMode
 
 from .. import HEROKU_APP_NAME, HEROKU_API_KEY, OWNER_ID, TimeZone, EVENT_LOGS

@@ -1,5 +1,4 @@
 import html
-
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
