@@ -20,7 +20,7 @@ def broadcasts(update: Update, context: CallbackContext):
     user = update.effective_user
     chat = update.effective_chat
     xx = is_user_admin(chat, user.id)
-    if not xx:
+    if user.id != xx:
         sent_to_group = False
         keyboard = InlineKeyboardMarkup(
             [
