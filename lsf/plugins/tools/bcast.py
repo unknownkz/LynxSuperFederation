@@ -174,7 +174,7 @@ def broadcasts(update: Update, context: CallbackContext):
 
 bcast_callback_handler = CallbackQueryHandler(verify_admins_call, pattern=r"bcadmin", run_async=True)
 
-dispatcher.add_hadler(bcast_callback_handler)
+dispatcher.add_handler(bcast_callback_handler)
 
 __mod_name__ = "Broadcast"
 
